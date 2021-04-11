@@ -30,21 +30,29 @@ To do this, use `require_once()` to require the `includes/db.php` file. This wil
 ```php
 require_once('./includes/db.php');
 
-$sql = "SELECT * FROM homes WHERE id = ?;
+// Prepare a select statement
+$sql = "SELECT * FROM employees WHERE id = :id";
 
-if ($stmt = $mysqli->prepare($sql)){
+if($stmt = $pdo->prepare($sql)){
 
-  // Bind variables to the prepared statement as parameters (i = integer)
-  $stmt->bind_param("i", $param_id);
+  // Bind a variable to the :id param
+  $stmt->bindParam(":id", $param_id);
 
-  // Set parameters
-   $param_id = trim($_GET["id"]);
+  // Set value of the bound varaible
+  $param_id = trim($_GET["id"]);
 
   // Attempt to execute the prepared statement
   if($stmt->execute()){
 
-   $result = $stmt->get_result();
+    /*
+    - - - - -
+    Handle the results here
+    - - - - -
+    */
 
-   }
+  } else{
+    //Runs if the statement fails to execture
+      echo "Oops! Something went wrong. Please try again later.";
+  }
 }
 ```
