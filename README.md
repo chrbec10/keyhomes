@@ -17,7 +17,7 @@ To do this, find `config.php.example` within the `includes` folder and make a co
 
 ## Making Database Queries
 
-the DB config **MUST** be included on each page where you wish to make a database Query. This is to ensure no extra code is processed in pages that do not need it. We will be using the Object Oriented version of mysqli (shown on linked page below).
+the DB config **MUST** be included on each page where you wish to make a database Query. This is to ensure no extra code is processed in pages that do not need it. We will be using the **Object Oriented** version of mysqli (shown on linked page below).
 
 - Documentation on CRUD functions can be found [here](https://www.tutorialrepublic.com/php-tutorial/php-mysql-crud-application.php)
 
