@@ -1,4 +1,4 @@
-<script src="/vcassignment7/static/js/bootstrap.bundle.js"></script>
+<script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
 
 </body>
 

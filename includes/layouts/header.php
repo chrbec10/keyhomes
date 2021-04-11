@@ -1,3 +1,4 @@
+<?php require_once(dirname(__DIR__) . '../config.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Company Name | <?php echo $title ?></title>
 
-  <link rel="stylesheet" href="/vcassignment7/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/bootstrap.min.css">
 </head>
 
 <body>
