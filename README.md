@@ -4,7 +4,7 @@
 
 To make moving the app between computers easier, a config file is used to set the site root. The site root will be inserted after the trailing slash after the server name (eg. localhost), so that relative files such as CSS and JS can be accessed correctly when the root changes.
 
-To do this, find _config.php.example_ within the _includes_ folder and make a copy called _config.php_. Then, change the _$site_root_ variable as needed.
+To do this, find `config.php.example` within the `includes` folder and make a copy called `config.php`. Then, change the `$site_root` variable as needed.
 
 ## Folder Structure
 
