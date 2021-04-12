@@ -61,3 +61,7 @@ if($stmt = $pdo->prepare($sql)){
   }
 }
 ```
+
+## Docker Compose?
+
+It means I don't need to use XAMPP and that makes me happy. File isn't important except for meaning I don't have to install PHP locally.
