@@ -62,6 +62,10 @@ if($stmt = $pdo->prepare($sql)){
 }
 ```
 
+## The 404 Page
+
+Apache looks for a 404 page relative to the server root. Therefore it will not work if the app is in a different root directory. This can be fixed by updating .htaccess
+
 ## Docker Compose?
 
 It means I don't need to use XAMPP and that makes me happy. File isn't important except for meaning I don't have to install PHP locally.
