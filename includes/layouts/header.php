@@ -1,5 +1,8 @@
 <?php
-require_once(__DIR__ . '/../config.php')
+require_once(__DIR__ . '/../config.php');
+
+$logged_in = false;
+$is_admin = false;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,10 +37,15 @@ require_once(__DIR__ . '/../config.php')
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
+
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" href="<?php echo $site_root ?>/">Home</a>
           </li>
+
+          <!-- User IS logged in -->
+          <?php if ($logged_in) : ?>
+
           <li class="nav-item">
             <a class="nav-link" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
           </li>
@@ -47,16 +55,29 @@ require_once(__DIR__ . '/../config.php')
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/my-account.php">Account Settings</a></li>
+
+              <!-- Only show the ACP link if the user is an admin -->
+              <?php if ($is_admin) : ?>
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/admin">Admin Panel</a></li>
+              <?php endif; ?>
+
               <li>
                 <hr class="dropdown-divider">
               </li>
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/logout.php">Logout</a></li>
             </ul>
           </li>
+
+          <!-- User is NOT logged in -->
+          <?php else : ?>
+
           <li><a class="btn btn-outline-primary rounded-pill me-2" href="<?php echo $site_root ?>/login.php">Login</a>
           </li>
           <li><a class="btn btn-primary rounded-pill" href="<?php echo $site_root ?>/register.php">Register</a></li>
+
+          <?php endif; ?>
+          <!-- End of $logged_in -->
+
         </ul>
 
       </div>
