@@ -9,7 +9,7 @@
   <title>Company Name | <?php echo $title ?></title>
   <link rel="shortcut icon" href="<?php echo $site_root ?>/static/img/favicon.png" type="image/x-icon">
 
-  <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/theme.css">
 </head>
 
 <body>
