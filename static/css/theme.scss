@@ -2,6 +2,7 @@
 
 // Override theme colors
 $primary: #df0075;
+$light: #f2f2f2;
 
 @import './node_modules/bootstrap/scss/variables';
 @import './node_modules/bootstrap/scss/mixins';
@@ -10,3 +11,8 @@ $primary: #df0075;
 // $font-family-base: 'Cairo', sans-serif;
 
 @import './node_modules/bootstrap/scss/bootstrap';
+
+//Set height to 75% of viewport height
+.vh-75 {
+	height: 75vh;
+}
