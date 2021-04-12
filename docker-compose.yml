@@ -2,8 +2,29 @@ version: '3.1'
 
 services:
   php:
-    image: php:7.2-apache
+    build: .
     volumes:
       - ./:/var/www/html
     ports:
       - 8080:80
+
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_DATABASE: keyhomes
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - mariadb:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: mariadb
+    depends_on:
+      - mariadb
+volumes:
+  mariadb:
