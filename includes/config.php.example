@@ -1,5 +1,6 @@
 <?php
-//Defines the Root for imported files
+//Defines the Root for imported files (this would cause theme.css to be loaded from 'localhost/vcassignment7/css/theme.css')
+//Make the string empty if theme.css would be found at 'localhost/css/theme.css'
 $site_root = '/vcassignment7';
 
 //Database Config
