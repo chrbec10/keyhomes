@@ -1,12 +1,12 @@
 @import './node_modules/bootstrap/scss/functions';
+
+// Override theme colors
+$primary: #df0075;
+
 @import './node_modules/bootstrap/scss/variables';
 @import './node_modules/bootstrap/scss/mixins';
 
 //Place any Bootstrap Variables that you wish to change here
 // $font-family-base: 'Cairo', sans-serif;
-
-// $theme-colors: ( //Overides the theme colors. Feel free to try it
-// 	'primary': #ae0404,
-// );
 
 @import './node_modules/bootstrap/scss/bootstrap';
