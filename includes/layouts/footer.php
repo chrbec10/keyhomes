@@ -25,7 +25,7 @@
       <div class="col-sm-6 col-md-4"></div>
       <div class="col-sm-6 col-md-4"></div>
     </div>
-    <div class="text-center text-muted my-3">&copy; Key Homes <?php echo date("Y") ?>, Website by Christ Becker & Ben
+    <div class="text-center text-muted my-3">&copy; Key Homes <?php echo date("Y") ?>, Website by Chris Becker & Ben
       Mitchell</div>
   </div>
 </div>
