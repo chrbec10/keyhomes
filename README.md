@@ -6,6 +6,11 @@ To make moving the app between computers easier, a config file is used to set th
 
 To do this, find `config.php.example` within the `includes` folder and make a copy called `config.php`. Then, change the `$site_root` variable as needed. config.php will not push to git as there's potential for it to contain sensitive information.
 
+### Editing the CSS
+
+The website uses Bootstrap.sass which allows us to modify bootstrap paramaters to style Bootstrap how we like. Sass must be compiled down to CSS for use.
+First, install the [Live Sass Compiler](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass) plugin for VScode. Then, click the new "Watch Sass" button that will appear at the bottom of the window. Then, whenever you make changes to theme.scss, it will automatically recompile new CSS.
+
 ## Folder Structure
 
 - admin - All code for the admin panel
