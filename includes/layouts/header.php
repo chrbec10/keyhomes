@@ -38,7 +38,7 @@ $is_admin = false;
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
 
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center text-lg-right">
           <li class="nav-item">
             <a class="nav-link active" href="<?php echo $site_root ?>/">Home</a>
           </li>
@@ -71,9 +71,11 @@ $is_admin = false;
           <!-- User is NOT logged in -->
           <?php else : ?>
 
-          <li><a class="btn btn-outline-primary rounded-pill me-2" href="<?php echo $site_root ?>/login.php">Login</a>
+          <li class="w-100 me-2 mb-2 mb-lg-0"><a class="btn btn-outline-primary rounded-pill w-100"
+              href="<?php echo $site_root ?>/login.php">Login</a>
           </li>
-          <li><a class="btn btn-primary rounded-pill" href="<?php echo $site_root ?>/register.php">Register</a></li>
+          <li class="w-100"><a class="btn btn-primary rounded-pill w-100"
+              href="<?php echo $site_root ?>/register.php">Register</a></li>
 
           <?php endif; ?>
           <!-- End of $logged_in -->
