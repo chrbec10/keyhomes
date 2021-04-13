@@ -1,4 +1,4 @@
-<div class="container-fluid bg-dark text-white mt-2 py-3">
+<div class="container-fluid bg-dark text-white py-3">
   <div class="container mt-3">
     <div class="row text-center">
       <div class="col-md-6 text-md-start">
