@@ -17,6 +17,43 @@ $light: #f2f2f2;
 	height: 75vh;
 }
 
+//Navbar
+nav.main-nav {
+	@extend .navbar-light;
+
+	background-color: #fff;
+	box-shadow: 0 -10px 10px 10px #0000004f;
+
+	transition-duration: 250ms;
+	//Show a light logo on a dark background and a dark logo on a light background
+	.logo-light {
+		display: none;
+	}
+	.logo-dark {
+		display: block;
+	}
+
+	@include media-breakpoint-up(lg) {
+		&.home-nav {
+			&.transparent {
+				background-color: transparent;
+				box-shadow: none;
+
+				.logo-light {
+					display: block;
+				}
+				.logo-dark {
+					display: none;
+				}
+
+				.nav-link {
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+
 //Add a dark overlay to a div
 .has-overlay {
 	position: relative;

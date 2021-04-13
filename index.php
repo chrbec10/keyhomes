@@ -1,6 +1,7 @@
 <?php
 
 $title = "Home"; //The Page Title
+$home_nav = true; //Makes the nav transparent by default
 
 require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
@@ -39,6 +40,27 @@ require_once('./includes/db.php'); //Connect to the database
     <p>Meet our Team of Professional Agents</p>
   </div>
 </div>
+
+<!-- Change Navbar BG on scroll -->
+<script>
+var navbar = document.getElementById('mainNav');
+
+function updateNavBG() {
+  let yPos = window.scrollY;
+
+  if (yPos < 5) {
+    navbar.classList.add('transparent');
+    return;
+  }
+  navbar.classList.remove('transparent');
+}
+
+document.addEventListener("scroll", () => {
+  updateNavBG();
+})
+
+updateNavBG();
+</script>
 
 <?php
 require_once('./includes/layouts/footer.php'); //Gets the footer
