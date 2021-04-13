@@ -7,11 +7,14 @@ require_once('./includes/db.php'); //Connect to the database
 ?>
 
 <!-- Call to Action -->
-<div class="container-fluid bg-info vh-75">
+<div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('./uploads/properties/test/3_0.jpg'); background-position: center;
+    background-size: cover; background-attachment: fixed;">
+  <div class="dark-overlay"></div>
+
 </div>
 
 <!-- Latest Listings -->
-<div class="container-fluid bg-light py-3">
+<div class=" container-fluid bg-light py-3">
   <div class="container text-center">
     <h2>Latest Listings</h2>
     <p>Search over 200 of the Top Properties in NZ</p>
