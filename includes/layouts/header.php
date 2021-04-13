@@ -3,6 +3,7 @@ require_once(__DIR__ . '/../config.php');
 
 $logged_in = false;
 $is_admin = false;
+$home_nav = $home_nav ?? false;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +12,8 @@ $is_admin = false;
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Only add title if variable is not empty when this file is parsed -->
   <title>Key Homes<?php echo (!empty($title)) ? " | {$title}" : '' ?></title>
 
   <!-- Icons -->
@@ -28,15 +31,20 @@ $is_admin = false;
 </head>
 
 <body>
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Styles the Navbar to be transparent if $home_nav is true -->
+  <nav
+    class="navbar navbar-expand-lg fixed-top main-nav <?php echo ($home_nav) ? 'home-nav transparent' : 'navbar-light bg-white' ?>"
+    id="mainNav">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo $site_root ?>/">
-        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" alt="Logo" height="45px"></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" class="logo-dark" alt="Logo" height="45px">
+        <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" class="logo-light" alt="Logo"
+          height="45px">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavContent">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="mainNav">
+      <div class="collapse navbar-collapse" id="mainNavContent">
 
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center text-lg-right">
           <li class="nav-item">
