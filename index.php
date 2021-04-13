@@ -70,11 +70,21 @@ require_once('./includes/db.php'); //Connect to the database
   </div>
 </div>
 
-<!-- Latest Listings -->
+<!-- Our Agents -->
 <div class="container-fluid bg-light py-5">
   <div class="container text-center">
     <h2>Our Agents</h2>
     <p>Meet our Team of Professional Agents</p>
+    <div class="row justify-content-center">
+      <?php for ($i = 0; $i < 3; $i++) : ?>
+      <div class="col-auto">
+        <div class="rounded-circle bg-secondary mb-2" style="width: 250px; height: 250px"></div>
+        <span class="fs-5"><b>John Doe</b></span>
+        <br>
+        <span class="text-muted">Knows how to sell houses?</span>
+      </div>
+      <?php endfor; ?>
+    </div>
   </div>
 </div>
 
