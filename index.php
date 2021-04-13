@@ -51,7 +51,8 @@ require_once('./includes/db.php'); //Connect to the database
 <!-- Why choose us -->
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4 col-lg-6 d-none d-md-block bg-warning">Some image</div>
+    <div class="col-md-4 col-lg-6 d-none d-md-block" style="background-image: url('static/img/comfy-interior.jpg'); background-position: center 37%;
+    background-size: cover;"></div>
     <div class="col-md-8 col-lg-6 p-5">
       <div class="container p-5">
         <h2>Why Choose Us?</h2>
