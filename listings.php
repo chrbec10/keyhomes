@@ -15,10 +15,11 @@ require_once('./includes/db.php'); //Connect to the database
         </div>
       </div>
       <div class="col-md-8 col-lg-9">
-        <div class="card card-body">
+        <div class="card card-body py-4">
           <div class="container-fluid">
 
-            <?php for ($i = 0; $i < 3; $i++) : ?>
+            <?php $iterations = 4;
+            for ($i = 0; $i < $iterations; $i++) : ?>
             <div class="row mb-3">
               <div class="col-md-3 bg-secondary rounded"></div>
               <div class="col-md-9">
@@ -34,6 +35,11 @@ require_once('./includes/db.php'); //Connect to the database
                 <p>3 Bdrm 1 Bthrm</p>
               </div>
             </div>
+            <?php
+              if ($i < $iterations - 1) {
+                echo '<hr>';
+              }
+              ?>
             <?php endfor; ?>
           </div>
 
