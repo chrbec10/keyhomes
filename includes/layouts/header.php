@@ -28,6 +28,9 @@ $home_nav = $home_nav ?? false;
 
   <!-- CSS -->
   <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/theme.css">
+
+  <!-- Early loaded Scripts -->
+  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
 </head>
 
 <body>
