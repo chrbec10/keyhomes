@@ -11,6 +11,21 @@ require_once('./includes/db.php'); //Connect to the database
 <div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('./uploads/properties/test/3_0.jpg'); background-position: center;
     background-size: cover; background-attachment: fixed;">
   <div class="dark-overlay"></div>
+  <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
+    <div class="d-block">
+      <h1 class="text-white display-3 fw-normal">Find Your Perfect Home</h1>
+      <div class="card bg-dark p-3">
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control rounded-pill d-inline" placeholder="Search">
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-primary rounded-pill d-inline">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
