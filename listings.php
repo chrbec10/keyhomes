@@ -38,7 +38,8 @@ require_once('./includes/db.php'); //Connect to the database
                 <input type="text" class="form-control" id="maxPrice" placeholder="$ Max">
               </div>
             </div>
-            <input type="range" class="form-range" id="minMaxRange">
+            <input type="range" class="form-range" id="minRange" min="0" step="10000" max="100000">
+            <input type="range" class="form-range" id="maxRange" min="0" step="10000" max="100000">
             <button class="btn btn-primary mt-2 rounded-pill w-100">Filter</button>
           </form>
 
