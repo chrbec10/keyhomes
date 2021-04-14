@@ -12,6 +12,14 @@ $light: #f2f2f2;
 
 @import './node_modules/bootstrap/scss/bootstrap';
 
+//Top Margin or Padding to add spacing for the fixed navbar
+.content-top-margin {
+	margin-top: 4.4rem;
+}
+.content-top-padding {
+	padding-top: 4.4rem;
+}
+
 //Set height to 75% of viewport height
 .vh-75 {
 	height: 75vh;
@@ -64,6 +72,14 @@ nav.main-nav {
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: rgba(0, 0, 0, 0.6);
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+
+	.overlay-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 	}
 }

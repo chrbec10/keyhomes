@@ -11,6 +11,21 @@ require_once('./includes/db.php'); //Connect to the database
 <div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('./uploads/properties/test/3_0.jpg'); background-position: center;
     background-size: cover; background-attachment: fixed;">
   <div class="dark-overlay"></div>
+  <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
+    <div class="d-block">
+      <h1 class="text-white display-3 fw-normal">Find Your Perfect Home</h1>
+      <div class="card bg-dark p-3">
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control rounded-pill d-inline" placeholder="Search">
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-primary rounded-pill d-inline">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
@@ -21,11 +36,11 @@ require_once('./includes/db.php'); //Connect to the database
       <h2>Latest Listings</h2>
       <p>Search over 200 of the Top Properties in NZ</p>
     </div>
-    <div class="row mb-4">
+    <div class="row justify-content-center">
 
-      <?php for ($i = 0; $i < 4; $i++) : ?>
+      <?php for ($i = 0; $i < 3; $i++) : ?>
 
-      <div class="col-sm-6 col-md-3">
+      <div class="col-sm-6 col-md-3 mb-4">
         <div class="card">
           <img src="uploads/properties/test/0_2.jpg" class="card-img-top" alt="...">
           <div class="card-body">
@@ -77,7 +92,7 @@ require_once('./includes/db.php'); //Connect to the database
     <p>Meet our Team of Professional Agents</p>
     <div class="row justify-content-center">
       <?php for ($i = 0; $i < 3; $i++) : ?>
-      <div class="col-auto">
+      <div class="col-auto mb-4">
         <div class="rounded-circle bg-secondary mb-2" style="width: 250px; height: 250px"></div>
         <span class="fs-5"><b>John Doe</b></span>
         <br>
