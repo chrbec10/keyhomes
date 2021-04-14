@@ -21,11 +21,11 @@ require_once('./includes/db.php'); //Connect to the database
       <h2>Latest Listings</h2>
       <p>Search over 200 of the Top Properties in NZ</p>
     </div>
-    <div class="row mb-4">
+    <div class="row justify-content-center">
 
-      <?php for ($i = 0; $i < 4; $i++) : ?>
+      <?php for ($i = 0; $i < 3; $i++) : ?>
 
-      <div class="col-sm-6 col-md-3">
+      <div class="col-sm-6 col-md-3 mb-4">
         <div class="card">
           <img src="uploads/properties/test/0_2.jpg" class="card-img-top" alt="...">
           <div class="card-body">
@@ -77,7 +77,7 @@ require_once('./includes/db.php'); //Connect to the database
     <p>Meet our Team of Professional Agents</p>
     <div class="row justify-content-center">
       <?php for ($i = 0; $i < 3; $i++) : ?>
-      <div class="col-auto">
+      <div class="col-auto mb-4">
         <div class="rounded-circle bg-secondary mb-2" style="width: 250px; height: 250px"></div>
         <span class="fs-5"><b>John Doe</b></span>
         <br>
