@@ -28,6 +28,9 @@ $home_nav = $home_nav ?? false;
 
   <!-- CSS -->
   <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/theme.css">
+
+  <!-- Early loaded Scripts -->
+  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
 </head>
 
 <body>
@@ -49,6 +52,9 @@ $home_nav = $home_nav ?? false;
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center text-lg-right">
           <li class="nav-item">
             <a class="nav-link active" href="<?php echo $site_root ?>/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="<?php echo $site_root ?>/listings.php">Listings</a>
           </li>
 
           <!-- User IS logged in -->

@@ -17,7 +17,7 @@
           similique earum sit quas doloribus delectus, repellendus ab quod. Repellendus ut accusantium ipsa laboriosam
           sed.</p>
       </div>
-      <div class="col-sm-6 col-md-3">
+      <div class="col-sm-6 col-md-3 offset-md-6">
         <h5>CONTACT INFO</h5>
         <p>Toll Free: 0800 123 456<br>Landline: 07 123 456<br>Email: keyhomes@email.com</p>
         <p>123 Realestate Ave,<br>Housington, 5134<br>Monday - Friday: 9:00am - 5:00pm</p>
@@ -30,7 +30,13 @@
   </div>
 </div>
 
-<script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
+<script src="<?php echo $site_root ?>/static/js/popper.min.js"></script>
+<script>
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
 
 </body>
 

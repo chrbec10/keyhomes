@@ -13,7 +13,7 @@ require_once('./includes/db.php'); //Connect to the database
   <div class="dark-overlay"></div>
   <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
     <div class="d-block">
-      <h1 class="text-white display-3 fw-normal">Find Your Perfect Home</h1>
+      <h1 class="text-white display-3 fw-normal" style="text-shadow: 2px 2px 3px #000000a8;">Find Your Perfect Home</h1>
       <div class="card bg-dark p-3">
         <div class="row">
           <div class="col">
@@ -58,7 +58,7 @@ require_once('./includes/db.php'); //Connect to the database
 
     </div>
     <div class="text-center">
-      <button class="btn btn-primary rounded-pill">View All Listings</button>
+      <a href="listings.php" class="btn btn-primary rounded-pill">View All Listings</a>
     </div>
   </div>
 </div>

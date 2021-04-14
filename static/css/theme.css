@@ -11398,4 +11398,16 @@ nav.main-nav .logo-dark {
   right: 0;
   bottom: 0;
 }
+
+/** Single Listing Page **/
+.carousel-thumbnail {
+  cursor: pointer;
+}
+
+.badge.feature {
+  padding: 0.5rem 1rem;
+  border: 1px solid;
+  color: #6c757d;
+  border-color: #6c757d;
+}
 /*# sourceMappingURL=theme.css.map */
