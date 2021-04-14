@@ -11333,6 +11333,14 @@ nav.main-nav .navbar-text a:focus {
   }
 }
 
+.content-top-margin {
+  margin-top: 4.4rem;
+}
+
+.content-top-padding {
+  padding-top: 4.4rem;
+}
+
 .vh-75 {
   height: 75vh;
 }
@@ -11380,6 +11388,14 @@ nav.main-nav .logo-dark {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.has-overlay .overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 /*# sourceMappingURL=theme.css.map */
