@@ -50,6 +50,9 @@ $home_nav = $home_nav ?? false;
           <li class="nav-item">
             <a class="nav-link active" href="<?php echo $site_root ?>/">Home</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="<?php echo $site_root ?>/listings.php">Listings</a>
+          </li>
 
           <!-- User IS logged in -->
           <?php if ($logged_in) : ?>
