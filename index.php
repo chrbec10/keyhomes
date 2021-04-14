@@ -58,7 +58,7 @@ require_once('./includes/db.php'); //Connect to the database
 
     </div>
     <div class="text-center">
-      <button class="btn btn-primary rounded-pill">View All Listings</button>
+      <a href="listings.php" class="btn btn-primary rounded-pill">View All Listings</a>
     </div>
   </div>
 </div>
