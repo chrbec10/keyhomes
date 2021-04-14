@@ -11,7 +11,37 @@ require_once('./includes/db.php'); //Connect to the database
     <div class="row">
       <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
         <div class="card card-body">
-          <h3>Filters</h3>
+
+          <form>
+            <label for="city" class="form-label mb-1">City:</label>
+            <select class="form-select mb-2" id="city">
+              <option selected>All of NZ</option>
+              <option value="Hamilton">Hamilton</option>
+              <option value="Auckland">Auckland</option>
+              <option value="Wellington">Wellington</option>
+            </select>
+
+            <label for="suburb" class="form-label mb-1">Suburb:</label>
+            <select class="form-select mb-2" id="suburb">
+              <option selected>Any Suburb</option>
+              <option value="Fairview Downs">Fairview Downs</option>
+              <option value="Huntington">Huntington</option>
+              <option value="Hillcrest">Hillcrest</option>
+            </select>
+
+            <div class="mb-1">Price Range:</div>
+            <div class="row mb-1">
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="minPrice" placeholder="$ Min">
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="maxPrice" placeholder="$ Max">
+              </div>
+            </div>
+            <input type="range" class="form-range" id="minMaxRange">
+            <button class="btn btn-primary mt-2 rounded-pill w-100">Filter</button>
+          </form>
+
         </div>
       </div>
       <div class="col-md-8 col-lg-9">
