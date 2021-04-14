@@ -51,11 +51,12 @@ require_once('./includes/db.php'); //Connect to the database
 
             <?php $iterations = 4;
             for ($i = 0; $i < $iterations; $i++) : ?>
+
             <div class="row mb-3">
               <div class="col-md-3 bg-secondary rounded"></div>
               <div class="col-md-9">
                 <div class="row">
-                  <div class="col h5">Property Title</div>
+                  <div class="col h5"><a href="/listing.php">Property Title</a></div>
                   <div class="col-auto"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
                       title="Add to Wishlist">+Wishlist</a></div>
                 </div>
@@ -66,6 +67,7 @@ require_once('./includes/db.php'); //Connect to the database
                 <p>3 Bdrm 1 Bthrm</p>
               </div>
             </div>
+
             <?php
               if ($i < $iterations - 1) {
                 echo '<hr>';
