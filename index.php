@@ -38,23 +38,39 @@ require_once('./includes/db.php'); //Connect to the database
     </div>
     <div class="row justify-content-center">
 
-      <?php for ($i = 0; $i < 3; $i++) : ?>
+      <?php
+      //Get the Latest Listings
+      $sql = "
+      SELECT property.property_ID, bedrooms, bathrooms, garage, image FROM property JOIN (
+        SELECT * FROM gallery WHERE gallery.image_ID IN (
+          SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
+        )
+      ) 
+      AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ORDER BY property.property_ID DESC LIMIT 3";
+
+      if ($result = $pdo->query($sql)) :
+        // $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        while ($row = $result->fetch()) :
+      ?>
 
       <div class="col-sm-6 col-md-3 mb-4">
         <div class="card">
-          <img src="uploads/properties/test/0_2.jpg" class="card-img-top" alt="...">
+          <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Home Away From Home</h5>
-            <p class="card-text text-muted">Bdrm 1 Bthrm 1</p>
+            <p class="card-text text-muted">Bdrm <?php echo $row['bedrooms'] ?> Bthrm <?php echo $row['bathrooms'] ?>
+            </p>
             <div class="d-grid">
-              <a href="#" class="btn btn-secondary rounded-pill">View</a>
+              <a href="listing.php?id=<?php echo $row['property_ID'] ?>" class="btn btn-secondary rounded-pill">View</a>
             </div>
           </div>
         </div>
       </div>
 
 
-      <?php endfor; ?>
+      <?php
+        endwhile;
+      endif; ?>
 
     </div>
     <div class="text-center">
