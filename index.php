@@ -34,12 +34,18 @@ require_once('./includes/db.php'); //Connect to the database
   <div class="container">
     <div class="text-center">
       <h2>Latest Listings</h2>
-      <p>Search over 200 of the Top Properties in NZ</p>
+      <?php
+      $sql = "SELECT COUNT(*) FROM property";
+      if ($result = $pdo->query($sql)) :
+        $row =  $result->fetch();
+      ?>
+      <p>Search over <?php echo $row['0'] ?>+ of the Top Properties in NZ</p>
+      <?php endif; ?>
     </div>
     <div class="row justify-content-center">
 
       <?php
-      //Get the Latest Listings
+      //Get the Latest Listings and their first added image
       $sql = "
       SELECT property.property_ID, bedrooms, bathrooms, garage, image FROM property JOIN (
         SELECT * FROM gallery WHERE gallery.image_ID IN (
@@ -49,7 +55,6 @@ require_once('./includes/db.php'); //Connect to the database
       AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ORDER BY property.property_ID DESC LIMIT 3";
 
       if ($result = $pdo->query($sql)) :
-        // $results = $stmt->fetch(PDO::FETCH_ASSOC);
         while ($row = $result->fetch()) :
       ?>
 
