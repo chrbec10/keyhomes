@@ -83,13 +83,27 @@ require_once('./includes/db.php'); //Connect to the database
       <div class="col-md-4 col-lg-3 mb-3 mb-md-0">
         <div class="card card-body">
 
+          <!-- Get the values to use in the filter options -->
+          <?php
+          $sql = "SELECT JSON_ARRAYAGG(DISTINCT city) AS cities FROM property";
+          if ($result = $pdo->query($sql)) {
+            $filters =  $result->fetch(PDO::FETCH_ASSOC);
+          }
+
+          $cities = json_decode($filters['cities']);
+
+          ?>
+
+
           <form>
             <label for="city" class="form-label mb-1">City:</label>
             <select class="form-select mb-2" id="city">
               <option selected>All of NZ</option>
-              <option value="Hamilton">Hamilton</option>
-              <option value="Auckland">Auckland</option>
-              <option value="Wellington">Wellington</option>
+              <?php foreach ($cities as $city) :
+              ?>
+              <option value="<?php echo $city ?>"><?php echo $city ?></option>
+              <?php endforeach;
+              ?>
             </select>
 
             <label for="suburb" class="form-label mb-1">Suburb:</label>
