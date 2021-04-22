@@ -11399,13 +11399,19 @@ nav.main-nav .logo-dark {
   bottom: 0;
 }
 
+.ratio-1-3 {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+
 .ratio-4-3 {
   width: 100%;
   padding-top: 75%;
   position: relative;
 }
 
-.ratio-4-3 .ratio-content {
+.ratio-content {
   position: absolute;
   top: 0;
   left: 0;

@@ -5,10 +5,23 @@ $home_nav = true; //Makes the nav transparent by default
 
 require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
+
+//Get the Random Listing for the CTA
+$sql = "
+      SELECT property.property_ID, streetNum, street, city, image FROM property JOIN (
+        SELECT * FROM gallery WHERE gallery.image_ID IN (
+          SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
+        )
+      ) 
+      AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ORDER BY RAND() LIMIT 1";
+
+if ($result = $pdo->query($sql)) {
+  $random_featured =  $result->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 
 <!-- Call to Action -->
-<div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('./uploads/properties/test/3_0.jpg'); background-position: center;
+<div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('<?php echo $random_featured['image'] ?>'); background-position: center;
     background-size: cover; background-attachment: fixed;">
   <div class="dark-overlay"></div>
   <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
@@ -24,6 +37,15 @@ require_once('./includes/db.php'); //Connect to the database
           </div>
         </div>
       </div>
+    </div>
+    <div class="container-fluid position-absolute" style="bottom: 0;">
+      <h1 class="text-uppercase fw-bold text-end">
+        <a href="listing.php?id=<?php echo $random_featured['property_ID'] ?>" class="text-white text-decoration-none">
+          <button class="btn btn-secondary btn-sm " style="margin-top: -5px;">View
+            <?php echo "{$random_featured['streetNum']} {$random_featured['street']}, {$random_featured['city']}" ?>
+          </button>
+        </a>
+      </h1>
     </div>
   </div>
 
