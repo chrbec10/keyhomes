@@ -34,6 +34,8 @@ require_once('./includes/db.php'); //Connect to the database
   <div class="container">
     <div class="text-center">
       <h2>Latest Listings</h2>
+
+      <!-- Get the amount of listings in the database -->
       <?php
       $sql = "SELECT COUNT(*) FROM property";
       if ($result = $pdo->query($sql)) :
@@ -44,8 +46,8 @@ require_once('./includes/db.php'); //Connect to the database
     </div>
     <div class="row justify-content-center">
 
+      <!-- Get the Latest Listings and their first added image. Then, loop through those listings -->
       <?php
-      //Get the Latest Listings and their first added image
       $sql = "
       SELECT property.property_ID, bedrooms, bathrooms, garage, image FROM property JOIN (
         SELECT * FROM gallery WHERE gallery.image_ID IN (
@@ -57,7 +59,6 @@ require_once('./includes/db.php'); //Connect to the database
       if ($result = $pdo->query($sql)) :
         while ($row = $result->fetch()) :
       ?>
-
       <div class="col-sm-6 col-md-3 mb-4">
         <div class="card">
           <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
@@ -71,7 +72,6 @@ require_once('./includes/db.php'); //Connect to the database
           </div>
         </div>
       </div>
-
 
       <?php
         endwhile;
@@ -112,14 +112,25 @@ require_once('./includes/db.php'); //Connect to the database
     <h2>Our Agents</h2>
     <p>Meet our Team of Professional Agents</p>
     <div class="row justify-content-center">
-      <?php for ($i = 0; $i < 3; $i++) : ?>
+
+      <?php
+      $sql = "SELECT fname, lname, icon FROM agent";
+      if ($results = $pdo->query($sql)) :
+        while ($row = $results->fetch()) :
+      ?>
+
       <div class="col-auto mb-4">
-        <div class="rounded-circle bg-secondary mb-2" style="width: 250px; height: 250px"></div>
-        <span class="fs-5"><b>John Doe</b></span>
+        <div class="rounded-circle bg-secondary mb-2"
+          style="width: 250px; height: 250px; background-size: cover; background-image: url('<?php echo $row['icon'] ?>')">
+        </div>
+        <span class="fs-5"><b><?php echo $row['fname'] . " " . $row['lname'] ?></b></span>
         <br>
-        <span class="text-muted">Knows how to sell houses?</span>
+        <span class="text-muted">Dedicated Agent</span>
       </div>
-      <?php endfor; ?>
+      <?php
+        endwhile;
+      endif;
+      ?>
     </div>
   </div>
 </div>
