@@ -84,6 +84,21 @@ nav.main-nav {
 	}
 }
 
+//Force a parent container to be a 1:1 ratio
+.ratio-4-3 {
+	width: 100%;
+	padding-top: 75%;
+	position: relative;
+
+	.ratio-content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+}
+
 /** Single Listing Page **/
 .carousel-thumbnail {
 	cursor: pointer;
