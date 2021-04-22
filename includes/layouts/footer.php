@@ -13,9 +13,8 @@
     <div class="row">
       <div class="col-sm-6 col-md-3">
         <h5>ABOUT</h5>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius minima, harum odio at aspernatur voluptate
-          similique earum sit quas doloribus delectus, repellendus ab quod. Repellendus ut accusantium ipsa laboriosam
-          sed.</p>
+        <p>Founded in the late 2020s by two passionate property developers, Key Homes aims to curate for-sale homes
+          throughout New Zealand and connect you with life changing oppurtinities at affordable prices.</p>
       </div>
       <div class="col-sm-6 col-md-3 offset-md-6">
         <h5>CONTACT INFO</h5>
