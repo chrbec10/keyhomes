@@ -118,9 +118,9 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
       <p><?php echo $listing['description'] ?></p>
 
       <!-- Map might go here -->
-      <div class="bg-info rounded" style="height: 400px">
-
-      </div>
+      <iframe class="rounded bg-light" width="100%" height="400" style="border:0" loading="lazy" allowfullscreen
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFjY1014SSYdpCvVi18RBxu1apMGuTSEk&q=<?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']}" ?>">
+      </iframe>
     </div>
     <div class="col-md-4">
       <div class="card shadow-sm">
