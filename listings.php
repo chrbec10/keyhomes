@@ -36,7 +36,7 @@ require_once('./includes/db.php'); //Connect to the database
                 <div class="ratio-4-3">
                   <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">
                     <div class="ratio-content rounded"
-                      style="background-image: url('<?php echo $listing['image'] ?>'); background-size: cover; background-position: center;">
+                      style="background-image: url('<?php echo $listing['image'] ?? '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
                     </div>
                   </a>
                 </div>
