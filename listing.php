@@ -45,7 +45,7 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
 <div class="content-top-padding bg-light">
   <div class="container py-3">
     <div class="row">
-      <div class="col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+      <div class="col-md-8 col-lg-7 offset-md-2 offset-lg-3">
 
         <?php //Get the Gallery from the Database
         $sql = "SELECT * FROM gallery WHERE property_ID = :property_id";
