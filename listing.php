@@ -75,6 +75,12 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
             </div>
             <?php
               endforeach;
+            else :
+              ?>
+            <div class="carousel-item active d-flex justify-content-center">
+              <img src="/static/img/no-image.png" class="d-block w-50 rounded" alt="no image">
+            </div>
+            <?php
             endif;
             ?>
           </div>
