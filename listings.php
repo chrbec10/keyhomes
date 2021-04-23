@@ -15,7 +15,7 @@ require_once('./includes/db.php'); //Connect to the database
           <div class="container-fluid">
 
             <?php
-            $sql = 'SELECT * FROM property JOIN (
+            $sql = 'SELECT * FROM property LEFT JOIN (
                       SELECT * FROM gallery WHERE gallery.image_ID IN (
                         SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
                          )
