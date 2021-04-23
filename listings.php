@@ -15,12 +15,13 @@ require_once('./includes/db.php'); //Connect to the database
           <div class="container-fluid">
 
             <?php
-            $sql = 'SELECT * FROM property LEFT JOIN (
-                      SELECT * FROM gallery WHERE gallery.image_ID IN (
-                        SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
-                         )
-                      ) 
-                     AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID';
+            $sql = "
+            SELECT property.property_ID, saleType, price, description, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
+              SELECT * FROM gallery WHERE gallery.image_ID IN (
+                SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID 
+              )
+            )
+            AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID";
 
             if ($stmt = $pdo->prepare($sql)) {
 
