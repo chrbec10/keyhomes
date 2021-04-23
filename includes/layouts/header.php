@@ -66,7 +66,8 @@ $home_nav = $home_nav ?? false;
             <a class="nav-link" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+            <a class="nav-link dropdown-toggle text-capitalize" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown">
               <?php echo $_SESSION['username'] ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
