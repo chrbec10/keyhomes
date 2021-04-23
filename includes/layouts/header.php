@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ . '/../config.php');
 
+session_start();
+
 $logged_in = false;
 $is_admin = false;
 $home_nav = $home_nav ?? false;
@@ -58,14 +60,14 @@ $home_nav = $home_nav ?? false;
           </li>
 
           <!-- User IS logged in -->
-          <?php if ($logged_in) : ?>
+          <?php if ($_SESSION['loggedin']) : ?>
 
           <li class="nav-item">
             <a class="nav-link" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-              myUsername
+              <?php echo $_SESSION['username'] ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/my-account.php">Account Settings</a></li>
