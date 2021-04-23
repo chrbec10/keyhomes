@@ -11399,6 +11399,26 @@ nav.main-nav .logo-dark {
   bottom: 0;
 }
 
+.ratio-1-3 {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+
+.ratio-4-3 {
+  width: 100%;
+  padding-top: 75%;
+  position: relative;
+}
+
+.ratio-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
 /** Single Listing Page **/
 .carousel-thumbnail {
   cursor: pointer;

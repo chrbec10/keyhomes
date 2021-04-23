@@ -5,10 +5,23 @@ $home_nav = true; //Makes the nav transparent by default
 
 require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
+
+//Get the Random Listing for the CTA
+$sql = "
+      SELECT property.property_ID, streetNum, street, city, image FROM property JOIN (
+        SELECT * FROM gallery WHERE gallery.image_ID IN (
+          SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
+        )
+      ) 
+      AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ORDER BY RAND() LIMIT 1";
+
+if ($result = $pdo->query($sql)) {
+  $random_featured =  $result->fetch(PDO::FETCH_ASSOC);
+}
 ?>
 
 <!-- Call to Action -->
-<div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('./uploads/properties/test/3_0.jpg'); background-position: center;
+<div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('<?php echo $random_featured['image'] ?>'); background-position: center;
     background-size: cover; background-attachment: fixed;">
   <div class="dark-overlay"></div>
   <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
@@ -25,6 +38,15 @@ require_once('./includes/db.php'); //Connect to the database
         </div>
       </div>
     </div>
+    <div class="container-fluid position-absolute" style="bottom: 0;">
+      <h1 class="text-uppercase fw-bold text-end">
+        <a href="listing.php?id=<?php echo $random_featured['property_ID'] ?>" class="text-white text-decoration-none">
+          <button class="btn btn-secondary btn-sm " style="margin-top: -5px;">View
+            <?php echo "{$random_featured['streetNum']} {$random_featured['street']}, {$random_featured['city']}" ?>
+          </button>
+        </a>
+      </h1>
+    </div>
   </div>
 
 </div>
@@ -34,27 +56,48 @@ require_once('./includes/db.php'); //Connect to the database
   <div class="container">
     <div class="text-center">
       <h2>Latest Listings</h2>
-      <p>Search over 200 of the Top Properties in NZ</p>
+
+      <!-- Get the amount of listings in the database -->
+      <?php
+      $sql = "SELECT COUNT(*) FROM property";
+      if ($result = $pdo->query($sql)) :
+        $row =  $result->fetch();
+      ?>
+      <p>Search over <?php echo $row['0'] ?>+ of the Top Properties in NZ</p>
+      <?php endif; ?>
     </div>
     <div class="row justify-content-center">
 
-      <?php for ($i = 0; $i < 3; $i++) : ?>
+      <!-- Get the Latest Listings and their first added image. Then, loop through those listings -->
+      <?php
+      $sql = "
+      SELECT property.property_ID, bedrooms, bathrooms, garage, image FROM property JOIN (
+        SELECT * FROM gallery WHERE gallery.image_ID IN (
+          SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
+        )
+      ) 
+      AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ORDER BY property.property_ID DESC LIMIT 3";
 
+      if ($result = $pdo->query($sql)) :
+        while ($row = $result->fetch()) :
+      ?>
       <div class="col-sm-6 col-md-3 mb-4">
         <div class="card">
-          <img src="uploads/properties/test/0_2.jpg" class="card-img-top" alt="...">
+          <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Home Away From Home</h5>
-            <p class="card-text text-muted">Bdrm 1 Bthrm 1</p>
+            <p class="card-text text-muted">Bdrm <?php echo $row['bedrooms'] ?> Bthrm <?php echo $row['bathrooms'] ?>
+            </p>
             <div class="d-grid">
-              <a href="#" class="btn btn-secondary rounded-pill">View</a>
+              <a href="listing.php?id=<?php echo $row['property_ID'] ?>" class="btn btn-secondary rounded-pill">View</a>
             </div>
           </div>
         </div>
       </div>
 
-
-      <?php endfor; ?>
+      <?php
+        endwhile;
+      endif; ?>
 
     </div>
     <div class="text-center">
@@ -91,14 +134,25 @@ require_once('./includes/db.php'); //Connect to the database
     <h2>Our Agents</h2>
     <p>Meet our Team of Professional Agents</p>
     <div class="row justify-content-center">
-      <?php for ($i = 0; $i < 3; $i++) : ?>
+
+      <?php
+      $sql = "SELECT fname, lname, icon FROM agent";
+      if ($results = $pdo->query($sql)) :
+        while ($row = $results->fetch()) :
+      ?>
+
       <div class="col-auto mb-4">
-        <div class="rounded-circle bg-secondary mb-2" style="width: 250px; height: 250px"></div>
-        <span class="fs-5"><b>John Doe</b></span>
+        <div class="rounded-circle bg-secondary mb-2"
+          style="width: 250px; height: 250px; background-size: cover; background-image: url('<?php echo $row['icon'] ?>')">
+        </div>
+        <span class="fs-5"><b><?php echo $row['fname'] . " " . $row['lname'] ?></b></span>
         <br>
-        <span class="text-muted">Knows how to sell houses?</span>
+        <span class="text-muted">Dedicated Agent</span>
       </div>
-      <?php endfor; ?>
+      <?php
+        endwhile;
+      endif;
+      ?>
     </div>
   </div>
 </div>
