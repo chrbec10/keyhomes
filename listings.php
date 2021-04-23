@@ -46,8 +46,11 @@ require_once('./includes/db.php'); //Connect to the database
                   <div class="col h5"><a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">Property Title
                       <?php echo $i + 1 ?></a>
                   </div>
-                  <div class="col-auto"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
-                      title="Add to Wishlist">+Wishlist</a></div>
+                  <div class="col-auto">
+                    <a href="<?php echo $_SESSION['loggedin'] ? '' : $site_root . '/login.php' ?>"
+                      data-bs-toggle="tooltip" data-bs-placement="left"
+                      title="<?php echo $_SESSION['loggedin'] ? 'Add to Wishlist' : 'Wishlist (Requires Login)' ?>">+Wishlist</a>
+                  </div>
                 </div>
                 <p><?php echo $listing['description'] ?></p>
                 <p>3 Bdrm 1 Bthrm</p>
