@@ -103,7 +103,7 @@ if ($stmt = $pdo->prepare($sql)) {
       </div>
     </div>
   </div>
-  <div class="pt-3 pb-2" style="background-color: #342b36;">
+  <div class="pt-3 pb-2" style="background-color: #2c2b36;">
     <div class="container">
       <div class="row">
         <div class="col-md-8 col-lg-7 offset-md-2 offset-lg-3">
