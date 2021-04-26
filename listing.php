@@ -57,8 +57,8 @@ if ($stmt = $pdo->prepare($sql)) {
 }
 ?>
 
-<div class="content-top-padding bg-light">
-  <div class="container py-3">
+<div class="content-top-padding bg-dark">
+  <div class="container pt-3 pb-2">
     <div class="row">
       <div class="col-md-8 col-lg-7 offset-md-2 offset-lg-3">
 
@@ -100,24 +100,30 @@ if ($stmt = $pdo->prepare($sql)) {
             ?>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="pt-3 pb-2" style="background-color: #342b36;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-lg-7 offset-md-2 offset-lg-3">
+          <!-- Gallery Previews -->
+          <div class="row justify-content-center">
+            <?php
+            if (count($gallery) > 0) :
+              foreach ($gallery as $key => $image) :
+            ?>
+            <div class="col-auto">
+              <img src="<?php echo $image['image'] ?>" class="carousel-thumbnail rounded mb-2"
+                data-slide-to="<?php echo $key ?>" width="150" alt="...">
+            </div>
+            <?php
+              endforeach;
+            endif;
+            ?>
 
-        <!-- Gallery Previews -->
-        <div class="row justify-content-center">
-          <?php
-          if (count($gallery) > 0) :
-            foreach ($gallery as $key => $image) :
-          ?>
-          <div class="col-auto">
-            <img src="<?php echo $image['image'] ?>" class="carousel-thumbnail rounded"
-              data-slide-to="<?php echo $key ?>" width="100" alt="...">
           </div>
-          <?php
-            endforeach;
-          endif;
-          ?>
-
         </div>
-
       </div>
     </div>
   </div>
