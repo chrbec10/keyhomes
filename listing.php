@@ -127,7 +127,7 @@ if ($stmt = $pdo->prepare($sql)) {
     <div class="col-md-8">
       <div class="row">
         <div class="col">
-          <h1 class="fw-bold mb-1">Home Away from home!</h1>
+          <h1 class="fw-bold mb-1"><?php echo "{$listing['streetNum']} {$listing['street']}" ?></h1>
         </div>
         <div class="col-auto">
           <?php if ($_SESSION['loggedin']) : ?>
@@ -147,7 +147,7 @@ if ($stmt = $pdo->prepare($sql)) {
       </div>
 
       <h2 class="h4 mb-2">
-        <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></h2>
+        <?php echo "{$listing['city']} {$listing['postcode']}" ?></h2>
       <p class="fs-3 fw-bold mb-2">Offers Over $<?php echo $listing['price'] ?></p>
       <div class="mb-4">
         <div class="badge feature rounded-pill me-1"><?php echo $listing['bedrooms'] ?> Bedrooms</div>

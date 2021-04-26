@@ -28,7 +28,7 @@ if ($_SESSION['loggedin']) {
 
             <?php
             $sql = "
-            SELECT property.property_ID, saleType, price, description, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
+            SELECT * FROM property LEFT JOIN (
               SELECT * FROM gallery WHERE gallery.image_ID IN (
                 SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID 
               )
@@ -55,8 +55,8 @@ if ($_SESSION['loggedin']) {
               </div>
               <div class="col-md-8">
                 <div class="row">
-                  <div class="col h5"><a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">Property Title
-                      <?php echo $i + 1 ?></a>
+                  <div class="col h5"><a
+                      href="/listing.php?id=<?php echo $listing['property_ID'] ?>"><?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></a>
                   </div>
                   <div class="col-auto">
                     <?php if ($_SESSION['loggedin']) : ?>
