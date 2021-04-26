@@ -3,7 +3,6 @@
 // Easily pump out default styles, as well as :hover, :focus, :active,
 // and disabled options for all buttons
 
-// scss-docs-start btn-variant-mixin
 @mixin button-variant(
   $background,
   $border,
@@ -72,9 +71,7 @@
     border-color: $disabled-border;
   }
 }
-// scss-docs-end btn-variant-mixin
 
-// scss-docs-start btn-outline-variant-mixin
 @mixin button-outline-variant(
   $color,
   $color-hover: color-contrast($color),
@@ -121,13 +118,11 @@
     background-color: transparent;
   }
 }
-// scss-docs-end btn-outline-variant-mixin
 
-// scss-docs-start btn-size-mixin
+// Button sizes
 @mixin button-size($padding-y, $padding-x, $font-size, $border-radius) {
   padding: $padding-y $padding-x;
   @include font-size($font-size);
   // Manually declare to provide an override to the browser default
   @include border-radius($border-radius, 0);
 }
-// scss-docs-end btn-size-mixin

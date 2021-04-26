@@ -70,11 +70,14 @@
 // Allow for dropdowns to go bottom up (aka, dropup-menu)
 // Just add .dropup after the standard .dropdown class and you're set.
 .dropup {
-  .dropdown-menu[data-bs-popper] {
+  .dropdown-menu {
     top: auto;
     bottom: 100%;
-    margin-top: 0;
-    margin-bottom: $dropdown-spacer;
+
+    &[data-bs-popper] {
+      margin-top: 0;
+      margin-bottom: $dropdown-spacer;
+    }
   }
 
   .dropdown-toggle {
