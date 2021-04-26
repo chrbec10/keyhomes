@@ -4,6 +4,18 @@ $title = "Listings in Hamilton"; //The Page Title
 require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
 
+//Get the user's wishlisted listings
+if ($_SESSION['loggedin']) {
+  $sql = "SELECT property_ID FROM wishlist WHERE user_ID = :user_id";
+  if ($stmt = $pdo->prepare($sql)) {
+    $stmt->bindParam(':user_id', $_SESSION['id']);
+
+    if ($stmt->execute()) {
+      $user_wishlisted = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'property_ID');
+    }
+  }
+}
+
 ?>
 
 <div class="content-top-padding pb-4 bg-light">
@@ -47,7 +59,8 @@ require_once('./includes/db.php'); //Connect to the database
                       <?php echo $i + 1 ?></a>
                   </div>
                   <div class="col-auto">
-                    <i class="bi bi-star fs-5 wishlistButton" data-bs-toggle="tooltip" data-bs-placement="left"
+                    <i class="bi  fs-5 wishlistButton <?php echo in_array($listing['property_ID'], $user_wishlisted) ? 'wishlisted bi-star-fill' : 'bi-star' ?>"
+                      data-bs-toggle="tooltip" data-bs-placement="left"
                       data-kh-listing-id="<?php echo $listing['property_ID'] ?>"
                       title="<?php echo $_SESSION['loggedin'] ? 'Add to Wishlist' : 'Wishlist (Requires Login)' ?>"></i>
                   </div>
