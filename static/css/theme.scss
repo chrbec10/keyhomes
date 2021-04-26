@@ -115,3 +115,11 @@ nav.main-nav {
 	color: $secondary;
 	border-color: $secondary;
 }
+
+.wishlistButton {
+	cursor: pointer;
+
+	&.wishlisted {
+		color: #e6a816;
+	}
+}

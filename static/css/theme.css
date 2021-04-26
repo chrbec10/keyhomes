@@ -11430,4 +11430,12 @@ nav.main-nav .logo-dark {
   color: #6c757d;
   border-color: #6c757d;
 }
+
+.wishlistButton {
+  cursor: pointer;
+}
+
+.wishlistButton.wishlisted {
+  color: #e6a816;
+}
 /*# sourceMappingURL=theme.css.map */

@@ -47,9 +47,9 @@ require_once('./includes/db.php'); //Connect to the database
                       <?php echo $i + 1 ?></a>
                   </div>
                   <div class="col-auto">
-                    <a href="<?php echo $_SESSION['loggedin'] ? '' : $site_root . '/login.php' ?>"
-                      data-bs-toggle="tooltip" data-bs-placement="left"
-                      title="<?php echo $_SESSION['loggedin'] ? 'Add to Wishlist' : 'Wishlist (Requires Login)' ?>">+Wishlist</a>
+                    <i class="bi bi-star fs-5 wishlistButton" data-bs-toggle="tooltip" data-bs-placement="left"
+                      data-kh-listing-id="<?php echo $listing['property_ID'] ?>"
+                      title="<?php echo $_SESSION['loggedin'] ? 'Add to Wishlist' : 'Wishlist (Requires Login)' ?>"></i>
                   </div>
                 </div>
                 <p><?php echo $listing['description'] ?></p>
@@ -137,6 +137,47 @@ require_once('./includes/db.php'); //Connect to the database
     </div>
   </div>
 </div>
+
+<script>
+var wishlistButtons = document.getElementsByClassName('wishlistButton');
+
+for (button of wishlistButtons) {
+  button.addEventListener('click', (e) => {
+    console.log(e.target.dataset.khListingId);
+
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", '/services/wishlist-service.php', false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.addEventListener('readystatechange', () => {
+      console.log('hi');
+
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var res = JSON.parse(xhr.responseText);
+        console.log(res);
+
+        console.log(e.target.classList);
+
+        if (res.wishlisted == "true") {
+          console.log('adding');
+          e.target.classList.add('wishlisted')
+          e.target.classList.add('bi-star-fill');
+          e.target.classList.remove('bi-star');
+        } else {
+          console.log('removing');
+          e.target.classList.remove('wishlisted')
+          e.target.classList.add('bi-star');
+          e.target.classList.remove('bi-star-fill');
+        }
+      }
+
+    })
+
+    xhr.send(`propertyid=${e.target.dataset.khListingId}`);
+
+  })
+}
+</script>
 
 <?php
 require_once('./includes/layouts/footer.php'); //Gets the footer
