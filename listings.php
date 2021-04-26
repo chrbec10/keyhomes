@@ -28,7 +28,7 @@ if ($_SESSION['loggedin']) {
 
             <?php
             $sql = "
-            SELECT * FROM property LEFT JOIN (
+            SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
               SELECT * FROM gallery WHERE gallery.image_ID IN (
                 SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID 
               )
