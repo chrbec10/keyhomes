@@ -40,6 +40,21 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
   header('location: 404.php');
   exit();
 }
+
+//See if this Listing is on the user's wishlist
+$sql = "SELECT property_ID FROM wishlist WHERE user_ID = :user_id AND property_ID = :property_id";
+if ($stmt = $pdo->prepare($sql)) {
+  $stmt->bindParam(':user_id', $_SESSION['id']);
+  $stmt->bindParam('property_id', $property_id);
+
+  if ($stmt->execute()) {
+    if ($stmt->rowCount() == 1) {
+      $wishlisted = true;
+    } else {
+      $wishlisted = false;
+    }
+  }
+}
 ?>
 
 <div class="content-top-padding bg-light">
@@ -110,8 +125,27 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
 <div class="container py-3">
   <div class="row">
     <div class="col-md-8">
-      <h1 class="fw-bold mb-1">Home Away from home!</h1>
-      <!-- <h2 class="h4 mb-2">145 Ohaupo Road, Glenview, Hamilton</h2> -->
+      <div class="row">
+        <div class="col">
+          <h1 class="fw-bold mb-1">Home Away from home!</h1>
+        </div>
+        <div class="col-auto">
+          <?php if ($_SESSION['loggedin']) : ?>
+          <button
+            class="btn rounded-pill wishlistButton <?php echo $wishlisted ? 'btn-warning'  : 'btn-outline-secondary' ?>"
+            data-kh-listing-id="<?php echo $listing['property_ID'] ?>">
+            <?php echo $wishlisted ? 'Wishlisted' : '+ Wishlist' ?>
+          </button>
+          <?php else : ?>
+          <a href="/login.php">
+            <button class="btn btn-outline-secondary rounded-pill">
+              Sign in to Wishlist
+            </button>
+          </a>
+          <?php endif; ?>
+        </div>
+      </div>
+
       <h2 class="h4 mb-2">
         <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></h2>
       <p class="fs-3 fw-bold mb-2">Offers Over $<?php echo $listing['price'] ?></p>
@@ -162,6 +196,48 @@ for (let i = 0; i < galleryThumbnails.length; i++) {
   })
 }
 </script>
+
+<script>
+var wishlistButtons = document.getElementsByClassName('wishlistButton');
+
+for (button of wishlistButtons) {
+  button.addEventListener('click', (e) => {
+    console.log(e.target.dataset.khListingId);
+
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", '/services/wishlist-service.php', false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.addEventListener('readystatechange', () => {
+      console.log('hi');
+
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var res = JSON.parse(xhr.responseText);
+        console.log(res);
+
+        console.log(e.target.classList);
+
+        if (res.wishlisted == "true") {
+          console.log('adding');
+          e.target.classList.add('btn-warning');
+          e.target.classList.remove('btn-outline-secondary');
+          e.target.innerHTML = 'Wishlisted';
+        } else {
+          console.log('removing');
+          e.target.classList.add('btn-outline-secondary');
+          e.target.classList.remove('btn-warning');
+          e.target.innerHTML = '+ Wishlist';
+        }
+      }
+
+    })
+
+    xhr.send(`propertyid=${e.target.dataset.khListingId}`);
+  })
+}
+</script>
+
+
 
 <?php
 require_once('./includes/layouts/footer.php'); //Gets the footer
