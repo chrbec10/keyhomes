@@ -59,10 +59,16 @@ if ($_SESSION['loggedin']) {
                       <?php echo $i + 1 ?></a>
                   </div>
                   <div class="col-auto">
+                    <?php if ($_SESSION['loggedin']) : ?>
                     <i class="bi  fs-5 wishlistButton <?php echo in_array($listing['property_ID'], $user_wishlisted) ? 'wishlisted bi-star-fill' : 'bi-star' ?>"
                       data-bs-toggle="tooltip" data-bs-placement="left"
-                      data-kh-listing-id="<?php echo $listing['property_ID'] ?>"
-                      title="<?php echo $_SESSION['loggedin'] ? 'Add to Wishlist' : 'Wishlist (Requires Login)' ?>"></i>
+                      data-kh-listing-id="<?php echo $listing['property_ID'] ?>" title="Add to Wishlist"></i>
+                    <?php else : ?>
+                    <a href="/login.php" class="text-dark">
+                      <i class="bi fs-5 wishlistButton bi-star" data-bs-toggle="tooltip" data-bs-placement="left"
+                        title="Wishlist (Requires Login)"> </i>
+                    </a>
+                    <?php endif; ?>
                   </div>
                 </div>
                 <p><?php echo $listing['description'] ?></p>
