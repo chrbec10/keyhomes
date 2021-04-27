@@ -73,16 +73,16 @@ $home_nav = $home_nav ?? false;
               <?php echo $_SESSION['username'] ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="<?php echo $site_root ?>/my-account.php">Account Settings</a></li>
+              <!-- <li><a class="dropdown-item" href="<?php echo $site_root ?>/my-account.php">Account Settings</a></li> -->
 
               <!-- Only show the ACP link if the user is an admin -->
               <?php if ($is_admin) : ?>
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/admin">Admin Panel</a></li>
               <?php endif; ?>
 
-              <li>
+              <!-- <li>
                 <hr class="dropdown-divider">
-              </li>
+              </li> -->
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/logout.php">Logout</a></li>
             </ul>
           </li>
