@@ -5,10 +5,11 @@
         <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" alt="Key Homes Logo" height="75px">
       </div>
       <div class="col-md-6 text-md-end">
-        <a href="https://visioncollege.ac.nz/" class="btn btn-primary rounded-circle me-1" target="_blank">
-          <i class="fab fa-facebook fs-3"></i>
-        </a>
-        <a href="https://visioncollege.ac.nz/" class="btn btn-primary rounded-circle" target="_blank">
+        <a href="https://visioncollege.ac.nz/" class="d-inline-block bg-primary p-3 text-white rounded-circle me-1"
+          target="_blank">
+          <i class="fab fa-facebook fs-3"></i></a>
+        <a href="https://visioncollege.ac.nz/" class="d-inline-block bg-primary p-3 text-white rounded-circle"
+          target="_blank">
           <i class="fab fa-instagram fs-3"></i>
         </a>
 
