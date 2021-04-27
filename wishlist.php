@@ -30,15 +30,19 @@ require_once('./includes/db.php'); //Connect to the database
                 )
               )
             AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID
-            WHERE wishlist.user_ID = 5
+            WHERE wishlist.user_ID = :user_id
             ";
 
             if ($stmt = $pdo->prepare($sql)) {
+              $stmt->bindParam(':user_id', $_SESSION['id']);
 
               if ($stmt->execute()) :
-                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                for ($i = 0; $i < count($results); $i++) :
-                  $listing = $results[$i];
+
+                if ($stmt->rowCount() > 0) :
+
+                  $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  for ($i = 0; $i < count($results); $i++) :
+                    $listing = $results[$i];
             ?>
 
             <div class="row mb-3">
@@ -78,10 +82,14 @@ require_once('./includes/db.php'); //Connect to the database
             </div>
 
             <?php
-                  if ($i < count($results) - 1) {
-                    echo '<hr>';
-                  }
-                endfor;
+                    if ($i < count($results) - 1) {
+                      echo '<hr>';
+                    }
+                  endfor;
+                else : ?>
+            <p class="text-center text-muted">You have nothing on your Wishlist. Why not Add Some!</p>
+            <?php
+                endif;
               endif;
             }
             ?>
