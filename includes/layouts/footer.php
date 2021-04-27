@@ -30,6 +30,7 @@
       Mitchell</div>
   </div>
 </div>
+</div> <!-- end header #content -->
 
 <script src="<?php echo $site_root ?>/static/js/popper.min.js"></script>
 <script>

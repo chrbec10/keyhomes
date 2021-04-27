@@ -37,7 +37,7 @@ $home_nav = $home_nav ?? false;
   <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
 </head>
 
-<body>
+<body class="bg-dark">
   <!-- Styles the Navbar to be transparent if $home_nav is true -->
   <nav
     class="navbar navbar-expand-lg fixed-top main-nav <?php echo ($home_nav) ? 'home-nav transparent' : 'navbar-light bg-white' ?>"
@@ -104,3 +104,4 @@ $home_nav = $home_nav ?? false;
       </div>
     </div>
   </nav>
+  <div id="content" class="bg-white">
