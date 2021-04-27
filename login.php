@@ -69,7 +69,7 @@ require_once('./includes/layouts/header.php');
           <label>Username</label>
           <input type="text" name="username"
             class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
-            value="<?php echo $username; ?>">
+            value="<?php echo $username; ?>" autofocus>
           <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
         <div class="form-group mb-3">
