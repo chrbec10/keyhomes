@@ -12,8 +12,8 @@ require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
 ?>
 
-<div class="content-top-padding pb-3">
-  <div class="container">
+<div class="content-top-padding">
+  <div class="container my-5">
     <h1>My Wishlist</h1>
     <button class="btn btn-primary">Primary Button</button>
   </div>

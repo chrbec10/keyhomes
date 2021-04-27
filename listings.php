@@ -60,19 +60,29 @@ if ($_SESSION['loggedin']) {
                   </div>
                   <div class="col-auto">
                     <?php if ($_SESSION['loggedin']) : ?>
-                    <i class="bi  fs-5 wishlistButton <?php echo in_array($listing['property_ID'], $user_wishlisted) ? 'wishlisted bi-star-fill' : 'bi-star' ?>"
+                    <i class="fs-5 wishlistButton <?php echo in_array($listing['property_ID'], $user_wishlisted) ? 'wishlisted fas fa-star' : 'far fa-star' ?>"
                       data-bs-toggle="tooltip" data-bs-placement="left"
                       data-kh-listing-id="<?php echo $listing['property_ID'] ?>" title="Add to Wishlist"></i>
                     <?php else : ?>
                     <a href="/login.php" class="text-dark">
-                      <i class="bi fs-5 wishlistButton bi-star" data-bs-toggle="tooltip" data-bs-placement="left"
+                      <i class="fs-5 wishlistButton far fa-star" data-bs-toggle="tooltip" data-bs-placement="left"
                         title="Wishlist (Requires Login)"> </i>
                     </a>
                     <?php endif; ?>
                   </div>
                 </div>
                 <p><?php echo $listing['description'] ?></p>
-                <p>3 Bdrm 1 Bthrm</p>
+                <p>
+                  <span class="me-2">
+                    <i class="fas fa-bed text-secondary"></i> <?php echo $listing['bedrooms'] ?>
+                  </span>
+                  <span class="me-2">
+                    <i class="fas fa-bath text-secondary"></i> <?php echo $listing['bathrooms'] ?>
+                  </span>
+                  <span>
+                    <i class="fas fa-warehouse text-secondary"></i> <?php echo $listing['garage'] ?>
+                  </span>
+                </p>
               </div>
             </div>
 
@@ -180,14 +190,12 @@ for (button of wishlistButtons) {
 
         if (res.wishlisted == "true") {
           console.log('adding');
-          e.target.classList.add('wishlisted')
-          e.target.classList.add('bi-star-fill');
-          e.target.classList.remove('bi-star');
+          e.target.classList.add('wishlisted', 'fas');
+          e.target.classList.remove('far');
         } else {
           console.log('removing');
-          e.target.classList.remove('wishlisted')
-          e.target.classList.add('bi-star');
-          e.target.classList.remove('bi-star-fill');
+          e.target.classList.remove('wishlisted', 'fas')
+          e.target.classList.add('far');
         }
       }
 

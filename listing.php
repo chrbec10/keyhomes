@@ -156,9 +156,13 @@ if ($stmt = $pdo->prepare($sql)) {
         <?php echo "{$listing['city']} {$listing['postcode']}" ?></h2>
       <p class="fs-3 fw-bold mb-2">Offers Over $<?php echo $listing['price'] ?></p>
       <div class="mb-4">
-        <div class="badge feature rounded-pill me-1"><?php echo $listing['bedrooms'] ?> Bedrooms</div>
-        <div class="badge feature rounded-pill me-1"><?php echo $listing['bathrooms'] ?> Bathrooms</div>
-        <div class="badge feature rounded-pill me-1"><?php echo $listing['garage'] ?> Garages</div>
+        <div class="badge feature rounded-pill me-1"><i class="fas fa-bed me-1"></i><?php echo $listing['bedrooms'] ?>
+          Bedrooms</div>
+        <div class="badge feature rounded-pill me-1"><i class="fas fa-bath me-1"></i><?php echo $listing['bathrooms'] ?>
+          Bathrooms</div>
+        <div class="badge feature rounded-pill me-1"><i
+            class="fas fa-warehouse me-1"></i><?php echo $listing['garage'] ?>
+          Garages</div>
       </div>
 
       <p><?php echo $listing['description'] ?></p>
