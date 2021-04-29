@@ -27,17 +27,29 @@ if ($_SESSION['loggedin']) {
           <div class="container-fluid">
 
             <?php
+            $conditions = [];
+            $parameters = [];
+
+            if (!empty($_GET['city'])) {
+              $conditions[] = 'city = ?';
+              $parameters[] = $_GET['city'];
+            }
+
             $sql = "
             SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
               SELECT * FROM gallery WHERE gallery.image_ID IN (
                 SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID 
               )
             )
-            AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID";
+            AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ";
+
+            if ($conditions) {
+              $sql .= " WHERE " . implode(' AND ', $conditions);
+            }
 
             if ($stmt = $pdo->prepare($sql)) {
 
-              if ($stmt->execute()) :
+              if ($stmt->execute($parameters)) :
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 for ($i = 0; $i < count($results); $i++) :
                   $listing = $results[$i];
@@ -127,24 +139,17 @@ if ($_SESSION['loggedin']) {
 
           ?>
 
-
-          <form>
+          <?php echo $_GET['city'] ?>
+          <form method="GET" action="listings.php">
             <label for="city" class="form-label mb-1">City:</label>
-            <select class="form-select mb-2" id="city">
-              <option selected>All of NZ</option>
+            <select class="form-select mb-2" name="city">
+              <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
               <?php foreach ($cities as $city) :
               ?>
-              <option value="<?php echo $city ?>"><?php echo $city ?></option>
+              <option value="<?php echo $city ?>" <?php echo ($_GET['city'] == $city) ? 'selected' : '' ?>>
+                <?php echo $city ?></option>
               <?php endforeach;
               ?>
-            </select>
-
-            <label for="suburb" class="form-label mb-1">Suburb:</label>
-            <select class="form-select mb-2" id="suburb">
-              <option selected>Any Suburb</option>
-              <option value="Fairview Downs">Fairview Downs</option>
-              <option value="Huntington">Huntington</option>
-              <option value="Hillcrest">Hillcrest</option>
             </select>
 
             <div class="mb-1">Price Range:</div>
