@@ -20,7 +20,9 @@ if ($_SESSION['loggedin']) {
 
 <div class="content-top-padding pb-4 bg-light">
   <div class="container mt-4">
-    <h1>All Listings</h1>
+    <h1>
+      <?php echo !empty($_GET['city']) ? "" : 'All ' ?>Listings<?php echo !empty($_GET['city']) ? " in {$_GET['city']}" : '' ?>
+    </h1>
     <div class="row">
       <div class="col-md-8 col-lg-9">
         <div class="card card-body py-4">
