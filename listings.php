@@ -148,7 +148,6 @@ if ($_SESSION['loggedin']) {
 
           ?>
 
-          <?php echo $_GET['city'] ?>
           <form method="GET" action="listings.php">
             <label for="city" class="form-label mb-1">City:</label>
             <select class="form-select mb-2" name="city">
