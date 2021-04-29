@@ -27,14 +27,17 @@ if ($_SESSION['loggedin']) {
           <div class="container-fluid">
 
             <?php
+            //Init arrays to store conditions and parameters for the route query
             $conditions = [];
             $parameters = [];
 
+            //Add city to query
             if (!empty($_GET['city'])) {
               $conditions[] = 'city = ?';
               $parameters[] = $_GET['city'];
             }
 
+            //Prepare the main select statement
             $sql = "
             SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
               SELECT * FROM gallery WHERE gallery.image_ID IN (
@@ -43,14 +46,18 @@ if ($_SESSION['loggedin']) {
             )
             AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ";
 
+            //Add the where conditions to the statement
             if ($conditions) {
               $sql .= " WHERE " . implode(' AND ', $conditions);
             }
 
+            //Attempt to execute the statement
             if ($stmt = $pdo->prepare($sql)) {
 
               if ($stmt->execute($parameters)) :
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                //Loop over the results
                 for ($i = 0; $i < count($results); $i++) :
                   $listing = $results[$i];
             ?>
@@ -71,6 +78,8 @@ if ($_SESSION['loggedin']) {
                       href="/listing.php?id=<?php echo $listing['property_ID'] ?>"><?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></a>
                   </div>
                   <div class="col-auto">
+
+                    <!-- Show the correct wishlist button per listing -->
                     <?php if ($_SESSION['loggedin']) : ?>
                     <i class="fs-5 wishlistButton <?php echo in_array($listing['property_ID'], $user_wishlisted) ? 'wishlisted fas fa-star' : 'far fa-star' ?>"
                       data-bs-toggle="tooltip" data-bs-placement="left"
