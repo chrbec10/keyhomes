@@ -183,7 +183,7 @@ if ($stmt = $pdo->prepare($sql)) {
           <p class="mb-1">Phone: <a href="tel:<?php echo $listing['phone'] ?>"><?php echo $listing['phone'] ?></a></p>
           <p class="mb-4">Mobile: <a href="tel:<?php echo $listing['mobile'] ?>"><?php echo $listing['mobile'] ?></a>
           </p>
-          <button class="btn btn-primary w-100">Contact</button>
+          <a class="btn btn-primary w-100" href="mailto:<?php echo $listing['email'] ?>">Contact</a>
         </div>
       </div>
     </div>
