@@ -94,8 +94,21 @@ if ($_SESSION['loggedin']) {
                     <?php endif; ?>
                   </div>
                 </div>
-                <p class="mb-0 fs-5 fw-bold"><?php echo $listing['saleType'] ?>
-                  <?php echo ($listing['price'] != 0 && $listing['saleType'] == 'Sale') ? '$' . $listing['price'] : '' ?>
+                <p class="mb-0 fs-5 fw-bold">
+                  <?php switch ($listing['saleType']) {
+                          case 'Sale':
+                            echo "Sale";
+                            if ($listing['price'] > 0) {
+                              echo ' $' . number_format($listing['price']);
+                            }
+                            break;
+                          case 'Auction':
+                            echo "Auction";
+                            if ($listing['price'] > 0) {
+                              echo ', Reserve $' . number_format($listing['price']);
+                            }
+                            break;
+                        } ?>
                 </p>
                 <p><?php echo $listing['description'] ?></p>
                 <p>
