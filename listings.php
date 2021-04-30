@@ -76,7 +76,7 @@ if ($_SESSION['loggedin']) {
               </div>
               <div class="col-md-8">
                 <div class="row">
-                  <div class="col h5"><a
+                  <div class="col fs-5"><a
                       href="/listing.php?id=<?php echo $listing['property_ID'] ?>"><?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></a>
                   </div>
                   <div class="col-auto">
@@ -94,6 +94,9 @@ if ($_SESSION['loggedin']) {
                     <?php endif; ?>
                   </div>
                 </div>
+                <p class="mb-0 fs-5 fw-bold"><?php echo $listing['saleType'] ?>
+                  <?php echo ($listing['price'] != 0 && $listing['saleType'] == 'Sale') ? '$' . $listing['price'] : '' ?>
+                </p>
                 <p><?php echo $listing['description'] ?></p>
                 <p>
                   <span class="me-2">
