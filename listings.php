@@ -33,6 +33,12 @@ if ($_SESSION['loggedin']) {
             $conditions = [];
             $parameters = [];
 
+            //Offsets the results by a id (for pagination)
+            if (!empty($_GET['start'])) {
+              $conditions[] = 'property.property_ID >= ?';
+              $parameters[] = $_GET['start'];
+            }
+
             //Add city to query
             if (!empty($_GET['city'])) {
               $conditions[] = 'city = ?';
@@ -63,6 +69,9 @@ if ($_SESSION['loggedin']) {
               $sql .= " WHERE " . implode(' AND ', $conditions);
             }
 
+            $limit = 3;
+            $sql .= ' LIMIT ' . ($limit + 1);
+
             //Attempt to execute the statement
             if ($stmt = $pdo->prepare($sql)) {
 
@@ -71,6 +80,9 @@ if ($_SESSION['loggedin']) {
 
                 //Loop over the results
                 for ($i = 0; $i < count($results); $i++) :
+                  if ($i >= $limit) {
+                    break;
+                  }
                   $listing = $results[$i];
             ?>
 
@@ -146,16 +158,25 @@ if ($_SESSION['loggedin']) {
 
           </div>
 
-          <nav aria-label="Page navigation example">
+          <?php
+          function change_url_parameter($url, $parameter, $parameterValue)
+          {
+            $url = parse_url($url);
+            parse_str($url["query"], $parameters);
+            unset($parameters[$parameter]);
+            $parameters[$parameter] = $parameterValue;
+            return  $url["path"] . "?" . http_build_query($parameters);
+          } ?>
+
+          <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
-              <li class="page-item disabled">
-                <a class="page-link" tabindex="-1">Previous</a>
+              <li class="page-item <?php echo ($_GET['start'] <= 0) ? 'disabled' : '' ?>">
+                <a class="page-link"
+                  href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', (int) $_GET['start'] - $limit - 1); ?>">Previous</a>
               </li>
-              <li class="page-item"><a class="page-link" href="listings.php?page=1">1</a></li>
-              <li class="page-item"><a class="page-link" href="listings.php?page=2">2</a></li>
-              <li class="page-item"><a class="page-link" href="listings.php?page=3">3</a></li>
-              <li class="page-item">
-                <a class="page-link" href="listings.php?page=2">Next</a>
+              <li class="page-item <?php echo (count($results) < $limit) ? 'disabled' : '' ?>">
+                <a class="page-link"
+                  href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', (int) $_GET['start'] + $limit + 1); ?>">Next</a>
               </li>
             </ul>
           </nav>
