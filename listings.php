@@ -29,6 +29,16 @@ if ($_SESSION['loggedin']) {
           <div class="container-fluid">
 
             <?php
+            function change_url_parameter($url, $parameter, $parameterValue)
+            {
+              $url = parse_url($url);
+              parse_str($url["query"], $parameters);
+              unset($parameters[$parameter]);
+              $parameters[$parameter] = $parameterValue;
+              return  $url["path"] . "?" . http_build_query($parameters);
+            } ?>
+
+            <?php
             //Init arrays to store conditions and parameters for the route query
             $conditions = [];
             $parameters = [];
@@ -78,13 +88,30 @@ if ($_SESSION['loggedin']) {
               if ($stmt->execute($parameters)) :
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            ?>
+
+            <nav aria-label="Page navigation">
+              <ul class="pagination justify-content-center">
+                <li class="page-item <?php echo ($_GET['start'] <= 0) ? 'disabled' : '' ?>">
+                  <a class="page-link"
+                    href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', (int) $_GET['start'] - $limit - 1); ?>">Previous</a>
+                </li>
+                <li class="page-item <?php echo (count($results) < $limit) ? 'disabled' : '' ?>">
+                  <a class="page-link"
+                    href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', (int) $_GET['start'] + $limit + 1); ?>">Next</a>
+                </li>
+              </ul>
+            </nav>
+
+            <?php
+
                 //Loop over the results
                 for ($i = 0; $i < count($results); $i++) :
                   if ($i >= $limit) {
                     break;
                   }
                   $listing = $results[$i];
-            ?>
+                ?>
 
             <div class="row mb-3">
               <div class="col-md-4">
@@ -157,16 +184,6 @@ if ($_SESSION['loggedin']) {
             ?>
 
           </div>
-
-          <?php
-          function change_url_parameter($url, $parameter, $parameterValue)
-          {
-            $url = parse_url($url);
-            parse_str($url["query"], $parameters);
-            unset($parameters[$parameter]);
-            $parameters[$parameter] = $parameterValue;
-            return  $url["path"] . "?" . http_build_query($parameters);
-          } ?>
 
           <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
