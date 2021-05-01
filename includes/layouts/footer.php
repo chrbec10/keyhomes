@@ -5,8 +5,14 @@
         <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" alt="Key Homes Logo" height="75px">
       </div>
       <div class="col-md-6 text-md-end">
-        <!--This will be changed later to have a nice icon-->
-        <a href="#" class="btn btn-large btn-primary rounded-circle p-4">FB</a>
+        <a href="https://visioncollege.ac.nz/" class="d-inline-block btn-primary p-3 text-white rounded-circle me-1"
+          target="_blank">
+          <i class="fab fa-facebook fs-3"></i></a>
+        <a href="https://visioncollege.ac.nz/" class="d-inline-block btn-primary p-3 text-white rounded-circle"
+          target="_blank">
+          <i class="fab fa-instagram fs-3"></i>
+        </a>
+
       </div>
     </div>
     <hr>
@@ -28,6 +34,7 @@
       Mitchell</div>
   </div>
 </div>
+</div> <!-- end header #content -->
 
 <script src="<?php echo $site_root ?>/static/js/popper.min.js"></script>
 <script>

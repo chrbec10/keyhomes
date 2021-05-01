@@ -1,6 +1,8 @@
 <?php
 require_once(__DIR__ . '/../config.php');
 
+session_start();
+
 $logged_in = false;
 $is_admin = false;
 $home_nav = $home_nav ?? false;
@@ -28,12 +30,14 @@ $home_nav = $home_nav ?? false;
 
   <!-- CSS -->
   <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/theme.css">
+  <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/font-awesome/css/all.css">
+  <!--Fonts-->
 
   <!-- Early loaded Scripts -->
   <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
 </head>
 
-<body>
+<body class="bg-dark">
   <!-- Styles the Navbar to be transparent if $home_nav is true -->
   <nav
     class="navbar navbar-expand-lg fixed-top main-nav <?php echo ($home_nav) ? 'home-nav transparent' : 'navbar-light bg-white' ?>"
@@ -58,26 +62,27 @@ $home_nav = $home_nav ?? false;
           </li>
 
           <!-- User IS logged in -->
-          <?php if ($logged_in) : ?>
+          <?php if ($_SESSION['loggedin']) : ?>
 
           <li class="nav-item">
             <a class="nav-link" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-              myUsername
+            <a class="nav-link dropdown-toggle text-capitalize" id="navbarDropdown" role="button"
+              data-bs-toggle="dropdown">
+              <?php echo $_SESSION['username'] ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="<?php echo $site_root ?>/my-account.php">Account Settings</a></li>
+              <!-- <li><a class="dropdown-item" href="<?php echo $site_root ?>/my-account.php">Account Settings</a></li> -->
 
               <!-- Only show the ACP link if the user is an admin -->
               <?php if ($is_admin) : ?>
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/admin">Admin Panel</a></li>
               <?php endif; ?>
 
-              <li>
+              <!-- <li>
                 <hr class="dropdown-divider">
-              </li>
+              </li> -->
               <li><a class="dropdown-item" href="<?php echo $site_root ?>/logout.php">Logout</a></li>
             </ul>
           </li>
@@ -86,7 +91,7 @@ $home_nav = $home_nav ?? false;
           <?php else : ?>
 
           <li class="w-100 me-2 mb-2 mb-lg-0"><a class="btn btn-outline-primary rounded-pill w-100"
-              href="<?php echo $site_root ?>/login.php">Login</a>
+              href="<?php echo $site_root ?>/login.php" id="loginButton">Login</a>
           </li>
           <li class="w-100"><a class="btn btn-primary rounded-pill w-100"
               href="<?php echo $site_root ?>/register.php">Register</a></li>
@@ -99,3 +104,4 @@ $home_nav = $home_nav ?? false;
       </div>
     </div>
   </nav>
+  <div id="content" class="bg-white">

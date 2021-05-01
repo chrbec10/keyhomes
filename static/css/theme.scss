@@ -57,6 +57,14 @@ nav.main-nav {
 				.nav-link {
 					color: #fff;
 				}
+				#loginButton {
+					color: #fff;
+					border-color: #fff;
+					&:hover {
+						background-color: #fff;
+						color: #000;
+					}
+				}
 			}
 		}
 	}
@@ -114,4 +122,12 @@ nav.main-nav {
 	border: 1px solid;
 	color: $secondary;
 	border-color: $secondary;
+}
+
+.wishlistButton {
+	cursor: pointer;
+
+	&.wishlisted {
+		color: #e6a816;
+	}
 }

@@ -11376,6 +11376,14 @@ nav.main-nav .logo-dark {
   nav.main-nav.home-nav.transparent .nav-link {
     color: #fff;
   }
+  nav.main-nav.home-nav.transparent #loginButton {
+    color: #fff;
+    border-color: #fff;
+  }
+  nav.main-nav.home-nav.transparent #loginButton:hover {
+    background-color: #fff;
+    color: #000;
+  }
 }
 
 .has-overlay {
@@ -11429,5 +11437,13 @@ nav.main-nav .logo-dark {
   border: 1px solid;
   color: #6c757d;
   border-color: #6c757d;
+}
+
+.wishlistButton {
+  cursor: pointer;
+}
+
+.wishlistButton.wishlisted {
+  color: #e6a816;
 }
 /*# sourceMappingURL=theme.css.map */

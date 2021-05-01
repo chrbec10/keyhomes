@@ -4,29 +4,72 @@ $title = "Listings in Hamilton"; //The Page Title
 require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
 
+//Get the user's wishlisted listings
+if ($_SESSION['loggedin']) {
+  $sql = "SELECT property_ID FROM wishlist WHERE user_ID = :user_id";
+  if ($stmt = $pdo->prepare($sql)) {
+    $stmt->bindParam(':user_id', $_SESSION['id']);
+
+    if ($stmt->execute()) {
+      $user_wishlisted = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'property_ID');
+    }
+  }
+}
+
 ?>
 
 <div class="content-top-padding pb-4 bg-light">
   <div class="container mt-4">
-    <h1>All Listings</h1>
+    <h1>
+      <?php echo !empty($_GET['city']) ? "" : 'All ' ?>Listings<?php echo !empty($_GET['city']) ? " in {$_GET['city']}" : '' ?>
+    </h1>
     <div class="row">
       <div class="col-md-8 col-lg-9">
         <div class="card card-body py-4">
           <div class="container-fluid">
 
             <?php
+            //Init arrays to store conditions and parameters for the route query
+            $conditions = [];
+            $parameters = [];
+
+            //Add city to query
+            if (!empty($_GET['city'])) {
+              $conditions[] = 'city = ?';
+              $parameters[] = $_GET['city'];
+            }
+
+            if (!empty($_GET['minPrice'])) {
+              $conditions[] = 'price > ?';
+              $parameters[] = $_GET['minPrice'];
+            }
+
+            if (!empty($_GET['maxPrice'])) {
+              $conditions[] = 'price < ?';
+              $parameters[] = $_GET['maxPrice'];
+            }
+
+            //Prepare the main select statement
             $sql = "
-            SELECT property.property_ID, saleType, price, description, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
+            SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
               SELECT * FROM gallery WHERE gallery.image_ID IN (
                 SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID 
               )
             )
-            AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID";
+            AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID ";
 
+            //Add the where conditions to the statement
+            if ($conditions) {
+              $sql .= " WHERE " . implode(' AND ', $conditions);
+            }
+
+            //Attempt to execute the statement
             if ($stmt = $pdo->prepare($sql)) {
 
-              if ($stmt->execute()) :
+              if ($stmt->execute($parameters)) :
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                //Loop over the results
                 for ($i = 0; $i < count($results); $i++) :
                   $listing = $results[$i];
             ?>
@@ -43,14 +86,52 @@ require_once('./includes/db.php'); //Connect to the database
               </div>
               <div class="col-md-8">
                 <div class="row">
-                  <div class="col h5"><a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">Property Title
-                      <?php echo $i + 1 ?></a>
+                  <div class="col fs-5"><a
+                      href="/listing.php?id=<?php echo $listing['property_ID'] ?>"><?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></a>
                   </div>
-                  <div class="col-auto"><a href="#" data-bs-toggle="tooltip" data-bs-placement="left"
-                      title="Add to Wishlist">+Wishlist</a></div>
+                  <div class="col-auto">
+
+                    <!-- Show the correct wishlist button per listing -->
+                    <?php if ($_SESSION['loggedin']) : ?>
+                    <i class="fs-5 wishlistButton <?php echo in_array($listing['property_ID'], $user_wishlisted) ? 'wishlisted fas fa-star' : 'far fa-star' ?>"
+                      data-bs-toggle="tooltip" data-bs-placement="left"
+                      data-kh-listing-id="<?php echo $listing['property_ID'] ?>" title="Add to Wishlist"></i>
+                    <?php else : ?>
+                    <a href="/login.php" class="text-dark">
+                      <i class="fs-5 wishlistButton far fa-star" data-bs-toggle="tooltip" data-bs-placement="left"
+                        title="Wishlist (Requires Login)"> </i>
+                    </a>
+                    <?php endif; ?>
+                  </div>
                 </div>
+                <p class="mb-0 fs-5 fw-bold">
+                  <?php switch ($listing['saleType']) {
+                          case 'Sale':
+                            echo "Sale";
+                            if ($listing['price'] > 0) {
+                              echo ' $' . number_format($listing['price']);
+                            }
+                            break;
+                          case 'Auction':
+                            echo "Auction";
+                            if ($listing['price'] > 0) {
+                              echo ', Reserve $' . number_format($listing['price']);
+                            }
+                            break;
+                        } ?>
+                </p>
                 <p><?php echo $listing['description'] ?></p>
-                <p>3 Bdrm 1 Bthrm</p>
+                <p>
+                  <span class="me-2">
+                    <i class="fas fa-bed text-secondary"></i> <?php echo $listing['bedrooms'] ?>
+                  </span>
+                  <span class="me-2">
+                    <i class="fas fa-bath text-secondary"></i> <?php echo $listing['bathrooms'] ?>
+                  </span>
+                  <span>
+                    <i class="fas fa-warehouse text-secondary"></i> <?php echo $listing['garage'] ?>
+                  </span>
+                </p>
               </div>
             </div>
 
@@ -95,37 +176,68 @@ require_once('./includes/db.php'); //Connect to the database
 
           ?>
 
-
-          <form>
+          <form method="GET" action="listings.php">
             <label for="city" class="form-label mb-1">City:</label>
-            <select class="form-select mb-2" id="city">
-              <option selected>All of NZ</option>
+            <select class="form-select mb-2" name="city">
+              <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
               <?php foreach ($cities as $city) :
               ?>
-              <option value="<?php echo $city ?>"><?php echo $city ?></option>
+              <option value="<?php echo $city ?>" <?php echo ($_GET['city'] == $city) ? 'selected' : '' ?>>
+                <?php echo $city ?></option>
               <?php endforeach;
               ?>
             </select>
 
-            <label for="suburb" class="form-label mb-1">Suburb:</label>
-            <select class="form-select mb-2" id="suburb">
-              <option selected>Any Suburb</option>
-              <option value="Fairview Downs">Fairview Downs</option>
-              <option value="Huntington">Huntington</option>
-              <option value="Hillcrest">Hillcrest</option>
-            </select>
-
             <div class="mb-1">Price Range:</div>
             <div class="row mb-1">
-              <div class="col-md-6">
-                <input type="text" class="form-control" id="minPrice" placeholder="$ Min">
+              <div class="col">
+                <select class="form-select" name="minPrice" id="minPrice">
+
+                  <?php
+                  $priceFilterValues = [
+                    '', 100000, 150000, 200000, 250000, 300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1100000, 1200000, 1300000, 1400000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000, 2250000, 2500000, 2750000, 3000000, 3500000, 4000000, 5000000, 6000000, 7000000, 8000000, 9000000, 10000000
+                  ];
+
+                  foreach ($priceFilterValues as $option) :
+                    $formatted = '$';
+                    if ($option == '') {
+                      $formatted = 'Any';
+                    } else if ($option < 1000000) {
+                      $formatted .= $option / 1000 . 'k';
+                    } else {
+                      $formatted .= $option / 1000000 . 'M';
+                    }
+                  ?>
+                  <option value="<?php echo $option ?>" <?php echo ($option == $_GET['minPrice']) ? 'selected' : '' ?>>
+                    <?php echo $formatted ?></option>
+                  <?php endforeach; ?>
+                </select>
               </div>
-              <div class="col-md-6">
-                <input type="text" class="form-control" id="maxPrice" placeholder="$ Max">
+              <div class="col-auto px-0 pt-2">
+                to
+              </div>
+              <div class="col">
+                <select class="form-select" name="maxPrice" id="maxPrice">
+
+                  <?php
+                  foreach ($priceFilterValues as $option) :
+                    $formatted = '$';
+                    if ($option == '') {
+                      $formatted = 'Any';
+                    } else if ($option < 1000000) {
+                      $formatted .= $option / 1000 . 'k';
+                    } else {
+                      $formatted .= $option / 1000000 . 'M';
+                    }
+                  ?>
+                  <option value="<?php echo $option ?>" <?php echo ($option == $_GET['maxPrice']) ? 'selected' : '' ?>>
+                    <?php echo $formatted ?></option>
+                  <?php endforeach; ?>
+
+                </select>
               </div>
             </div>
-            <input type="range" class="form-range" id="minRange" min="0" step="10000" max="100000">
-            <input type="range" class="form-range" id="maxRange" min="0" step="10000" max="100000">
+
             <button class="btn btn-primary mt-2 rounded-pill w-100">Filter</button>
           </form>
 
@@ -134,6 +246,62 @@ require_once('./includes/db.php'); //Connect to the database
     </div>
   </div>
 </div>
+
+<script>
+var minPrice = document.getElementById('minPrice');
+var maxPrice = document.getElementById('maxPrice');
+
+maxPrice.addEventListener('input', () => {
+  if (maxPrice.value < minPrice.value && maxPrice.value != '') {
+    minPrice.value = maxPrice.value;
+  }
+})
+minPrice.addEventListener('input', () => {
+  if (minPrice.value > maxPrice.value && maxPrice.value != '') {
+    maxPrice.value = minPrice.value;
+  }
+})
+</script>
+
+<script>
+var wishlistButtons = document.getElementsByClassName('wishlistButton');
+
+for (button of wishlistButtons) {
+  button.addEventListener('click', (e) => {
+    console.log(e.target.dataset.khListingId);
+
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", '/services/wishlist-service.php', false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.addEventListener('readystatechange', () => {
+      console.log('hi');
+
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log(xhr.responseText);
+        var res = JSON.parse(xhr.responseText);
+        console.log(res);
+
+        console.log(e.target.classList);
+
+        if (res.wishlisted == "true") {
+          console.log('adding');
+          e.target.classList.add('wishlisted', 'fas');
+          e.target.classList.remove('far');
+        } else {
+          console.log('removing');
+          e.target.classList.remove('wishlisted', 'fas')
+          e.target.classList.add('far');
+        }
+      }
+
+    })
+
+    xhr.send(`propertyid=${e.target.dataset.khListingId}`);
+
+  })
+}
+</script>
 
 <?php
 require_once('./includes/layouts/footer.php'); //Gets the footer
