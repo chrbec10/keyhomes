@@ -57,6 +57,14 @@ nav.main-nav {
 				.nav-link {
 					color: #fff;
 				}
+				#loginButton {
+					color: #fff;
+					border-color: #fff;
+					&:hover {
+						background-color: #fff;
+						color: #000;
+					}
+				}
 			}
 		}
 	}

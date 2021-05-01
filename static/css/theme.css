@@ -11376,6 +11376,14 @@ nav.main-nav .logo-dark {
   nav.main-nav.home-nav.transparent .nav-link {
     color: #fff;
   }
+  nav.main-nav.home-nav.transparent #loginButton {
+    color: #fff;
+    border-color: #fff;
+  }
+  nav.main-nav.home-nav.transparent #loginButton:hover {
+    background-color: #fff;
+    color: #000;
+  }
 }
 
 .has-overlay {
