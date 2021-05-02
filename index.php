@@ -93,7 +93,7 @@ if ($result = $pdo->query($sql)) {
       <!-- Get the Latest Listings and their first added image. Then, loop through those listings -->
       <?php
       $sql = "
-      SELECT property.property_ID, bedrooms, bathrooms, garage, image FROM property JOIN (
+      SELECT property.property_ID, streetNum, street, city, bedrooms, bathrooms, garage, image FROM property JOIN (
         SELECT * FROM gallery WHERE gallery.image_ID IN (
           SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
         )
@@ -104,11 +104,22 @@ if ($result = $pdo->query($sql)) {
         while ($row = $result->fetch()) :
       ?>
       <div class="col-sm-6 col-md-3 mb-4">
-        <div class="card">
+        <div class="card h-100">
           <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">Home Away From Home</h5>
-            <p class="card-text text-muted">Bdrm <?php echo $row['bedrooms'] ?> Bthrm <?php echo $row['bathrooms'] ?>
+            <h5 class="card-title">
+              <?php echo "{$row['streetNum']} {$row['street']}, {$row['city']}" ?>
+            </h5>
+            <p class="card-text text-muted">
+              <span class="me-2">
+                <i class="fas fa-bed text-secondary"></i> <?php echo $row['bedrooms'] ?>
+              </span>
+              <span class="me-2">
+                <i class="fas fa-bath text-secondary"></i> <?php echo $row['bathrooms'] ?>
+              </span>
+              <span>
+                <i class="fas fa-warehouse text-secondary"></i> <?php echo $row['garage'] ?>
+              </span>
             </p>
             <div class="d-grid">
               <a href="listing.php?id=<?php echo $row['property_ID'] ?>" class="btn btn-secondary rounded-pill">View</a>

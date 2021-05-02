@@ -188,7 +188,9 @@ if ($stmt = $pdo->prepare($sql)) {
           <p class="mb-1">Phone: <a href="tel:<?php echo $listing['phone'] ?>"><?php echo $listing['phone'] ?></a></p>
           <p class="mb-4">Mobile: <a href="tel:<?php echo $listing['mobile'] ?>"><?php echo $listing['mobile'] ?></a>
           </p>
-          <a class="btn btn-primary w-100" href="mailto:<?php echo $listing['email'] ?>">Contact</a>
+          <a class="btn btn-primary w-100"
+            href="mailto:<?php echo $listing['email'] ?>?subject=Inquiry: <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?>">Make
+            an Inquiry</a>
         </div>
       </div>
     </div>
