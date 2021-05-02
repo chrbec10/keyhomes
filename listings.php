@@ -32,22 +32,6 @@ require_once('./includes/db.php'); //Connect to the database
   </div>
 </div>
 
-<script>
-var minPrice = document.getElementById('minPrice');
-var maxPrice = document.getElementById('maxPrice');
-
-maxPrice.addEventListener('input', () => {
-  if (maxPrice.value < minPrice.value && maxPrice.value != '') {
-    minPrice.value = maxPrice.value;
-  }
-})
-minPrice.addEventListener('input', () => {
-  if (minPrice.value > maxPrice.value && maxPrice.value != '') {
-    maxPrice.value = minPrice.value;
-  }
-})
-</script>
-
 <?php
 require_once('./includes/layouts/footer.php'); //Gets the footer
 ?>

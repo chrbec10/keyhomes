@@ -73,3 +73,19 @@ $cities = json_decode($filters['cities']);
 
   <button class="btn btn-primary mt-2 rounded-pill w-100">Filter</button>
 </form>
+
+<script>
+var minPrice = document.getElementById('minPrice');
+var maxPrice = document.getElementById('maxPrice');
+
+maxPrice.addEventListener('input', () => {
+  if (maxPrice.value < minPrice.value && maxPrice.value != '') {
+    minPrice.value = maxPrice.value;
+  }
+})
+minPrice.addEventListener('input', () => {
+  if (minPrice.value > maxPrice.value && maxPrice.value != '') {
+    maxPrice.value = minPrice.value;
+  }
+})
+</script>
