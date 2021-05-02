@@ -62,6 +62,7 @@
     if ($stmt->execute($parameters)) :
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+      $next_id = $results[$limit]['property_ID'] ?? false;
 
       require('pagination.php');
 
