@@ -104,7 +104,7 @@ if ($result = $pdo->query($sql)) {
         while ($row = $result->fetch()) :
       ?>
       <div class="col-sm-6 col-md-3 mb-4">
-        <div class="card">
+        <div class="card h-100">
           <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">
