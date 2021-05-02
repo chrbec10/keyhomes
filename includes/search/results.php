@@ -52,7 +52,7 @@
     $sql .= " WHERE " . implode(' AND ', $conditions);
   }
 
-  $limit = 4;
+  $limit = 3;
   $sql .= ' ORDER BY property.property_ID ASC';
   $sql .= ' LIMIT ' . ($limit + 1);
 
@@ -62,22 +62,8 @@
     if ($stmt->execute($parameters)) :
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  ?>
 
- <nav aria-label="Page navigation">
-   <ul class="pagination justify-content-center">
-     <li class="page-item <?php echo ($_GET['start'] <= 0) ? 'disabled' : '' ?>">
-       <a class="page-link"
-         href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', max(0, (int) $_GET['start'] - $limit - 1)); ?>">Previous</a>
-     </li>
-     <li class="page-item <?php echo (count($results) < $limit + 1) ? 'disabled' : '' ?>">
-       <a class="page-link"
-         href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', (int) $_GET['start'] + $limit + 1); ?>">Next</a>
-     </li>
-   </ul>
- </nav>
-
- <?php
+      require('pagination.php');
 
       //Loop over the results
       for ($i = 0; $i < count($results); $i++) :
@@ -85,7 +71,7 @@
           break;
         }
         $listing = $results[$i];
-      ?>
+  ?>
 
  <div class="row mb-3">
    <div class="col-md-4">
@@ -155,19 +141,9 @@
       endfor;
     endif;
   }
+  require('pagination.php');
+
   ?>
- <nav aria-label="Page navigation">
-   <ul class="pagination justify-content-center">
-     <li class="page-item <?php echo ($_GET['start'] <= 0) ? 'disabled' : '' ?>">
-       <a class="page-link"
-         href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', max(0, (int) $_GET['start'] - $limit - 1)); ?>">Previous</a>
-     </li>
-     <li class="page-item <?php echo (count($results) < $limit) ? 'disabled' : '' ?>">
-       <a class="page-link"
-         href="<?php echo change_url_parameter($_SERVER['REQUEST_URI'], 'start', (int) $_GET['start'] + $limit + 1); ?>">Next</a>
-     </li>
-   </ul>
- </nav>
 
  <script>
 var wishlistButtons = document.getElementsByClassName('wishlistButton');
