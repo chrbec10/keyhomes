@@ -168,3 +168,43 @@
      </li>
    </ul>
  </nav>
+
+ <script>
+var wishlistButtons = document.getElementsByClassName('wishlistButton');
+
+for (button of wishlistButtons) {
+  button.addEventListener('click', (e) => {
+    console.log(e.target.dataset.khListingId);
+
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", '/services/wishlist-service.php', false);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.addEventListener('readystatechange', () => {
+      console.log('hi');
+
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log(xhr.responseText);
+        var res = JSON.parse(xhr.responseText);
+        console.log(res);
+
+        console.log(e.target.classList);
+
+        if (res.wishlisted == "true") {
+          console.log('adding');
+          e.target.classList.add('wishlisted', 'fas');
+          e.target.classList.remove('far');
+        } else {
+          console.log('removing');
+          e.target.classList.remove('wishlisted', 'fas')
+          e.target.classList.add('far');
+        }
+      }
+
+    })
+
+    xhr.send(`propertyid=${e.target.dataset.khListingId}`);
+
+  })
+}
+ </script>
