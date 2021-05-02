@@ -62,6 +62,7 @@ $home_nav = $home_nav ?? false;
           </li>
 
           <!-- User IS logged in -->
+          <!-- Throwing an error if user not logged in. Try checking isset instead-->
           <?php if ($_SESSION['loggedin']) : ?>
 
           <li class="nav-item">

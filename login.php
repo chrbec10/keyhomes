@@ -59,6 +59,7 @@ require_once('./includes/layouts/header.php');
     <div class="col-md-6 col-lg-5 ">
       <h1>Login</h1>
 
+      <!--Warning: Undefined variable $verification_err in C:\xampp\htdocs\vcassignment7\login.php on line 63-->
       <?php if ($verification_err) : ?>
       <div class="alert alert-danger mb-1" role="alert">
         Username or Password was incorrect
