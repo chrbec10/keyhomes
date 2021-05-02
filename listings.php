@@ -16,19 +16,7 @@ require_once('./includes/db.php'); //Connect to the database
         <div class="card card-body py-4">
           <div class="container-fluid">
 
-            <?php
-            function change_url_parameter($url, $parameter, $parameterValue)
-            {
-              $url = parse_url($url);
-              parse_str($url["query"], $parameters);
-              unset($parameters[$parameter]);
-              $parameters[$parameter] = $parameterValue;
-              return  $url["path"] . "?" . http_build_query($parameters);
-            }
-
-            require('./includes/search/results.php');
-
-            ?>
+            <?php require('./includes/search/results.php') ?>
 
           </div>
 
