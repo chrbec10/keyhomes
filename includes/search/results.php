@@ -139,7 +139,7 @@
  </div>
 
  <?php
-        if ($i < count($results) - 2) {
+        if ($i < count($results) - 1) {
           echo '<hr>';
         }
       endfor;
