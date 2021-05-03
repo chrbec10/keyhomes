@@ -113,6 +113,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $input_description = trim($_POST["description"]);
     //validate description
     validateInput($input_description, $description_err, $description, "Please enter a description for the property");
+
+    //Check for input errors before trying to insert into database
+    if(empty($saleType_err) && empty($price_err) && empty($description_err) && empty($bedrooms_err) && empty($bathrooms_err) 
+    && empty($garage_err) && empty($agent_ID_err) && empty($streetNum_err) && empty($street_err) && empty($city_err) && empty($postcode_err)){
+        $sql = "INSERT INTO property (saleType, price, description, bedrooms, bathrooms, garage, agent_ID, streetNum, street, city, postcode) 
+        VALUES (:saleType, :price, :description, :bedrooms, :bathrooms, :garage, :agent_ID, :streetNum, :street, :city, :postcode)";
+
+        if ($stmt = $pdo->prepare($sql)){
+            //Bind variables to the prepared statement as parameters
+            $stmt->bindParam(":saleType", $param_saleType);
+            $stmt->bindParam(":price", $param_price);
+            $stmt->bindParam(":description", $param_description);
+            $stmt->bindParam(":bedrooms", $param_bedrooms);
+            $stmt->bindParam(":bathrooms", $param_bathrooms);
+            $stmt->bindParam(":garage", $param_garage);
+            $stmt->bindParam(":agent_ID", $param_agent_ID);
+            $stmt->bindParam(":streetNum", $param_streetNum);
+            $stmt->bindParam(":street", $param_street);
+            $stmt->bindParam(":city", $param_city);
+            $stmt->bindParam(":postcode", $param_postcode);
+
+            //Set parameters
+            $param_saleType = $saleType;
+            $param_price = $price;
+            $param_description = $description;
+            $param_bedrooms = $bedrooms;
+            $param_bathrooms = $bathrooms;
+            $param_garage = $garage;
+            $param_agent_ID = $agent_ID;
+            $param_streetNum = $streetNum;
+            $param_street = $street;
+            $param_city = $city;
+            $param_postcode = $postcode;
+
+            if ($stmt->execute()){
+                header("location: index.php");
+                exit();
+
+            } else {
+                echo "Oops! Something went wrong. Please try again later.";
+            }
+        }
+        //closing connection
+        unset($pdo);
+    }
 }
 
 
