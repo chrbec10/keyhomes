@@ -15,7 +15,8 @@ $cities = json_decode($filters['cities']);
     <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
     <?php foreach ($cities as $city) :
     ?>
-    <option value="<?php echo $city ?>" <?php echo ($_GET['city'] == $city) ? 'selected' : '' ?>>
+    <option value="<?php echo $city ?>"
+      <?php echo (isset($_GET['city']) && $_GET['city'] == $city) ? 'selected' : '' ?>>
       <?php echo $city ?></option>
     <?php endforeach;
     ?>
@@ -41,7 +42,8 @@ $cities = json_decode($filters['cities']);
             $formatted .= $option / 1000000 . 'M';
           }
         ?>
-        <option value="<?php echo $option ?>" <?php echo ($option == $_GET['minPrice']) ? 'selected' : '' ?>>
+        <option value="<?php echo $option ?>"
+          <?php echo (isset($_GET['minPrice']) && $option == $_GET['minPrice']) ? 'selected' : '' ?>>
           <?php echo $formatted ?></option>
         <?php endforeach; ?>
       </select>
@@ -63,7 +65,8 @@ $cities = json_decode($filters['cities']);
             $formatted .= $option / 1000000 . 'M';
           }
         ?>
-        <option value="<?php echo $option ?>" <?php echo ($option == $_GET['maxPrice']) ? 'selected' : '' ?>>
+        <option value="<?php echo $option ?>"
+          <?php echo (isset($_GET['maxPrice']) && $option == $_GET['maxPrice']) ? 'selected' : '' ?>>
           <?php echo $formatted ?></option>
         <?php endforeach; ?>
 

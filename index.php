@@ -48,7 +48,7 @@ if ($result = $pdo->query($sql)) {
                 <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
                 <?php foreach ($cities as $city) :
                 ?>
-                <option value="<?php echo $city ?>" <?php echo ($_GET['city'] == $city) ? 'selected' : '' ?>>
+                <option value="<?php echo $city ?>">
                   <?php echo $city ?></option>
                 <?php endforeach;
                 ?>

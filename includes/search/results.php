@@ -1,24 +1,17 @@
  <?php
-  //Alters the params in a URL
-  function change_url_parameter($url, $parameter, $parameterValue)
-  {
-    $url = parse_url($url);
-    parse_str($url["query"], $parameters);
-    unset($parameters[$parameter]);
-    $parameters[$parameter] = $parameterValue;
-    return  $url["path"] . "?" . http_build_query($parameters);
-  }
-
   //Prepare the main select statement
   $sql = "
-            SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image, wishlist.user_ID FROM property LEFT JOIN (
-              SELECT * FROM gallery WHERE gallery.image_ID IN (
-                SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID 
-              )
-            )
-            AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID
-            LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = 3) AS wishlist ON wishlist.property_ID = property.property_ID
-            ";
+  SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image, wishlist.user_ID FROM property LEFT JOIN (
+    SELECT * FROM gallery WHERE gallery.image_ID IN (
+      SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID 
+      )
+      )
+      AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID
+      LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = 3) AS wishlist ON wishlist.property_ID = property.property_ID
+      ";
+
+  $conditions = [];
+  $parameters = [];
 
   //Offsets the results by a id (for pagination)
   if (!empty($_GET['start'])) {
@@ -45,7 +38,7 @@
   }
 
   //Add the where conditions to the statement
-  if ($conditions) {
+  if (!empty($conditions)) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
   }
 
@@ -109,20 +102,10 @@
          </div>
        </div>
        <p class="mb-0 fs-5 fw-bold">
-         <?php switch ($listing['saleType']) {
-                    case 'Sale':
-                      echo "Sale";
-                      if ($listing['price'] > 0) {
-                        echo ' $' . number_format($listing['price']);
-                      }
-                      break;
-                    case 'Auction':
-                      echo "Auction";
-                      if ($listing['price'] > 0) {
-                        echo ', Reserve $' . number_format($listing['price']);
-                      }
-                      break;
-                  } ?>
+         <?php
+                  require_once(__DIR__ . '/../functions/format_price_text.php');
+                  echo format_price_text($listing['saleType'], $listing['price']);
+                  ?>
        </p>
        <p><?php echo $listing['description'] ?></p>
        <p>
