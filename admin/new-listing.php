@@ -74,11 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $input_street = trim($_POST["street"]);
     //Validate street
-    validateInput($input_street, $street_err, $street, "Please enter a street");
+    complexValidateInput($input_street, $street_err, $street, "Please enter a street name", "Please enter a valid street name", "/^[a-zA-Z-' ]*$/");
 
     $input_city = trim($_POST["city"]);
     //Validate city
-    validateInput($input_city, $city_err, $city, "Please enter a city");
+    complexValidateInput($input_city, $city_err, $city, "Please enter a city", "Please enter a valid city", "/^[a-zA-Z-' ]*$/");
 
     $input_postcode = trim($_POST["postcode"]);
     //Validate postcode
@@ -203,7 +203,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div class="form-group col">
                 <label for="street">Street</label>
-                <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value=" <?php echo $street ?>">
+                <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value="<?php echo $street ?>">
                 <span class="invalid-feedback"><?php echo $street_err;?></span>
             </div>
             <div class="form-group col-md-3">
