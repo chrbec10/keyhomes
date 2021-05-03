@@ -25,8 +25,9 @@ if ($result = $pdo->query($sql)) {
     background-size: cover; background-attachment: fixed;">
   <div class="dark-overlay"></div>
   <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
-    <div class="d-block">
-      <h1 class="text-white display-3 fw-normal" style="text-shadow: 2px 2px 3px #000000a8;">Find Your Perfect Home</h1>
+    <div class="container d-block">
+      <h1 class="text-white display-3 fw-normal text-center" style="text-shadow: 2px 2px 3px #000000a8;">
+        Find Your Perfect Home</h1>
       <div class="card bg-dark p-3">
 
         <!-- Get the values to use in the filter options -->
@@ -42,7 +43,7 @@ if ($result = $pdo->query($sql)) {
 
         <form action="listings.php" method="GET">
           <div class="row">
-            <div class="col">
+            <div class="col-sm mb-2 mb-sm-0">
               <select class="form-select rounded-pill " name="city">
                 <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
                 <?php foreach ($cities as $city) :
@@ -53,7 +54,7 @@ if ($result = $pdo->query($sql)) {
                 ?>
               </select>
             </div>
-            <div class="col-3">
+            <div class="col-sm-4 col-md-3">
               <button class="btn btn-primary rounded-pill  w-100" type="submit">Search</button>
             </div>
           </div>
@@ -103,7 +104,7 @@ if ($result = $pdo->query($sql)) {
       if ($result = $pdo->query($sql)) :
         while ($row = $result->fetch()) :
       ?>
-      <div class="col-sm-6 col-md-3 mb-4">
+      <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-4">
         <div class="card h-100">
           <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
           <div class="card-body">
@@ -144,8 +145,8 @@ if ($result = $pdo->query($sql)) {
   <div class="row">
     <div class="col-md-4 col-lg-6 d-none d-md-block" style="background-image: url('static/img/comfy-interior.jpg'); background-position: center 37%;
     background-size: cover;"></div>
-    <div class="col-md-8 col-lg-6 p-5">
-      <div class="container p-5">
+    <div class="col-md-8 col-lg-6 p-md-5">
+      <div class="container py-5 p-sm-5">
         <h2>Why Choose Us?</h2>
         <p>We make it our mission to bring all the best properties in New Zealand to your fingertips.</p>
         <h3>Wide Range of Properties</h3>

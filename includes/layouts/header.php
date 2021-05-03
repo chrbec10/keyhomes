@@ -65,14 +65,14 @@ $home_nav = $home_nav ?? false;
           <?php if ($_SESSION['loggedin']) : ?>
 
           <li class="nav-item">
-            <a class="nav-link" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
+            <a class="nav-link active" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-capitalize" id="navbarDropdown" role="button"
+            <a class="nav-link active dropdown-toggle text-capitalize" id="navbarDropdown" role="button"
               data-bs-toggle="dropdown">
               <?php echo $_SESSION['username'] ?>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
+            <ul class="dropdown-menu dropdown-menu-end text-center">
               <!-- <li><a class="dropdown-item" href="<?php echo $site_root ?>/my-account.php">Account Settings</a></li> -->
 
               <!-- Only show the ACP link if the user is an admin -->
@@ -83,7 +83,7 @@ $home_nav = $home_nav ?? false;
               <!-- <li>
                 <hr class="dropdown-divider">
               </li> -->
-              <li><a class="dropdown-item" href="<?php echo $site_root ?>/logout.php">Logout</a></li>
+              <li><a class="dropdown-item text-danger" href="<?php echo $site_root ?>/logout.php">Logout</a></li>
             </ul>
           </li>
 
