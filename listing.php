@@ -1,7 +1,5 @@
 <?php
 
-$title = "Listing Name"; //The Page Title
-require_once('./includes/layouts/header.php'); //Gets the header
 
 //Checks whether an ID route query parameter has been provided
 if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
@@ -40,6 +38,9 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
   header('location: 404.php');
   exit();
 }
+
+$title = "{$listing['streetNum']} {$listing['street']}, {$listing['city']}"; //The Page Title
+require_once('./includes/layouts/header.php'); //Gets the header
 
 //See if this Listing is on the user's wishlist
 $sql = "SELECT property_ID FROM wishlist WHERE user_ID = :user_id AND property_ID = :property_id";
