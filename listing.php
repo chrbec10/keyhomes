@@ -155,17 +155,19 @@ if ($stmt = $pdo->prepare($sql)) {
       <h2 class="h4 mb-2">
         <?php echo "{$listing['city']} {$listing['postcode']}" ?></h2>
       <p class="fs-3 fw-bold mb-2">Offers Over $<?php echo $listing['price'] ?></p>
-      <div class="mb-4">
-        <div class="badge feature rounded-pill me-1"><i class="fas fa-bed me-1"></i><?php echo $listing['bedrooms'] ?>
+      <div class="mb-2 mb-md-4">
+        <div class="badge feature rounded-pill me-1 mb-1"><i
+            class="fas fa-bed me-1"></i><?php echo $listing['bedrooms'] ?>
           Bedrooms</div>
-        <div class="badge feature rounded-pill me-1"><i class="fas fa-bath me-1"></i><?php echo $listing['bathrooms'] ?>
+        <div class="badge feature rounded-pill me-1 mb-1"><i
+            class="fas fa-bath me-1"></i><?php echo $listing['bathrooms'] ?>
           Bathrooms</div>
-        <div class="badge feature rounded-pill me-1"><i
+        <div class="badge feature rounded-pill me-1 mb-1"><i
             class="fas fa-warehouse me-1"></i><?php echo $listing['garage'] ?>
           Garages</div>
       </div>
 
-      <p><?php echo $listing['description'] ?></p>
+      <p class="mb-4"><?php echo $listing['description'] ?></p>
 
       <!-- Map might go here -->
       <iframe class="rounded bg-light" width="100%" height="400" style="border:0" loading="lazy" allowfullscreen
@@ -175,6 +177,8 @@ if ($stmt = $pdo->prepare($sql)) {
     <div class="col-md-4">
       <div class="card shadow-sm">
         <div class="card-header text-center fs-3">
+          <span class="fs-6 text-muted" style="line-height: 1.1;">Listing Agent</span>
+          <br>
           <?php echo $listing['fname'] . ' ' . $listing['lname'] ?>
         </div>
 
