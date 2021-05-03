@@ -3,11 +3,16 @@ require_once(__DIR__ . '/../config.php');
 
 session_start();
 
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$logged_in = false;
+//If the user is not logged in, set logged in to false
+if (!isset($_SESSION['loggedin'])) {
+  $_SESSION['loggedin'] = false;
+}
+
 $is_admin = false;
 $home_nav = $home_nav ?? false;
 ?>
@@ -66,7 +71,7 @@ $home_nav = $home_nav ?? false;
           </li>
 
           <!-- User IS logged in -->
-          <?php if (isset($_SESSION['loggedin'])) : ?>
+          <?php if ($_SESSION['loggedin']) : ?>
 
           <li class="nav-item">
             <a class="nav-link active" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
