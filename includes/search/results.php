@@ -20,10 +20,6 @@
             LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = 3) AS wishlist ON wishlist.property_ID = property.property_ID
             ";
 
-  //Init arrays to store conditions and parameters for the route query
-  // $conditions = [];
-  // $parameters = [];
-
   //Offsets the results by a id (for pagination)
   if (!empty($_GET['start'])) {
     $conditions[] = 'property.property_ID >= ?';
@@ -36,22 +32,24 @@
     $parameters[] = $_GET['city'];
   }
 
+  //Add min price to query
   if (!empty($_GET['minPrice'])) {
     $conditions[] = 'price > ?';
     $parameters[] = $_GET['minPrice'];
   }
 
+  //Add max price to query
   if (!empty($_GET['maxPrice'])) {
     $conditions[] = 'price < ?';
     $parameters[] = $_GET['maxPrice'];
   }
-
 
   //Add the where conditions to the statement
   if ($conditions) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
   }
 
+  //Max amount of results that should be displayed
   $limit = 3;
   $sql .= ' ORDER BY property.property_ID ASC';
   $sql .= ' LIMIT ' . ($limit + 1);
@@ -72,7 +70,6 @@
  <div id="results" class="my-4">
 
    <?php
-
           //Loop over the results
           for ($i = 0; $i < count($results); $i++) :
             if ($i >= $limit) {
@@ -143,24 +140,33 @@
    </div>
 
    <?php
+
+            //Add a HR if this is not the last result to display
             if ($i < count($results) - 2) {
               echo '<hr>';
             }
           endfor;
 
-          require('pagination.php');
-        else :
           ?>
+ </div> <!-- #results -->
 
-   <p class="fs-5 text-center text-muted">No Results</p>
+ <?php
+        require('pagination.php');
 
-   <?php
-        endif; // Count($results) > 0
-      endif; // $stmt->execute()
-    }
-    ?>
- </div>
+      else : //If there's no results
+      ?>
+
+ <p class="fs-5 text-center text-muted">No Results</p>
+
+ <?php
+      endif; // Count($results) > 0
+    endif; // $stmt->execute()
+  }
+  ?>
+
  <script>
+/* Makes all of the wishlist buttons interactive */
+
 var wishlistButtons = document.getElementsByClassName('wishlistButton');
 
 for (button of wishlistButtons) {
