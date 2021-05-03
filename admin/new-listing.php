@@ -4,7 +4,7 @@ $title = "New Listing"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
 
-//Defining our variables
+
 /*$inputs = array(
     'saleType' => '',
     'price' => '',
@@ -33,6 +33,7 @@ $errors = array(
     'postcode_err' => ''
 );*/
 
+//Defining our variables
 $saleType = $price = $description = $bedrooms = $bathrooms = $garage = $agent_ID = $streetNum = $street = $city = $postcode = '';
 $saleType_err = $price_err = $description_err = $bedrooms_err = $bathrooms_err = $garage_err = $agent_ID_err = $streetNum_err = $street_err = $city_err  = $postcode_err = '';
 
@@ -65,38 +66,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $input_agent = trim($_POST["agent"]);
     //Validate assigned agent
-    //complexValidateInput($input_agent, $agent_ID_err, $agent_ID, "Please select an agent to be assigned to this listing", "Please select an agent to be assigned to this listing", "/^[0-9]*$/");
     complexValidateInput($input_agent, $agent_ID_err, $agent_ID, "Please select an agent to be assigned to this listing", "Please select an agent to be assigned to this listing", "/^[0-9]*$/");
-
+    
     $input_streetNum = trim($_POST["streetNum"]);
     //Validate street number
     complexValidateInput($input_streetNum, $streetNum_err, $streetNum, "Please enter a street number", "Please enter a valid street number", "/^[a-zA-Z0-9]*$/");
-
 
     $input_street = trim($_POST["street"]);
     //Validate street
     validateInput($input_street, $street_err, $street, "Please enter a street");
 
-
     $input_city = trim($_POST["city"]);
     //Validate city
     validateInput($input_city, $city_err, $city, "Please enter a city");
-
 
     $input_postcode = trim($_POST["postcode"]);
     //Validate postcode
     complexValidateInput($input_postcode, $postcode_err, $postcode, "Please enter a postcode", "Please enter a valid postcode", "/^[0-9]*$/");
 
-
     $input_bedrooms = trim($_POST["bedrooms"]);
     //validate bedrooms
     complexValidateInput($input_bedrooms, $bedrooms_err, $bedrooms, "Please enter the number of bedrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
 
-
     $input_bathrooms = trim($_POST["bathrooms"]);
     //validate bedrooms
     complexValidateInput($input_bathrooms, $bathrooms_err, $bathrooms, "Please enter the number of bathrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
-
 
     $input_garage = trim($_POST["garage"]);
     //validate bedrooms
@@ -113,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $input_description = trim($_POST["description"]);
     //validate description
     validateInput($input_description, $description_err, $description, "Please enter a description for the property");
+
 
     //Check for input errors before trying to insert into database
     if(empty($saleType_err) && empty($price_err) && empty($description_err) && empty($bedrooms_err) && empty($bathrooms_err) 
@@ -155,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "Oops! Something went wrong. Please try again later.";
             }
         }
-        //closing connection
+        //close the connection
         unset($pdo);
     }
 }
