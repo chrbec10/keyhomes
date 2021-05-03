@@ -156,7 +156,7 @@
       else : //If there's no results
       ?>
 
- <p class="fs-5 text-center text-muted">No Results</p>
+ <p class="text-center text-muted">No Results</p>
 
  <?php
       endif; // Count($results) > 0
