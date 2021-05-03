@@ -1,15 +1,4 @@
  <?php
-  //Alters the params in a URL
-  function change_url_parameter($url, $parameter, $parameterValue)
-  {
-    $url = parse_url($url);
-    parse_str($url["query"], $parameters);
-    unset($parameters[$parameter]);
-    $parameters[$parameter] = $parameterValue;
-    return  $url["path"] . "?" . http_build_query($parameters);
-  }
-
-
   //Prepare the main select statement
   $sql = "
   SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image, wishlist.user_ID FROM property LEFT JOIN (
