@@ -62,22 +62,24 @@
     if ($stmt->execute($parameters)) :
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      $next_id = $results[$limit]['property_ID'] ?? false;
+      if (count($results) > 0) :
 
-      require('pagination.php');
+        $next_id = $results[$limit]['property_ID'] ?? false;
+
+        require('pagination.php');
   ?>
 
  <div id="results" class="my-4">
 
    <?php
 
-        //Loop over the results
-        for ($i = 0; $i < count($results); $i++) :
-          if ($i >= $limit) {
-            break;
-          }
-          $listing = $results[$i];
-        ?>
+          //Loop over the results
+          for ($i = 0; $i < count($results); $i++) :
+            if ($i >= $limit) {
+              break;
+            }
+            $listing = $results[$i];
+          ?>
 
    <div class="row mb-3">
      <div class="col-md-4">
@@ -111,19 +113,19 @@
        </div>
        <p class="mb-0 fs-5 fw-bold">
          <?php switch ($listing['saleType']) {
-                  case 'Sale':
-                    echo "Sale";
-                    if ($listing['price'] > 0) {
-                      echo ' $' . number_format($listing['price']);
-                    }
-                    break;
-                  case 'Auction':
-                    echo "Auction";
-                    if ($listing['price'] > 0) {
-                      echo ', Reserve $' . number_format($listing['price']);
-                    }
-                    break;
-                } ?>
+                    case 'Sale':
+                      echo "Sale";
+                      if ($listing['price'] > 0) {
+                        echo ' $' . number_format($listing['price']);
+                      }
+                      break;
+                    case 'Auction':
+                      echo "Auction";
+                      if ($listing['price'] > 0) {
+                        echo ', Reserve $' . number_format($listing['price']);
+                      }
+                      break;
+                  } ?>
        </p>
        <p><?php echo $listing['description'] ?></p>
        <p>
@@ -141,20 +143,23 @@
    </div>
 
    <?php
-          if ($i < count($results) - 2) {
-            echo '<hr>';
-          }
-        endfor;
-      endif;
+            if ($i < count($results) - 2) {
+              echo '<hr>';
+            }
+          endfor;
+
+          require('pagination.php');
+        else :
+          ?>
+
+   <p class="fs-5 text-center text-muted">No Results</p>
+
+   <?php
+        endif; // Count($results) > 0
+      endif; // $stmt->execute()
     }
     ?>
  </div>
-
- <?php
-      require('pagination.php');
-
-      ?>
-
  <script>
 var wishlistButtons = document.getElementsByClassName('wishlistButton');
 
