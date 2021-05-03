@@ -7,7 +7,7 @@ if (!$_SESSION['loggedin']) {
   exit();
 }
 
-$title = "{$_SESSION['username']}'s Wishlist"; //The Page Title
+$title = ucfirst($_SESSION['username']) . "'s Wishlist"; //The Page Title
 require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
 ?>
