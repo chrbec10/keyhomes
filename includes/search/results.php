@@ -10,8 +10,12 @@
       LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = 3) AS wishlist ON wishlist.property_ID = property.property_ID
       ";
 
-  $conditions = [];
-  $parameters = [];
+  if (!isset($conditions)) {
+    $conditions = [];
+  }
+  if (!isset($parameters)) {
+    $parameters = [];
+  }
 
   //Offsets the results by a id (for pagination)
   if (!empty($_GET['start'])) {
