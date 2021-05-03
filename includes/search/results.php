@@ -109,20 +109,10 @@
          </div>
        </div>
        <p class="mb-0 fs-5 fw-bold">
-         <?php switch ($listing['saleType']) {
-                    case 'Sale':
-                      echo "Sale";
-                      if ($listing['price'] > 0) {
-                        echo ' $' . number_format($listing['price']);
-                      }
-                      break;
-                    case 'Auction':
-                      echo "Auction";
-                      if ($listing['price'] > 0) {
-                        echo ', Reserve $' . number_format($listing['price']);
-                      }
-                      break;
-                  } ?>
+         <?php
+                  require_once(__DIR__ . '/../functions/format_price_text.php');
+                  echo format_price_text($listing['saleType'], $listing['price']);
+                  ?>
        </p>
        <p><?php echo $listing['description'] ?></p>
        <p>

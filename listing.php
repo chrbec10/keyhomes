@@ -152,7 +152,12 @@ if ($stmt = $pdo->prepare($sql)) {
 
       <h2 class="h4 mb-2">
         <?php echo "{$listing['city']} {$listing['postcode']}" ?></h2>
-      <p class="fs-3 fw-bold mb-2">Offers Over $<?php echo $listing['price'] ?></p>
+      <p class="fs-3 fw-bold mb-2">
+        <?php
+        require('./includes/functions/format_price_text.php');
+        echo format_price_text($listing['saleType'], $listing['price']);
+        ?>
+      </p>
       <div class="mb-2 mb-md-4">
         <div class="badge feature rounded-pill me-1 mb-1"><i
             class="fas fa-bed me-1"></i><?php echo $listing['bedrooms'] ?>
