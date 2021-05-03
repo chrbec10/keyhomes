@@ -109,7 +109,9 @@ if ($result = $pdo->query($sql)) {
           <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">
-              <?php echo "{$row['streetNum']} {$row['street']}, {$row['city']}" ?>
+              <?php echo "{$row['streetNum']} {$row['street']}," ?>
+              <br>
+              <?php echo $row['city'] ?>
             </h5>
             <p class="card-text text-muted">
               <span class="me-2">
@@ -122,9 +124,10 @@ if ($result = $pdo->query($sql)) {
                 <i class="fas fa-warehouse text-secondary"></i> <?php echo $row['garage'] ?>
               </span>
             </p>
-            <div class="d-grid">
-              <a href="listing.php?id=<?php echo $row['property_ID'] ?>" class="btn btn-secondary rounded-pill">View</a>
-            </div>
+
+            <a href="listing.php?id=<?php echo $row['property_ID'] ?>"
+              class="btn btn-secondary rounded-pill w-100">View</a>
+
           </div>
         </div>
       </div>
