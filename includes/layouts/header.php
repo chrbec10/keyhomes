@@ -66,7 +66,7 @@ $home_nav = $home_nav ?? false;
           </li>
 
           <!-- User IS logged in -->
-          <?php if ($_SESSION['loggedin']) : ?>
+          <?php if (isset($_SESSION['loggedin'])) : ?>
 
           <li class="nav-item">
             <a class="nav-link active" href="<?php echo $site_root ?>/wishlist.php">My Wishlist</a>
