@@ -1,10 +1,10 @@
 <div class="container-fluid bg-dark text-white py-3">
   <div class="container mt-3">
     <div class="row text-center">
-      <div class="col-md-6 text-md-start">
+      <div class="col-sm-6 text-md-start mb-4 mb-sm-0">
         <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" alt="Key Homes Logo" height="75px">
       </div>
-      <div class="col-md-6 text-md-end">
+      <div class="col-sm-6 text-sm-end">
         <a href="https://visioncollege.ac.nz/" class="d-inline-block btn-primary p-3 text-white rounded-circle me-1"
           target="_blank">
           <i class="fab fa-facebook fs-3"></i></a>

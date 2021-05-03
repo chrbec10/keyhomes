@@ -128,9 +128,9 @@ if ($stmt = $pdo->prepare($sql)) {
     </div>
   </div>
 </div>
-<div class="container py-3">
+<div class="container py-3 mb-4">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-lg-8 col-xl-9 mb-4 mb-lg-0">
       <div class="row">
         <div class="col">
           <h1 class="fw-bold mb-1"><?php echo "{$listing['streetNum']} {$listing['street']}" ?></h1>
@@ -155,42 +155,53 @@ if ($stmt = $pdo->prepare($sql)) {
       <h2 class="h4 mb-2">
         <?php echo "{$listing['city']} {$listing['postcode']}" ?></h2>
       <p class="fs-3 fw-bold mb-2">Offers Over $<?php echo $listing['price'] ?></p>
-      <div class="mb-4">
-        <div class="badge feature rounded-pill me-1"><i class="fas fa-bed me-1"></i><?php echo $listing['bedrooms'] ?>
+      <div class="mb-2 mb-md-4">
+        <div class="badge feature rounded-pill me-1 mb-1"><i
+            class="fas fa-bed me-1"></i><?php echo $listing['bedrooms'] ?>
           Bedrooms</div>
-        <div class="badge feature rounded-pill me-1"><i class="fas fa-bath me-1"></i><?php echo $listing['bathrooms'] ?>
+        <div class="badge feature rounded-pill me-1 mb-1"><i
+            class="fas fa-bath me-1"></i><?php echo $listing['bathrooms'] ?>
           Bathrooms</div>
-        <div class="badge feature rounded-pill me-1"><i
+        <div class="badge feature rounded-pill me-1 mb-1"><i
             class="fas fa-warehouse me-1"></i><?php echo $listing['garage'] ?>
           Garages</div>
       </div>
 
-      <p><?php echo $listing['description'] ?></p>
+      <p class="mb-4"><?php echo $listing['description'] ?></p>
 
       <!-- Map might go here -->
       <iframe class="rounded bg-light" width="100%" height="400" style="border:0" loading="lazy" allowfullscreen
         src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFjY1014SSYdpCvVi18RBxu1apMGuTSEk&q=<?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']}" ?>">
       </iframe>
     </div>
-    <div class="col-md-4">
-      <div class="card shadow-sm">
-        <div class="card-header text-center fs-3">
-          <?php echo $listing['fname'] . ' ' . $listing['lname'] ?>
-        </div>
+    <div class="col-lg-4 col-xl-3">
+      <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-12">
+          <div class="card shadow-sm">
+            <div class="card-header text-center fs-3" style="line-height: 1.1;">
+              <span class=" fs-6 text-muted">Listing Agent</span>
+              <br>
+              <?php echo $listing['fname'] . ' ' . $listing['lname'] ?>
+            </div>
 
-        <div class="bg-secondary d-flex justify-content-center py-3">
-          <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle w-75 my-1 shadow">
-        </div>
-        <hr class="mt-0">
-        <div class="card-body text-center pt-0">
-          <p class="mb-1">Email: <a href="mailto:<?php echo $listing['email'] ?>"><?php echo $listing['email'] ?></a>
-          </p>
-          <p class="mb-1">Phone: <a href="tel:<?php echo $listing['phone'] ?>"><?php echo $listing['phone'] ?></a></p>
-          <p class="mb-4">Mobile: <a href="tel:<?php echo $listing['mobile'] ?>"><?php echo $listing['mobile'] ?></a>
-          </p>
-          <a class="btn btn-primary w-100"
-            href="mailto:<?php echo $listing['email'] ?>?subject=Inquiry: <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?>">Make
-            an Inquiry</a>
+            <div class=" bg-secondary d-flex justify-content-center py-3">
+              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle w-75 my-1 shadow">
+            </div>
+            <hr class="mt-0">
+            <div class="card-body text-center pt-0">
+              <p class="mb-1">Email: <a
+                  href="mailto:<?php echo $listing['email'] ?>"><?php echo $listing['email'] ?></a>
+              </p>
+              <p class="mb-1">Phone: <a href="tel:<?php echo $listing['phone'] ?>"><?php echo $listing['phone'] ?></a>
+              </p>
+              <p class="mb-4">Mobile: <a
+                  href="tel:<?php echo $listing['mobile'] ?>"><?php echo $listing['mobile'] ?></a>
+              </p>
+              <a class="btn btn-primary w-100"
+                href="mailto:<?php echo $listing['email'] ?>?subject=Inquiry: <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?>">Make
+                an Inquiry</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

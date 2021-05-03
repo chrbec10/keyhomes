@@ -9,7 +9,7 @@ $cities = json_decode($filters['cities']);
 
 ?>
 
-<form method="GET" action="listings.php">
+<form method="GET">
   <label for="city" class="form-label mb-1">City:</label>
   <select class="form-select mb-2" name="city">
     <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>

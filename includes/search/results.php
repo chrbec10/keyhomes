@@ -20,10 +20,6 @@
             LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = 3) AS wishlist ON wishlist.property_ID = property.property_ID
             ";
 
-  //Init arrays to store conditions and parameters for the route query
-  // $conditions = [];
-  // $parameters = [];
-
   //Offsets the results by a id (for pagination)
   if (!empty($_GET['start'])) {
     $conditions[] = 'property.property_ID >= ?';
@@ -36,22 +32,24 @@
     $parameters[] = $_GET['city'];
   }
 
+  //Add min price to query
   if (!empty($_GET['minPrice'])) {
     $conditions[] = 'price > ?';
     $parameters[] = $_GET['minPrice'];
   }
 
+  //Add max price to query
   if (!empty($_GET['maxPrice'])) {
     $conditions[] = 'price < ?';
     $parameters[] = $_GET['maxPrice'];
   }
-
 
   //Add the where conditions to the statement
   if ($conditions) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
   }
 
+  //Max amount of results that should be displayed
   $limit = 3;
   $sql .= ' ORDER BY property.property_ID ASC';
   $sql .= ' LIMIT ' . ($limit + 1);
@@ -62,26 +60,27 @@
     if ($stmt->execute($parameters)) :
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-      $next_id = $results[$limit]['property_ID'] ?? false;
+      if (count($results) > 0) :
 
-      require('pagination.php');
+        $next_id = $results[$limit]['property_ID'] ?? false;
+
+        require('pagination.php');
   ?>
 
  <div id="results" class="my-4">
 
    <?php
-
-        //Loop over the results
-        for ($i = 0; $i < count($results); $i++) :
-          if ($i >= $limit) {
-            break;
-          }
-          $listing = $results[$i];
-        ?>
+          //Loop over the results
+          for ($i = 0; $i < count($results); $i++) :
+            if ($i >= $limit) {
+              break;
+            }
+            $listing = $results[$i];
+          ?>
 
    <div class="row mb-3">
      <div class="col-md-4">
-       <div class="ratio-4-3">
+       <div class="ratio-4-3 mb-3 mb-md-0">
          <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">
            <div class="ratio-content rounded"
              style="background-image: url('<?php echo $listing['image'] ?? '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
@@ -111,19 +110,19 @@
        </div>
        <p class="mb-0 fs-5 fw-bold">
          <?php switch ($listing['saleType']) {
-                  case 'Sale':
-                    echo "Sale";
-                    if ($listing['price'] > 0) {
-                      echo ' $' . number_format($listing['price']);
-                    }
-                    break;
-                  case 'Auction':
-                    echo "Auction";
-                    if ($listing['price'] > 0) {
-                      echo ', Reserve $' . number_format($listing['price']);
-                    }
-                    break;
-                } ?>
+                    case 'Sale':
+                      echo "Sale";
+                      if ($listing['price'] > 0) {
+                        echo ' $' . number_format($listing['price']);
+                      }
+                      break;
+                    case 'Auction':
+                      echo "Auction";
+                      if ($listing['price'] > 0) {
+                        echo ', Reserve $' . number_format($listing['price']);
+                      }
+                      break;
+                  } ?>
        </p>
        <p><?php echo $listing['description'] ?></p>
        <p>
@@ -141,21 +140,33 @@
    </div>
 
    <?php
-          if ($i < count($results) - 2) {
-            echo '<hr>';
-          }
-        endfor;
-      endif;
-    }
-    ?>
- </div>
+
+            //Add a HR if this is not the last result to display
+            if ($i < count($results) - 2) {
+              echo '<hr>';
+            }
+          endfor;
+
+          ?>
+ </div> <!-- #results -->
 
  <?php
-      require('pagination.php');
+        require('pagination.php');
 
+      else : //If there's no results
       ?>
 
+ <p class="fs-5 text-center text-muted">No Results</p>
+
+ <?php
+      endif; // Count($results) > 0
+    endif; // $stmt->execute()
+  }
+  ?>
+
  <script>
+/* Makes all of the wishlist buttons interactive */
+
 var wishlistButtons = document.getElementsByClassName('wishlistButton');
 
 for (button of wishlistButtons) {
