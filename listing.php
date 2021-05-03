@@ -1,7 +1,5 @@
 <?php
 
-$title = "Listing Name"; //The Page Title
-require_once('./includes/layouts/header.php'); //Gets the header
 
 //Checks whether an ID route query parameter has been provided
 if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
@@ -41,6 +39,9 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
   exit();
 }
 
+$title = "{$listing['streetNum']} {$listing['street']}, {$listing['city']}"; //The Page Title
+require_once('./includes/layouts/header.php'); //Gets the header
+
 //See if this Listing is on the user's wishlist
 $sql = "SELECT property_ID FROM wishlist WHERE user_ID = :user_id AND property_ID = :property_id";
 if ($stmt = $pdo->prepare($sql)) {
@@ -59,8 +60,8 @@ if ($stmt = $pdo->prepare($sql)) {
 
 <div class="content-top-padding bg-dark">
   <div class="container pt-3 pb-2">
-    <div class="row">
-      <div class="col-md-8 col-lg-7 offset-md-2 offset-lg-3">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
 
         <?php //Get the Gallery from the Database
         $sql = "SELECT * FROM gallery WHERE property_ID = :property_id";
@@ -104,26 +105,23 @@ if ($stmt = $pdo->prepare($sql)) {
     </div>
   </div>
   <div class="pt-3 pb-2" style="background-color: #2c2b36;">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-lg-7 offset-md-2 offset-lg-3">
-          <!-- Gallery Previews -->
-          <div class="row justify-content-center">
-            <?php
-            if (count($gallery) > 0) :
-              foreach ($gallery as $key => $image) :
-            ?>
-            <div class="col-auto">
-              <img src="<?php echo $image['image'] ?>" class="carousel-thumbnail rounded mb-2"
-                data-slide-to="<?php echo $key ?>" width="150" alt="...">
-            </div>
-            <?php
-              endforeach;
-            endif;
-            ?>
+    <div class="container-fluid">
 
-          </div>
+      <!-- Gallery Previews -->
+      <div class="row justify-content-center">
+        <?php
+        if (count($gallery) > 0) :
+          foreach ($gallery as $key => $image) :
+        ?>
+        <div class="col-auto">
+          <img src="<?php echo $image['image'] ?>" class="carousel-thumbnail rounded mb-2"
+            data-slide-to="<?php echo $key ?>" width="150" alt="...">
         </div>
+        <?php
+          endforeach;
+        endif;
+        ?>
+
       </div>
     </div>
   </div>
@@ -230,28 +228,21 @@ var wishlistButtons = document.getElementsByClassName('wishlistButton');
 
 for (button of wishlistButtons) {
   button.addEventListener('click', (e) => {
-    console.log(e.target.dataset.khListingId);
 
     xhr = new XMLHttpRequest();
-    xhr.open("POST", '/services/wishlist-service.php', false);
+    xhr.open("POST", '/services/wishlist-service.php');
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.addEventListener('readystatechange', () => {
-      console.log('hi');
 
       if (xhr.readyState == 4 && xhr.status == 200) {
         var res = JSON.parse(xhr.responseText);
-        console.log(res);
-
-        console.log(e.target.classList);
 
         if (res.wishlisted == "true") {
-          console.log('adding');
           e.target.classList.add('btn-warning');
           e.target.classList.remove('btn-outline-secondary');
           e.target.innerHTML = 'Wishlisted';
         } else {
-          console.log('removing');
           e.target.classList.add('btn-outline-secondary');
           e.target.classList.remove('btn-warning');
           e.target.innerHTML = '+ Wishlist';

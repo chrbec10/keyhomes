@@ -1,6 +1,18 @@
 <?php
 
-$title = "Listings in Hamilton"; //The Page Title
+//Conditionally structure the page title
+$title = "";
+
+if (empty($_GET['city'])) {
+  $title .= 'All ';
+}
+
+$title .= 'Listings';
+
+if (!empty($_GET['city'])) {
+  $title .= ' in ' . $_GET['city'];
+}
+
 require_once('./includes/layouts/header.php'); //Gets the header
 require_once('./includes/db.php'); //Connect to the database
 

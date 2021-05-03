@@ -156,7 +156,7 @@
       else : //If there's no results
       ?>
 
- <p class="fs-5 text-center text-muted">No Results</p>
+ <p class="text-center text-muted">No Results</p>
 
  <?php
       endif; // Count($results) > 0
@@ -171,28 +171,21 @@ var wishlistButtons = document.getElementsByClassName('wishlistButton');
 
 for (button of wishlistButtons) {
   button.addEventListener('click', (e) => {
-    console.log(e.target.dataset.khListingId);
 
     xhr = new XMLHttpRequest();
-    xhr.open("POST", '/services/wishlist-service.php', false);
+    xhr.open("POST", '/services/wishlist-service.php');
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.addEventListener('readystatechange', () => {
-      console.log('hi');
 
       if (xhr.readyState == 4 && xhr.status == 200) {
-        console.log(xhr.responseText);
-        var res = JSON.parse(xhr.responseText);
-        console.log(res);
 
-        console.log(e.target.classList);
+        var res = JSON.parse(xhr.responseText);
 
         if (res.wishlisted == "true") {
-          console.log('adding');
           e.target.classList.add('wishlisted', 'fas');
           e.target.classList.remove('far');
         } else {
-          console.log('removing');
           e.target.classList.remove('wishlisted', 'fas')
           e.target.classList.add('far');
         }
