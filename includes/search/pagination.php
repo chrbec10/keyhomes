@@ -1,3 +1,8 @@
+<?php
+//Alters the params in a URL
+require_once(__DIR__ . '/../functions/change_url_parameter.php');
+?>
+
 <nav aria-label="Page navigation">
   <ul class="pagination justify-content-center my-1">
     <li class="page-item <?php echo ($_GET['start'] <= 0) ? 'disabled' : '' ?>">

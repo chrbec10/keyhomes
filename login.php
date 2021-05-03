@@ -1,4 +1,8 @@
 <?php
+$verification_err = false;
+$username = '';
+$password = '';
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   require_once('./includes/db.php'); //Connect to the database

@@ -3,7 +3,16 @@ require_once(__DIR__ . '/../config.php');
 
 session_start();
 
-$logged_in = false;
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+//If the user is not logged in, set logged in to false
+if (!isset($_SESSION['loggedin'])) {
+  $_SESSION['loggedin'] = false;
+}
+
 $is_admin = false;
 $home_nav = $home_nav ?? false;
 ?>
