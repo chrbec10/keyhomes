@@ -81,7 +81,7 @@
 
    <div class="row mb-3">
      <div class="col-md-4">
-       <div class="ratio-4-3">
+       <div class="ratio-4-3 mb-3 mb-md-0">
          <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">
            <div class="ratio-content rounded"
              style="background-image: url('<?php echo $listing['image'] ?? '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
