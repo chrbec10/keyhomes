@@ -41,7 +41,8 @@ $cities = json_decode($filters['cities']);
             $formatted .= $option / 1000000 . 'M';
           }
         ?>
-        <option value="<?php echo $option ?>" <?php echo ($option == $_GET['minPrice']) ? 'selected' : '' ?>>
+        <option value="<?php echo $option ?>"
+          <?php echo (isset($_GET['minPrice']) && $option == $_GET['minPrice']) ? 'selected' : '' ?>>
           <?php echo $formatted ?></option>
         <?php endforeach; ?>
       </select>
@@ -63,7 +64,8 @@ $cities = json_decode($filters['cities']);
             $formatted .= $option / 1000000 . 'M';
           }
         ?>
-        <option value="<?php echo $option ?>" <?php echo ($option == $_GET['maxPrice']) ? 'selected' : '' ?>>
+        <option value="<?php echo $option ?>"
+          <?php echo (isset($_GET['maxPrice']) && $option == $_GET['maxPrice']) ? 'selected' : '' ?>>
           <?php echo $formatted ?></option>
         <?php endforeach; ?>
 
