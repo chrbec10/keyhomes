@@ -39,7 +39,7 @@ $home_nav = $home_nav ?? false;
 
   <!-- CSS -->
   <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/theme.css">
-  <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/font-awesome/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!--Fonts-->
 
   <!-- Early loaded Scripts -->
