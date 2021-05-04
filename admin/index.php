@@ -5,7 +5,7 @@ require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
 ?>
 <div class="content-top-padding pb-4 bg-light">
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <ul>
             <li><a href="new-listing.php">New Listing</a></li>
             <li><a href="new-agent.php">New Agent</a></li>

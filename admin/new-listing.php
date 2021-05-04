@@ -101,8 +101,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     validateInput($input_saleType, $saleType_err, $saleType, "Please enter the type of sale");
 
     $input_price = trim($_POST["price"]);
-    //validate price
-    complexValidateInput($input_price, $price_err, $price, "Please enter a price for the property", "Please enter a valid price", "/^[0-9]*$/");
+    //validate price (0 is considered 'empty' so using isset instead)
+    if (!isset($input_price)){
+        $price_err = "Please enter a price for the property";
+
+    } else {
+        $price = $input_price;
+    }
 
     $input_description = trim($_POST["description"]);
     //validate description
@@ -243,7 +248,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
                 <div class="form-group col-md">
                     <label for="price">Price</label>
-                    <input type="text" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
+                    <input type="number" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
                     <span class="invalid-feedback"><?php echo $price_err;?></span>
                 </div>
             </div>
