@@ -8,6 +8,7 @@ require_once('../includes/db.php'); //Connect to database
 $saleType = $price = $description = $bedrooms = $bathrooms = $garage = $agent_ID = $streetNum = $street = $city = $postcode = '';
 $saleType_err = $price_err = $description_err = $bedrooms_err = $bathrooms_err = $garage_err = $agent_ID_err = $streetNum_err = $street_err = $city_err  = $postcode_err = '';
 
+
 //Validate input, passing important variables by reference
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
     if (empty($input)){
@@ -20,7 +21,7 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 
 //Validate input with regular expression check, passing important variables by reference
 function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
-    if (empty($input)){
+    if (empty($input) && ($input != 0)){
         $err = $errMsg;
 
     } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
@@ -75,8 +76,15 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
     validateInput($input_saleType, $saleType_err, $saleType, "Please enter the type of sale");
 
     $input_price = trim($_POST["price"]);
-    //validate price
-    complexValidateInput($input_price, $price_err, $price, "Please enter a price for the property", "Please enter a valid price", "/^[0-9]*$/");
+
+    //validate price (0 is considered 'empty' so using isset instead)
+    if (!isset($input_price)){
+        $price_err = "Please enter a price for the property";
+
+    } else {
+        $price = $input_price;
+    }
+
 
     $input_description = trim($_POST["description"]);
     //validate description
@@ -281,7 +289,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                 </div>
                 <div class="form-group col-md">
                     <label for="price">Price</label>
-                    <input type="text" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
+                    <input type="number" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
                     <span class="invalid-feedback"><?php echo $price_err;?></span>
                 </div>
             </div>
