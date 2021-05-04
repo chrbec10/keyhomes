@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $input_email = trim($_POST["email"]);
     if(empty($input_email)){
         $email_err = "Please enter an email address";
+        
     } elseif(!filter_var($input_email, FILTER_VALIDATE_EMAIL)){
         $email_err = "Please enter a valid email";
 
@@ -46,6 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //validate mobile number
     $input_mobile = trim($_POST["mobile"]);
     validateInput($input_mobile, $mobile_err, $mobile, "Please enter a mobile number");
+    if(empty($input_mobile)){
+        $mobile_err = "Please enter a mobile number";
+
+    } elseif(!filter_var($input_mobile, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[0-9\+]*$/")))){
+        $mobile_err = "Please enter a valid mobile number";
+
+    } else {
+        $mobile = $input_mobile;
+    }
 
 
     //check for input errors before trying to insert into database
@@ -71,11 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             //Try and execute the statement
             if ($stmt->execute()){
-                header("location: index.php");
+                echo "<div class='alert alert-success content-top-padding mt-4'>New agent " . $fname . " " . $lname . " created successfully.</div>";
                 exit();
-
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "<div class='alert alert-danger content-top-padding mt-4'>Oops! Something went wrong. Please try again later.</div>";
             }
         }
         //Close the connection
@@ -84,44 +93,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 ?>
-<div style="padding-top:70px; padding-bottom:20px;">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="row">
-            <div class="form-group col-md">
-                <label for="fname">First Name</label>
-                <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="fname" id="fname" value="<?php echo $fname; ?>">
-                <span class="invalid-feedback"><?php echo $fname_err;?></span>
+<div class="content-top-padding pb-4 bg-light">
+    <div class="container mt-4">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="miltipart/form-data">
+            <div class="row">
+                <div class="form-group col-md">
+                    <label for="fname">First Name</label>
+                    <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="fname" id="fname" value="<?php echo $fname; ?>">
+                    <span class="invalid-feedback"><?php echo $fname_err;?></span>
+                </div>
+                <div class="form-group col-md">
+                    <label for="lname">Last Name</label>
+                    <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="lname" id="lname" value="<?php echo $lname; ?>">
+                    <span class="invalid-feedback"><?php echo $lname_err;?></span>
+                </div>
             </div>
-            <div class="form-group col-md">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="lname" id="lname" value="<?php echo $lname; ?>">
-                <span class="invalid-feedback"><?php echo $lname_err;?></span>
+            <br>
+            <div class="row">
+                <div class="form-group col-md">
+                    <label for="email">Email Address</label>
+                    <input type="text" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" name="email" id="email" value="<?php echo $email; ?>">
+                    <span class="invalid-feedback"><?php echo $email_err;?></span>
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="form-group col-md">
-                <label for="email">Email Address</label>
-                <input type="text" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" name="email" id="email" value="<?php echo $email; ?>">
-                <span class="invalid-feedback"><?php echo $email_err;?></span>
+            <br>
+            <div class="row">
+                <div class="form-group col-md">
+                    <label for="phone">Office Phone Number</label>
+                    <input type="text" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" name="phone" id="phone" value="<?php echo $phone; ?>">
+                    <span class="invalid-feedback"><?php echo $phone_err;?></span>
+                </div>
+                <div class="form-group col-md">
+                    <label for="mobile">Work Cellphone Number</label>
+                    <input type="text" class="form-control <?php echo (!empty($mobile_err)) ? 'is-invalid' : ''; ?>" name="mobile" id="mobile" value="<?php echo $mobile; ?>">
+                    <span class="invalid-feedback"><?php echo $mobile_err;?></span>
+                </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="form-group col-md">
-                <label for="phone">Office Phone Number</label>
-                <input type="text" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" name="phone" id="phone" value="<?php echo $phone; ?>">
-                <span class="invalid-feedback"><?php echo $phone_err;?></span>
-            </div>
-            <div class="form-group col-md">
-                <label for="mobile">Work Cellphone Number</label>
-                <input type="text" class="form-control <?php echo (!empty($mobile_err)) ? 'is-invalid' : ''; ?>" name="mobile" id="mobile" value="<?php echo $mobile; ?>">
-                <span class="invalid-feedback"><?php echo $mobile_err;?></span>
-            </div>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="index.php" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
 </div>
 
 <?php

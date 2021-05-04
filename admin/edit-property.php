@@ -1,37 +1,8 @@
 <?php
 
-$title = "New Listing"; //The Page Title
+$title = "Edit Property"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
-require_once('../includes/db.php'); //Connect to the database
-
-
-/*$inputs = array(
-    'saleType' => '',
-    'price' => '',
-    'description' => '',
-    'bedrooms' => '',
-    'bathrooms' => '',
-    'garage' => '',
-    'agent_ID' => '',
-    'streetNum' => '',
-    'street' => '',
-    'city' => '',
-    'postcode' => ''
-);
-
-$errors = array(
-    'saleType_err' => '',
-    'price_err' => '',
-    'description_err' => '',
-    'bedrooms_err' => '',
-    'bathrooms_err' => '',
-    'garage_err' => '',
-    'agent_ID_err' => '',
-    'streetNum_err' => '',
-    'street_err' => '',
-    'city_err' => '',
-    'postcode_err' => ''
-);*/
+require_once('../includes/db.php'); //Connect to database
 
 //Defining our variables
 $saleType = $price = $description = $bedrooms = $bathrooms = $garage = $agent_ID = $streetNum = $street = $city = $postcode = '';
@@ -62,7 +33,10 @@ function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = 
 
 
 //Process form data on submit
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if (isset($_POST['id']) && !empty(trim($_POST['id']))){
+
+    //Grab ID of property to be edited
+    $property_ID = trim($_POST["id"]);
 
     $input_agent = trim($_POST["agent"]);
     //Validate assigned agent
@@ -112,8 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Check for input errors before trying to insert into database
     if(empty($saleType_err) && empty($price_err) && empty($description_err) && empty($bedrooms_err) && empty($bathrooms_err) 
     && empty($garage_err) && empty($agent_ID_err) && empty($streetNum_err) && empty($street_err) && empty($city_err) && empty($postcode_err)){
-        $sql = "INSERT INTO property (saleType, price, description, bedrooms, bathrooms, garage, agent_ID, streetNum, street, city, postcode) 
-        VALUES (:saleType, :price, :description, :bedrooms, :bathrooms, :garage, :agent_ID, :streetNum, :street, :city, :postcode)";
+        //Prepare an UPDATE statement
+        $sql = "UPDATE property SET saleType=:saleType, price=:price, description=:description, bedrooms=:bedrooms, bathrooms=:bathrooms, garage=:garage, 
+        agent_ID=:agent_ID, streetNum=:streetNum, street=:street, city=:city, postcode=:postcode WHERE property_ID=:property_ID";
 
         if ($stmt = $pdo->prepare($sql)){
             //Bind variables to the prepared statement as parameters
@@ -128,6 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->bindParam(":street", $param_street);
             $stmt->bindParam(":city", $param_city);
             $stmt->bindParam(":postcode", $param_postcode);
+            $stmt->bindParam(":property_ID", $param_property_ID);
 
             //Set parameters
             $param_saleType = $saleType;
@@ -141,6 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_street = $street;
             $param_city = $city;
             $param_postcode = $postcode;
+            $param_property_ID = $property_ID;
 
             //If successful
             if ($stmt->execute()){
@@ -148,15 +125,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 exit();
 
             } else {
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "Oops! Something went wrong.";
             }
         }
-        //close the connection
-        unset($pdo);
+        //Close statement
+        unset($stmt);
     }
+    //Close connection
+    //unset($pdo);
+
+} else {
+    //Check whether we were given an ID before continuing
+    if (isset($_GET['id']) && !empty(trim($_GET['id']))){
+        //Get our ID parameter
+        $property_ID = trim($_GET['id']);
+
+        //Prepare a select statement
+        $sql = "SELECT * FROM property WHERE property_ID = :property_ID";
+        if ($stmt = $pdo->prepare($sql)){
+
+            //Bind variables to the select statement
+            $stmt->bindParam(":property_ID", $param_property_ID);
+
+            //Set parameter
+            $param_property_ID = $property_ID;
+            
+            //Attempt the select statement
+            if($stmt->execute()){
+                //Check that we get exactly 1 row back
+                if ($stmt->rowCount() == 1){
+                    //Fetch as an associative array since we're getting only one row back
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                } else {
+                    //URL doesn't contain a valid ID
+                    header("location: ../404.php");
+                    exit();
+                }
+            } else {
+                echo "Oops! Something went wrong.";
+            }
+        }
+        //Close statement
+        //unset($stmt);
+
+        //Close connection
+        //unset($pdo);
+    } else {
+        //We weren't given an ID
+        header("location: ../404.php");
+        exit();
+    }
+
 }
-
-
 ?>
 
 <div class="content-top-padding pb-4 bg-light">
@@ -165,29 +185,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             //If we can retrieve our agent list
             $sql = "SELECT agent_ID, fname, lname FROM agent";
             if ($result = $pdo->query($sql)){
-                if (!($result->rowCount() > 0)){
+                if ($result->rowCount() > 0){
+                    
+                } else {
                     echo "No agents to retrieve. Try creating one first.";
                 }
             } else {
                 echo "Unable to retrieve agents. Something went wrong. Please try again later.";
             }
+            //unset($pdo);
         ?>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <!--Notify user which property is being changed-->
+        <div class="container"><h2>Editing listing for <?php echo $row['streetNum'] . ' ' . $row['street'] . ', ' . $row['city'] . ' ' . $row['postcode'] ?></h2></div>
+        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
             <div class="row">
                 <div class="form-group col">
                     <label for="agent" style="display:block">Assigned Agent</label>
                     <select name="agent" id="agent" class="form-control <?php echo (!empty($agent_ID_err)) ? 'is-invalid' : ''; ?>">
-                        <option value="" <?php if (!isset($agent_ID)){ echo "selected"; } ?>>Select an Agent</option>
                         <?php
                         //Generate dropdown options from agents table
-                        while ($row = $result->fetch()){
-                            if ($row['agent_ID'] == $agent_ID){
-                                echo '<option selected value="' . $row['agent_ID'] . '">' . $row['fname'] . ' ' . $row['lname'] . '</option>';
+                        while ($agentrow = $result->fetch()){
+                            if ($agentrow['agent_ID'] == $row['agent_ID']){
+                                echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
                             } else {
-                            echo '<option value="' . $row['agent_ID'] . '">' . $row['fname'] . ' ' . $row['lname'] . '</option>';
+                            echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
                             }
                         }
-                        unset($result);
+                        //unset($result);
                         ?>
                     </select>
                     <span class="invalid-feedback"><?php echo $agent_ID_err;?></span>
@@ -197,22 +221,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="row">
                 <div class="form-group col-md-2">
                     <label for="streetNum">Number</label>
-                    <input type="text" id="streetNum" name="streetNum" class="form-control <?php echo (!empty($streetNum_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $streetNum ?>">
+                    <input type="text" id="streetNum" name="streetNum" class="form-control <?php echo (!empty($streetNum_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['streetNum'] ?>">
                     <span class="invalid-feedback"><?php echo $streetNum_err;?></span>
                 </div>
                 <div class="form-group col">
                     <label for="street">Street</label>
-                    <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value="<?php echo $street ?>">
+                    <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value="<?php echo $row['street'] ?>">
                     <span class="invalid-feedback"><?php echo $street_err;?></span>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="city">City</label>
-                    <input type="text" id="city" name="city" maxlength="100" class="form-control <?php echo (!empty($city_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $city ?>">
+                    <input type="text" id="city" name="city" maxlength="100" class="form-control <?php echo (!empty($city_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['city'] ?>">
                     <span class="invalid-feedback"><?php echo $city_err;?></span>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="postcode">Postcode</label>
-                    <input type="text" id="postcode" name="postcode" maxlength="4" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $postcode ?>">
+                    <input type="text" id="postcode" name="postcode" maxlength="4" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['postcode'] ?>">
                     <span class="invalid-feedback"><?php echo $postcode_err;?></span>
                 </div>
             </div>
@@ -220,17 +244,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="row">
                 <div class="form-group col-md">
                     <label for="bedrooms">Bedrooms</label>
-                    <input type="text" id="bedrooms" name="bedrooms" maxlength="2" class="form-control <?php echo (!empty($bedrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bedrooms ?>">
+                    <input type="text" id="bedrooms" name="bedrooms" maxlength="2" class="form-control <?php echo (!empty($bedrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['bedrooms'] ?>">
                     <span class="invalid-feedback"><?php echo $bedrooms_err;?></span>
                 </div>
                 <div class="form-group col-md">
                     <label for="bathrooms">Bathrooms</label>
-                    <input type="text" id="bathrooms" name="bathrooms" maxlength="2" class="form-control <?php echo (!empty($bathrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bathrooms ?>">
+                    <input type="text" id="bathrooms" name="bathrooms" maxlength="2" class="form-control <?php echo (!empty($bathrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['bathrooms'] ?>">
                     <span class="invalid-feedback"><?php echo $bathrooms_err;?></span>
                 </div>
                 <div class="form-group col-md">
                     <label for="garage">Parking</label>
-                    <input type="text" id="garage" name="garage" maxlength="2" class="form-control <?php echo (!empty($garage_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $garage ?>">
+                    <input type="text" id="garage" name="garage" maxlength="2" class="form-control <?php echo (!empty($garage_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['garage'] ?>">
                     <span class="invalid-feedback"><?php echo $garage_err;?></span>
                 </div>
             </div>
@@ -238,12 +262,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="row">
                 <div class="form-group col-md">
                     <label for="saleType">Sale Type</label>
-                    <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">
+                    <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['saleType'] ?>">
                     <span class="invalid-feedback"><?php echo $saleType_err;?></span>
                 </div>
                 <div class="form-group col-md">
                     <label for="price">Price</label>
-                    <input type="text" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
+                    <input type="text" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['price'] ?>">
                     <span class="invalid-feedback"><?php echo $price_err;?></span>
                 </div>
             </div>
@@ -251,17 +275,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="row">
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>" name="description" id="description"><?php echo $description; ?></textarea>
+                    <textarea class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>" name="description" id="description"><?php echo $row['description']; ?></textarea>
                     <span class="invalid-feedback"><?php echo $description_err;?></span>
                 </div>
             </div>
             <br>
+            <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="index.php" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>
 
-<?php
-require_once('../includes/layouts/footer.php'); //Gets the footer
-?>
+<?php require_once('../includes/layouts/footer.php'); ?>
