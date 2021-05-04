@@ -156,6 +156,20 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                 if ($stmt->rowCount() == 1){
                     //Fetch as an associative array since we're getting only one row back
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                    //Pull values from row
+                    $saleType = $row['saleType'];
+                    $price = $row['price'];
+                    $description = $row['description'];
+                    $bedrooms = $row['bedrooms'];
+                    $bathrooms = $row['bathrooms'];
+                    $garage = $row['garage'];
+                    $agent_ID = $row['agent_ID'];
+                    $streetNum = $row['streetNum'];
+                    $street = $row['street'];
+                    $city = $row['city'];
+                    $postcode = $row['postcode'];
+
                 } else {
                     //URL doesn't contain a valid ID
                     header("location: ../404.php");
@@ -196,7 +210,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             //unset($pdo);
         ?>
         <!--Notify user which property is being changed-->
-        <div class="container"><h2>Editing listing for <?php echo $row['streetNum'] . ' ' . $row['street'] . ', ' . $row['city'] . ' ' . $row['postcode'] ?></h2></div>
+        <div class="container"><h2>Editing listing for <?php echo $streetNum . ' ' . $street . ', ' . $city . ' ' . $postcode ?></h2></div>
         <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
             <div class="row">
                 <div class="form-group col">
@@ -205,7 +219,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                         <?php
                         //Generate dropdown options from agents table
                         while ($agentrow = $result->fetch()){
-                            if ($agentrow['agent_ID'] == $row['agent_ID']){
+                            if ($agentrow['agent_ID'] == $agent_ID){
                                 echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
                             } else {
                             echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
@@ -221,22 +235,22 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <div class="row">
                 <div class="form-group col-md-2">
                     <label for="streetNum">Number</label>
-                    <input type="text" id="streetNum" name="streetNum" class="form-control <?php echo (!empty($streetNum_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['streetNum'] ?>">
+                    <input type="text" id="streetNum" name="streetNum" class="form-control <?php echo (!empty($streetNum_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $streetNum ?>">
                     <span class="invalid-feedback"><?php echo $streetNum_err;?></span>
                 </div>
                 <div class="form-group col">
                     <label for="street">Street</label>
-                    <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value="<?php echo $row['street'] ?>">
+                    <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value="<?php echo $street ?>">
                     <span class="invalid-feedback"><?php echo $street_err;?></span>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="city">City</label>
-                    <input type="text" id="city" name="city" maxlength="100" class="form-control <?php echo (!empty($city_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['city'] ?>">
+                    <input type="text" id="city" name="city" maxlength="100" class="form-control <?php echo (!empty($city_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $city ?>">
                     <span class="invalid-feedback"><?php echo $city_err;?></span>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="postcode">Postcode</label>
-                    <input type="text" id="postcode" name="postcode" maxlength="4" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['postcode'] ?>">
+                    <input type="text" id="postcode" name="postcode" maxlength="4" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $postcode ?>">
                     <span class="invalid-feedback"><?php echo $postcode_err;?></span>
                 </div>
             </div>
@@ -244,17 +258,17 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <div class="row">
                 <div class="form-group col-md">
                     <label for="bedrooms">Bedrooms</label>
-                    <input type="text" id="bedrooms" name="bedrooms" maxlength="2" class="form-control <?php echo (!empty($bedrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['bedrooms'] ?>">
+                    <input type="text" id="bedrooms" name="bedrooms" maxlength="2" class="form-control <?php echo (!empty($bedrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bedrooms ?>">
                     <span class="invalid-feedback"><?php echo $bedrooms_err;?></span>
                 </div>
                 <div class="form-group col-md">
                     <label for="bathrooms">Bathrooms</label>
-                    <input type="text" id="bathrooms" name="bathrooms" maxlength="2" class="form-control <?php echo (!empty($bathrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['bathrooms'] ?>">
+                    <input type="text" id="bathrooms" name="bathrooms" maxlength="2" class="form-control <?php echo (!empty($bathrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bathrooms ?>">
                     <span class="invalid-feedback"><?php echo $bathrooms_err;?></span>
                 </div>
                 <div class="form-group col-md">
                     <label for="garage">Parking</label>
-                    <input type="text" id="garage" name="garage" maxlength="2" class="form-control <?php echo (!empty($garage_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['garage'] ?>">
+                    <input type="text" id="garage" name="garage" maxlength="2" class="form-control <?php echo (!empty($garage_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $garage ?>">
                     <span class="invalid-feedback"><?php echo $garage_err;?></span>
                 </div>
             </div>
@@ -262,12 +276,12 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <div class="row">
                 <div class="form-group col-md">
                     <label for="saleType">Sale Type</label>
-                    <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['saleType'] ?>">
+                    <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">
                     <span class="invalid-feedback"><?php echo $saleType_err;?></span>
                 </div>
                 <div class="form-group col-md">
                     <label for="price">Price</label>
-                    <input type="text" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $row['price'] ?>">
+                    <input type="text" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
                     <span class="invalid-feedback"><?php echo $price_err;?></span>
                 </div>
             </div>
@@ -275,7 +289,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <div class="row">
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>" name="description" id="description"><?php echo $row['description']; ?></textarea>
+                    <textarea class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>" name="description" id="description"><?php echo $description; ?></textarea>
                     <span class="invalid-feedback"><?php echo $description_err;?></span>
                 </div>
             </div>
