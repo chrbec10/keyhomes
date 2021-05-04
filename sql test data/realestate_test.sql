@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2021 at 12:54 AM
+-- Generation Time: May 04, 2021 at 03:42 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -204,7 +204,7 @@ ALTER TABLE `property`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -214,20 +214,20 @@ ALTER TABLE `users`
 -- Constraints for table `gallery`
 --
 ALTER TABLE `gallery`
-  ADD CONSTRAINT `fk_property` FOREIGN KEY (`property_ID`) REFERENCES `property` (`property_ID`);
+  ADD CONSTRAINT `fk_property` FOREIGN KEY (`property_ID`) REFERENCES `property` (`property_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `property`
 --
 ALTER TABLE `property`
-  ADD CONSTRAINT `fk_assAgent` FOREIGN KEY (`agent_ID`) REFERENCES `agent` (`agent_ID`);
+  ADD CONSTRAINT `fk_assAgent` FOREIGN KEY (`agent_ID`) REFERENCES `agent` (`agent_ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  ADD CONSTRAINT `fk_propertyWish` FOREIGN KEY (`property_ID`) REFERENCES `property` (`property_ID`),
-  ADD CONSTRAINT `fk_userWish` FOREIGN KEY (`user_ID`) REFERENCES `users` (`user_ID`);
+  ADD CONSTRAINT `fk_propertyWish` FOREIGN KEY (`property_ID`) REFERENCES `property` (`property_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_userWish` FOREIGN KEY (`user_ID`) REFERENCES `users` (`user_ID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
