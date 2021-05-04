@@ -5,7 +5,7 @@ require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
 
 $agent = '';
-
+$currentProps = '';
 
 if(isset($_GET['id']) && !empty($_GET['id'])){
     //Prepare an SQL statment
@@ -22,13 +22,29 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $agent = $row['fname'] . ' ' . $row['lname'];
 
+                $sql = "SELECT COUNT(agent_ID) FROM property WHERE agent_ID = :id";
+                if ($stmt = $pdo->prepare($sql)){
+                    //Bind variables
+                    $stmt->bindParam(":id", $param_ID);
+                    $param_ID = trim($_GET['id']);
+                    
+                    //Attempt query
+                    if ($stmt->execute()){
+                        $currentProps = $stmt->fetch();
+
+                    } else {
+                        echo "Oops! Something went wrong";
+                    }
+                }
+
             } else {
                 header("location: ../404.php");
             }
             //clear variables
             unset($stmt);
             unset($row);
-        }  
+        } 
+        echo "Oops! Something went wrong"; 
     }
 }
 
@@ -70,9 +86,9 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="alert alert-danger">
                 <input type="hidden" name="id" id="id" value="<?php echo trim($_GET["id"]); ?>"/>
-                <p>Are you sure you want to remove <?php echo $agent; ?>?</p>
+                <p>Are you sure you want to remove agent <?php echo $agent; ?>?</p>
                 <p>This action cannot be undone</p>
-                <p><em>Note: If the agent still has any properties assigned to them, these will be deleted as well.</em></p>
+                <?php if($currentProps > 0){echo "<p><b>WARNING: This agent currently has " . $currentProps[0] . " properties assigned to them. These will be deleted if you delete the agent assigned to them.</b></p>";}?>
                 <p><input type="submit" value="Delete" class="btn btn-danger">
                 <a href="index.php" class="btn btn-secondary ml-2">Cancel</a></p>
             </div>
