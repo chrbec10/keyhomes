@@ -72,6 +72,7 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
                 <input type="hidden" name="id" id="id" value="<?php echo trim($_GET["id"]); ?>"/>
                 <p>Are you sure you want to remove <?php echo $agent; ?>?</p>
                 <p>This action cannot be undone</p>
+                <p><em>Note: If the agent still has any properties assigned to them, these will be deleted as well.</em></p>
                 <p><input type="submit" value="Delete" class="btn btn-danger">
                 <a href="index.php" class="btn btn-secondary ml-2">Cancel</a></p>
             </div>
