@@ -127,10 +127,15 @@
    </div>
 
    <?php
-
             //Add a HR if this is not the last result to display
-            if ($i < count($results) - 2) {
-              echo '<hr>';
+            if (count($results) <= $limit) {
+              if ($i < count($results) - 1) {
+                echo '<hr>';
+              }
+            } else {
+              if ($i < count($results) - 2) {
+                echo '<hr>';
+              }
             }
           endfor;
 
