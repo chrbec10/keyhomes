@@ -111,7 +111,12 @@
                   echo format_price_text($listing['saleType'], $listing['price']);
                   ?>
        </p>
-       <p><?php echo $listing['description'] ?></p>
+       <p>
+         <?php
+                  //Trims the description if it's too long
+                  echo (strlen($listing['description']) > 150) ? trim(substr($listing['description'], 0, 150)) . '...' : $listing['description'];
+                  ?>
+       </p>
        <p>
          <span class="me-2">
            <i class="fas fa-bed text-secondary"></i> <?php echo $listing['bedrooms'] ?>
