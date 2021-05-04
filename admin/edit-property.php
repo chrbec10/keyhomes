@@ -21,7 +21,7 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 
 //Validate input with regular expression check, passing important variables by reference
 function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
-    if (empty($input) && ($input != 0)){
+    if (empty($input)){
         $err = $errMsg;
 
     } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
