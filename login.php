@@ -44,7 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['id'] = $user['user_ID'];
             $_SESSION['username'] = $user['username'];
 
-            header('location: index.php');
+            if (!empty($_POST['redirectToListing'])) {
+              header("location: listing.php?id={$_POST['redirectToListing']}");
+            } else {
+              header('location: index.php');
+            }
           } else {
             $verification_err = true;
           }
@@ -83,6 +87,9 @@ require_once('./includes/layouts/header.php');
             value="<?php echo $password; ?>">
           <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
+
+        <input type="hidden" name="redirectToListing"
+          value="<?php echo (!empty($_GET['redirectToListing'])) ? $_GET['redirectToListing'] : '' ?>">
 
         <input type="submit" class="btn btn-primary w-100 mb-1" value="Submit">
 
