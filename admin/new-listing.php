@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             //If successful
             if ($stmt->execute()){
-                header("location: index.php");
+                header("location: success.php");
                 exit();
 
             } else {

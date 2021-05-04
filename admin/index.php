@@ -49,7 +49,8 @@ require_once('../includes/db.php'); //Connect to the database
                             //Agent
                             echo "<td>".$row['fname'].' '.$row['lname']."</td>";
                             //Actions
-                            echo '<td><span class="me-2"><i class="fa fa-pencil text-secondary"></i></span><span class="me-2"><i class="fas fa-bed text-secondary"></i></span><span class="me-2"><i class="fas fa-bed text-secondary"></i></span></td>';
+                            echo '<td><span class="me-2"><a href="edit-property.php?id=' . $row['property_ID'] . '"><i class="fa fa-pencil-alt"></i></a></span>
+                            <span class="me-2"><a href="delete-property.php?id=' . $row['property_ID'] . '"><i class="fa fa-trash-alt"></i></a></span>';
                         echo "</tr>";
                         $count = $count + 1;
                     }

@@ -88,7 +88,7 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
                 <input type="hidden" name="id" id="id" value="<?php echo trim($_GET["id"]); ?>"/>
                 <p>Are you sure you want to remove agent <?php echo $agent; ?>?</p>
                 <p>This action cannot be undone</p>
-                <?php if($currentProps > 0){echo "<p><b>WARNING: This agent currently has " . $currentProps[0] . " properties assigned to them. These will be deleted if you delete the agent assigned to them.</b></p>";}?>
+                <?php if($currentProps[0] > 0){echo "<p><b>WARNING: This agent currently has " . $currentProps[0] . " properties assigned to them. These will be deleted if you delete the agent assigned to them.</b></p>";}?>
                 <p><input type="submit" value="Delete" class="btn btn-danger">
                 <a href="index.php" class="btn btn-secondary ml-2">Cancel</a></p>
             </div>

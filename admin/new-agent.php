@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             //Try and execute the statement
             if ($stmt->execute()){
-                echo "<div class='alert alert-success content-top-padding mt-4'>New agent " . $fname . " " . $lname . " created successfully.</div>";
+                header("location: success.php");
                 exit();
             } else{
                 echo "<div class='alert alert-danger content-top-padding mt-4'>Oops! Something went wrong. Please try again later.</div>";
