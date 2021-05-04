@@ -141,7 +141,7 @@ if ($stmt = $pdo->prepare($sql)) {
             <?php echo $wishlisted ? 'Wishlisted' : '+ Wishlist' ?>
           </button>
           <?php else : ?>
-          <a href="/login.php">
+          <a href="/login.php?redirectToListing=<?php echo $listing['property_ID'] ?>">
             <button class="btn btn-outline-secondary rounded-pill">
               Sign in to Wishlist
             </button>
