@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   //If there's no errors...
-  if (!$username_err && !$password_err) {
+  if (empty($username_err) && empty($password_err)) {
 
-    $sql = "SELECT user_ID, username, password FROM users WHERE username = :username";
+    $sql = "SELECT user_ID, username, password, isAdmin FROM users WHERE username = :username";
 
     if ($stmt = $pdo->prepare($sql)) {
 
@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION["loggedin"] = true;
             $_SESSION['id'] = $user['user_ID'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['isAdmin'] = $user['isAdmin'];
 
             header('location: index.php');
           } else {
