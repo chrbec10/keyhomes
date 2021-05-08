@@ -28,37 +28,41 @@ if ($result = $pdo->query($sql)) {
     <div class="container d-block">
       <h1 class="text-white display-3 fw-normal text-center" style="text-shadow: 2px 2px 3px #000000a8;">
         Find Your Perfect Home</h1>
-      <div class="card bg-dark p-3">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7">
+          <div class="card bg-dark p-3">
 
-        <!-- Get the values to use in the filter options -->
-        <?php
-        $sql = "SELECT JSON_ARRAYAGG(DISTINCT city) AS cities FROM property";
-        if ($result = $pdo->query($sql)) {
-          $filters =  $result->fetch(PDO::FETCH_ASSOC);
-        }
+            <!-- Get the values to use in the filter options -->
+            <?php
+            $sql = "SELECT JSON_ARRAYAGG(DISTINCT city) AS cities FROM property";
+            if ($result = $pdo->query($sql)) {
+              $filters =  $result->fetch(PDO::FETCH_ASSOC);
+            }
 
-        $cities = json_decode($filters['cities']);
+            $cities = json_decode($filters['cities']);
 
-        ?>
+            ?>
 
-        <form action="listings.php" method="GET">
-          <div class="row">
-            <div class="col-sm mb-2 mb-sm-0">
-              <select class="form-select rounded-pill " name="city">
-                <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
-                <?php foreach ($cities as $city) :
-                ?>
-                <option value="<?php echo $city ?>">
-                  <?php echo $city ?></option>
-                <?php endforeach;
-                ?>
-              </select>
-            </div>
-            <div class="col-sm-4 col-md-3">
-              <button class="btn btn-primary rounded-pill  w-100" type="submit">Search</button>
-            </div>
+            <form action="listings.php" method="GET">
+              <div class="row">
+                <div class="col-sm mb-2 mb-sm-0">
+                  <select class="form-select rounded-pill " name="city">
+                    <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
+                    <?php foreach ($cities as $city) :
+                    ?>
+                    <option value="<?php echo $city ?>">
+                      <?php echo $city ?></option>
+                    <?php endforeach;
+                    ?>
+                  </select>
+                </div>
+                <div class="col-sm-4 col-md-3">
+                  <button class="btn btn-primary rounded-pill  w-100" type="submit">Search</button>
+                </div>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
     <div class="container-fluid position-absolute" style="bottom: 0;">
