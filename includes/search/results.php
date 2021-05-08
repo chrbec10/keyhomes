@@ -7,7 +7,7 @@
       )
       )
       AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID
-      LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = 3) AS wishlist ON wishlist.property_ID = property.property_ID
+      LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = ?) AS wishlist ON wishlist.property_ID = property.property_ID
       ";
 
   if (!isset($conditions)) {
@@ -16,6 +16,9 @@
   if (!isset($parameters)) {
     $parameters = [];
   }
+
+  //Add userid as first param for wishlist search
+  array_unshift($parameters, $_SESSION['id'] ?? null);
 
   //Offsets the results by a id (for pagination)
   if (!empty($_GET['start'])) {
@@ -62,6 +65,7 @@
         $next_id = $results[$limit]['property_ID'] ?? false;
 
         require('pagination.php');
+
   ?>
 
  <div id="results" class="my-4">
