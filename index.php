@@ -30,7 +30,7 @@ if ($result = $pdo->query($sql)) {
         Find Your Perfect Home</h1>
       <div class="row justify-content-center">
         <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7">
-          <div class="card bg-dark p-3">
+          <div class="card bg-dark p-3 pt-2 text-center">
 
             <!-- Get the values to use in the filter options -->
             <?php
@@ -44,22 +44,22 @@ if ($result = $pdo->query($sql)) {
             ?>
 
             <form action="listings.php" method="GET">
-              <div class="row">
-                <div class="col-sm mb-2 mb-sm-0">
-                  <select class="form-select rounded-pill " name="city">
-                    <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
-                    <?php foreach ($cities as $city) :
-                    ?>
-                    <option value="<?php echo $city ?>">
-                      <?php echo $city ?></option>
-                    <?php endforeach;
-                    ?>
-                  </select>
-                </div>
-                <div class="col-sm-4 col-md-3">
-                  <button class="btn btn-primary rounded-pill  w-100" type="submit">Search</button>
-                </div>
+
+              <label for="city" class="form-label" style="color: #ffffffb8">Search for Properties in...</label>
+              <div class="input-group rounded-pill">
+                <select class="form-select" name="city" style="border-radius: 50rem 0 0 50rem">
+                  <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
+                  <?php foreach ($cities as $city) :
+                  ?>
+                  <option value="<?php echo $city ?>">
+                    <?php echo $city ?></option>
+                  <?php endforeach;
+                  ?>
+                </select>
+                <button class="btn btn-primary px-5" type="submit"
+                  style="border-radius: 0 50rem 50rem 0;">Search</button>
               </div>
+
             </form>
           </div>
         </div>
