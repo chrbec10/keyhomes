@@ -56,7 +56,7 @@ if ($result = $pdo->query($sql)) {
                   <?php endforeach;
                   ?>
                 </select>
-                <button class="btn btn-primary px-5" type="submit"
+                <button class="btn btn-primary px-3 px-sm-4 px-md-5" type="submit"
                   style="border-radius: 0 50rem 50rem 0;">Search</button>
               </div>
 
