@@ -20,12 +20,12 @@
     <hr>
     <div class="row">
       <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3">
-        <h5>ABOUT</h5>
+        <h2 class="h5">ABOUT</h2>
         <p>Founded in the late 2020s by two passionate property developers, Key Homes aims to curate for-sale homes
           throughout New Zealand and connect you with life changing oppurtinities at affordable prices.</p>
       </div>
       <div class="col-sm-6 col-md-5 col-lg-4 col-xl-3 offset-md-2 offset-lg-4 offset-xl-6">
-        <h5>CONTACT INFO</h5>
+        <p class="h5">CONTACT INFO</p>
         <p>Toll Free: 0800 123 456<br>Landline: 07 123 456<br>Email: keyhomes@email.com</p>
         <p>123 Realestate Ave,<br>Housington, 5134<br>Monday - Friday: 9:00am - 5:00pm</p>
       </div>
