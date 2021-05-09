@@ -44,7 +44,7 @@ $home_nav = $home_nav ?? false;
   <!--Fonts-->
 
   <!-- Early loaded Scripts -->
-  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js" defer></script>
+  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js" defer="true"></script>
 </head>
 
 <body class="bg-dark">
