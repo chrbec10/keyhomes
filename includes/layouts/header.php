@@ -42,7 +42,8 @@ $home_nav = $home_nav ?? false;
   <style type="text/css">
   <?php echo $theme_css ?>
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" media="print"
+    onload="this.media='all'; this.onload=null;">
   <!--Fonts-->
 
   <!-- Early loaded Scripts -->
