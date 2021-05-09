@@ -112,11 +112,11 @@ if ($result = $pdo->query($sql)) {
         <div class="card h-100">
           <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
           <div class="card-body">
-            <h5 class="card-title">
+            <p class="card-title h5">
               <?php echo "{$row['streetNum']} {$row['street']}," ?>
               <br>
               <?php echo $row['city'] ?>
-            </h5>
+            </p>
             <p class="card-text text-muted">
               <span class="me-2">
                 <i class="fas fa-bed text-secondary"></i> <?php echo $row['bedrooms'] ?>
