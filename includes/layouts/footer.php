@@ -7,11 +7,11 @@
       <div class="col-sm-6 text-sm-end">
         <a href="https://visioncollege.ac.nz/"
           class="d-inline-block btn-primary p-3 text-white rounded-circle me-1 text-center"
-          style="width: 60px; height: 60px" target="_blank">
+          style="width: 60px; height: 60px" target="_blank" aria-label="Keyhome's Facebook" rel="noreferrer noopener">
           <i class="fab fa-facebook fs-3 align-middle"></i></a>
         <a href="https://visioncollege.ac.nz/"
           class="d-inline-block btn-primary p-3 text-white rounded-circle text-center" style="width: 60px; height: 60px"
-          target="_blank">
+          target="_blank" aria-label="Keyhome's Instagram" rel="noreferrer noopener">
           <i class="fab fa-instagram fs-3 align-middle"></i>
         </a>
 
