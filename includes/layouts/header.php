@@ -38,16 +38,13 @@ $home_nav = $home_nav ?? false;
     sizes="512x512">
 
   <!-- CSS -->
-  <?php $theme_css = file_get_contents(__DIR__ . '/../../static/css/theme.css') ?>
-  <style type="text/css">
-  <?php echo $theme_css ?>
-  </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" media="print"
-    onload="this.media='all'; this.onload=null;">
+  <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/theme.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!--Fonts-->
 
   <!-- Early loaded Scripts -->
-  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
+  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js" defer></script>
 </head>
 
 <body class="bg-dark">
