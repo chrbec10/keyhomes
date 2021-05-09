@@ -38,7 +38,6 @@
 </div>
 </div> <!-- end header #content -->
 
-<script src="<?php echo $site_root ?>/static/js/popper.min.js"></script>
 <script>
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
