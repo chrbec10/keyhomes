@@ -23,6 +23,11 @@ $home_nav = $home_nav ?? false;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <?php
+  //If a page desctiption has been declared, use it, otherwise use the default description
+  $meta_description = $meta_description ?? "Massive catalogue of affordable housing. Find your Perfect Home at Key Homes" ?>
+  <meta name="description" content="<?php echo $meta_description ?>">
+
   <!-- Only add title if variable is not empty when this file is parsed -->
   <title>Key Homes<?php echo (!empty($title)) ? " | {$title}" : '' ?></title>
 
