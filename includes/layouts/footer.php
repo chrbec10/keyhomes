@@ -2,7 +2,8 @@
   <div class="container mt-3">
     <div class="row text-center">
       <div class="col-sm-6 text-md-start mb-4 mb-sm-0">
-        <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" alt="Key Homes Logo" height="75px">
+        <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" alt="Key Homes Logo" height="75px"
+          width="207px">
       </div>
       <div class="col-sm-6 text-sm-end">
         <a href="https://visioncollege.ac.nz/"

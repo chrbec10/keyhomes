@@ -58,9 +58,10 @@ $home_nav = $home_nav ?? false;
     id="mainNav">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo $site_root ?>/">
-        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" class="logo-dark" alt="Logo" height="45px">
+        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" class="logo-dark" alt="Logo" height="45px"
+          width="124px">
         <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" class="logo-light" alt="Logo"
-          height="45px">
+          height="45px" width="124px">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavContent">
         <span class="navbar-toggler-icon"></span>
