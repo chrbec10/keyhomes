@@ -47,7 +47,7 @@ if ($result = $pdo->query($sql)) {
 
               <label for="city" class="form-label" style="color: #ffffffb8">Search for Properties in...</label>
               <div class="input-group rounded-pill">
-                <select class="form-select" name="city" style="border-radius: 50rem 0 0 50rem">
+                <select class="form-select" name="city" title="city" style="border-radius: 50rem 0 0 50rem">
                   <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
                   <?php foreach ($cities as $city) :
                   ?>
