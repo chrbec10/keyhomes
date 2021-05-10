@@ -1,9 +1,9 @@
 ErrorDocument 404 /404.php
 
+# Set Cache lengths for files
 <IfModule mod_expires.c>
 
  ExpiresActive on
-
 
   <FilesMatch "\.(jpe?g|png|gif|)$">
 
