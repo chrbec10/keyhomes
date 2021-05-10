@@ -25,7 +25,7 @@
                 //Delete old icon and shift our new one in from temporary location
                 unlink("../uploads/agents/" . $agentName . ".jpg");
                 move_uploaded_file($_FILES["agentIcon"]["tmp_name"], "../uploads/agents/" . $agentName . ".jpg" );
-                header("refresh: 0; url=edit-agent.php?id=" . $agentID);
+                header("location: edit-agent.php?id=" . $agentID);
 
             } else {
                 echo "Error: There was a problem uploading your file.";

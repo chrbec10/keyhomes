@@ -151,6 +151,8 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 ?>
 <div class="content-top-padding pb-4 bg-light">
     <div class="container mt-4">
+    <div class="alert alert-success">Good!</div>
+    <div class="alert alert-danger">Bad...</div>
         <div class="container">
             <h2 class="text-center">Editing details for agent <?php echo $fname . ' ' . $lname ?></h2>
             <br>
