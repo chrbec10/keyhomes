@@ -109,10 +109,10 @@ $home_nav = $home_nav ?? false;
           <?php else : ?>
 
           <li class="w-100 me-2 mb-2 mb-lg-0"><a class="btn btn-outline-primary rounded-pill w-100"
-              href="<?php echo $site_root ?>/login.php" id="loginButton">Login</a>
+              href="<?php echo $site_root ?>/login.php" title="Login" id="loginButton">Login</a>
           </li>
-          <li class="w-100"><a class="btn btn-primary rounded-pill w-100"
-              href="<?php echo $site_root ?>/register.php">Register</a></li>
+          <li class="w-100"><a class="btn btn-primary rounded-pill w-100" href="<?php echo $site_root ?>/register.php"
+              title="Register">Register</a></li>
 
           <?php endif; ?>
           <!-- End of $logged_in -->

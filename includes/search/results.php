@@ -82,7 +82,8 @@
    <div class="row mb-3">
      <div class="col-md-4">
        <div class="ratio-4-3 mb-3 mb-md-0">
-         <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">
+         <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>"
+           title="View <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?>">
            <div class="ratio-content rounded"
              style="background-image: url('<?php echo $listing['image'] ?? '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
            </div>
@@ -102,7 +103,7 @@
              data-bs-toggle="tooltip" data-bs-placement="left"
              data-kh-listing-id="<?php echo $listing['property_ID'] ?>" title="Add to Wishlist"></i>
            <?php else : ?>
-           <a href="/login.php" class="text-dark">
+           <a href="/login.php" class="text-dark" title="Login to Wishlist">
              <i class="fs-5 wishlistButton far fa-star" data-bs-toggle="tooltip" data-bs-placement="left"
                title="Wishlist (Requires Login)"> </i>
            </a>
