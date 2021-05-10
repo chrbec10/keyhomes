@@ -110,7 +110,9 @@ if ($result = $pdo->query($sql)) {
       ?>
       <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-4">
         <div class="card h-100">
-          <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
+          <div class="ratio-4-3"
+            style="background-image: url('<?php echo $row['image'] ?>'); background-position: center; background-size: cover;">
+          </div>
           <div class="card-body">
             <p class="card-title h5">
               <?php echo "{$row['streetNum']} {$row['street']}," ?>
