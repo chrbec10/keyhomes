@@ -11,7 +11,7 @@ $cities = json_decode($filters['cities']);
 
 <form method="GET">
   <label for="city" class="form-label mb-1">City:</label>
-  <select class="form-select mb-2" name="city">
+  <select class="form-select mb-2" name="city" title="Filter by City">
     <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
     <?php foreach ($cities as $city) :
     ?>
@@ -25,7 +25,7 @@ $cities = json_decode($filters['cities']);
   <div class="mb-1">Price Range:</div>
   <div class="row mb-1">
     <div class="col">
-      <select class="form-select" name="minPrice" id="minPrice">
+      <select class="form-select" name="minPrice" id="minPrice" title="Filter by Minimum Price">
 
         <?php
         $priceFilterValues = [
@@ -52,7 +52,7 @@ $cities = json_decode($filters['cities']);
       to
     </div>
     <div class="col">
-      <select class="form-select" name="maxPrice" id="maxPrice">
+      <select class="form-select" name="maxPrice" id="maxPrice" title="Filter by Maximum Price">
 
         <?php
         foreach ($priceFilterValues as $option) :

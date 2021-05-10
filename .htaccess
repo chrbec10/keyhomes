@@ -1,1 +1,27 @@
 ErrorDocument 404 /404.php
+
+# Add charset hint to response
+<IfModule mod_mime.c>
+    AddCharset utf-8 .css \
+                     .js \
+                     .svg
+</IfModule>
+
+# Set Cache lengths for files
+<IfModule mod_expires.c>
+
+ ExpiresActive on
+
+  <FilesMatch "\.(jpe?g|png|gif|)$">
+
+    ExpiresDefault "access plus 1 hour"
+
+  </FilesMatch>
+
+   <FilesMatch "\.(css|js|svg|)$">
+
+      ExpiresDefault "access plus 1 year"
+
+  </FilesMatch>
+
+</IfModule>

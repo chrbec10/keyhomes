@@ -7,7 +7,7 @@
       )
       )
       AS first_gallery_image ON property.property_ID = first_gallery_image.property_ID
-      LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = 3) AS wishlist ON wishlist.property_ID = property.property_ID
+      LEFT JOIN (SELECT * FROM wishlist WHERE user_ID = ?) AS wishlist ON wishlist.property_ID = property.property_ID
       ";
 
   if (!isset($conditions)) {
@@ -16,6 +16,9 @@
   if (!isset($parameters)) {
     $parameters = [];
   }
+
+  //Add userid as first param for wishlist search
+  array_unshift($parameters, $_SESSION['id'] ?? null);
 
   //Offsets the results by a id (for pagination)
   if (!empty($_GET['start'])) {
@@ -62,6 +65,7 @@
         $next_id = $results[$limit]['property_ID'] ?? false;
 
         require('pagination.php');
+
   ?>
 
  <div id="results" class="my-4">
@@ -78,7 +82,8 @@
    <div class="row mb-3">
      <div class="col-md-4">
        <div class="ratio-4-3 mb-3 mb-md-0">
-         <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>">
+         <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>"
+           title="View <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?>">
            <div class="ratio-content rounded"
              style="background-image: url('<?php echo $listing['image'] ?? '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
            </div>
@@ -98,7 +103,7 @@
              data-bs-toggle="tooltip" data-bs-placement="left"
              data-kh-listing-id="<?php echo $listing['property_ID'] ?>" title="Add to Wishlist"></i>
            <?php else : ?>
-           <a href="/login.php" class="text-dark">
+           <a href="/login.php" class="text-dark" title="Login to Wishlist">
              <i class="fs-5 wishlistButton far fa-star" data-bs-toggle="tooltip" data-bs-placement="left"
                title="Wishlist (Requires Login)"> </i>
            </a>
@@ -111,7 +116,12 @@
                   echo format_price_text($listing['saleType'], $listing['price']);
                   ?>
        </p>
-       <p><?php echo $listing['description'] ?></p>
+       <p>
+         <?php
+                  //Trims the description if it's too long
+                  echo (strlen($listing['description']) > 150) ? trim(substr($listing['description'], 0, 150)) . '...' : $listing['description'];
+                  ?>
+       </p>
        <p>
          <span class="me-2">
            <i class="fas fa-bed text-secondary"></i> <?php echo $listing['bedrooms'] ?>
@@ -127,10 +137,15 @@
    </div>
 
    <?php
-
             //Add a HR if this is not the last result to display
-            if ($i < count($results) - 2) {
-              echo '<hr>';
+            if (count($results) <= $limit) {
+              if ($i < count($results) - 1) {
+                echo '<hr>';
+              }
+            } else {
+              if ($i < count($results) - 2) {
+                echo '<hr>';
+              }
             }
           endfor;
 
