@@ -21,7 +21,7 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 //Process form data on submit
 if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
-    //Grab ID of property to be edited
+    //Grab ID of agent to be edited
     $agent_ID = trim($_POST["id"]);
 
     //validate first name
@@ -54,7 +54,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
     if(empty($input_mobile)){
         $mobile_err = "Please enter a mobile number";
 
-    } elseif(!filter_var($input_mobile, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[0-9\+]*$/")))){
+    } elseif(!filter_var($input_mobile, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[0-9\+\s]*$/")))){
         $mobile_err = "Please enter a valid mobile number";
 
     } else {
@@ -186,6 +186,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                 </div>
             </div>
             <br>
+            <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="index.php" class="btn btn-secondary">Cancel</a>
         </form>
