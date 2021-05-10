@@ -1,6 +1,9 @@
 <?php
 require_once(__DIR__ . '/../config.php');
 
+//Set Response Headers
+header('Content-Type: text/html; charset=UTF-8');
+
 session_start();
 
 ini_set('display_errors', 1);
@@ -20,7 +23,6 @@ $home_nav = $home_nav ?? false;
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <?php
@@ -63,7 +65,8 @@ $home_nav = $home_nav ?? false;
         <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" class="logo-light" alt="Logo"
           height="45px" width="124px">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavContent">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavContent"
+        aria-label="Toggle Navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNavContent">
