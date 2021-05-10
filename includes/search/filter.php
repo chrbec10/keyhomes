@@ -88,7 +88,17 @@ $cities = json_decode($filters['cities']);
 
   </select>
 
-  <button class="btn btn-primary mt-2 rounded-pill w-100">Filter</button>
+  <div class="row mt-3">
+    <div class="col pe-0">
+      <button class="btn btn-primary rounded-pill w-100"><i class="fas fa-filter"></i> Filter</button>
+    </div>
+    <div class="col-auto">
+      <a href="/listings.php" class="btn btn-secondary rounded-circle text-center" title="Reset Filters"
+        data-bs-toggle="tooltip" data-bs-placement="top">
+        <i class="fas fa-times"></i>
+      </a>
+    </div>
+  </div>
 </form>
 
 <script>
