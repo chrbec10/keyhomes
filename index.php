@@ -79,7 +79,7 @@ if ($result = $pdo->query($sql)) {
 </div>
 
 <!-- Latest Listings -->
-<div class=" container-fluid bg-light py-5">
+<div class="container-fluid bg-light py-5" id="latest-listings">
   <div class="container">
     <div class="text-center">
       <h2>Latest Listings</h2>
@@ -110,8 +110,7 @@ if ($result = $pdo->query($sql)) {
       ?>
       <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-4">
         <div class="card h-100">
-          <div class="ratio-4-3"
-            style="background-image: url('<?php echo $row['image'] ?>'); background-position: center; background-size: cover;">
+          <div class="ratio-4-3 listing-thumbnail" style="background-image: url('<?php echo $row['image'] ?>');">
           </div>
           <div class="card-body">
             <p class="card-title h5">

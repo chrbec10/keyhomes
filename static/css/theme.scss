@@ -112,6 +112,14 @@ nav.main-nav {
 	right: 0;
 }
 
+/** Home Page **/
+#latest-listings {
+	.listing-thumbnail {
+ 		background-position: center;
+		background-size: cover;
+	}
+}
+
 /** Single Listing Page **/
 .carousel-thumbnail {
 	cursor: pointer;
@@ -130,4 +138,9 @@ nav.main-nav {
 	&.wishlisted {
 		color: #e6a816;
 	}
+}
+
+.footer-icon {
+	width: 60px;
+	height: 60px;
 }
