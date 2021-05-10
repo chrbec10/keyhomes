@@ -4,38 +4,10 @@ $title = "New Listing"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
 
-
-/*$inputs = array(
-    'saleType' => '',
-    'price' => '',
-    'description' => '',
-    'bedrooms' => '',
-    'bathrooms' => '',
-    'garage' => '',
-    'agent_ID' => '',
-    'streetNum' => '',
-    'street' => '',
-    'city' => '',
-    'postcode' => ''
-);
-
-$errors = array(
-    'saleType_err' => '',
-    'price_err' => '',
-    'description_err' => '',
-    'bedrooms_err' => '',
-    'bathrooms_err' => '',
-    'garage_err' => '',
-    'agent_ID_err' => '',
-    'streetNum_err' => '',
-    'street_err' => '',
-    'city_err' => '',
-    'postcode_err' => ''
-);*/
-
 //Defining our variables
 $saleType = $price = $description = $bedrooms = $bathrooms = $garage = $agent_ID = $streetNum = $street = $city = $postcode = '';
 $saleType_err = $price_err = $description_err = $bedrooms_err = $bathrooms_err = $garage_err = $agent_ID_err = $streetNum_err = $street_err = $city_err  = $postcode_err = '';
+
 
 //Validate input, passing important variables by reference
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {

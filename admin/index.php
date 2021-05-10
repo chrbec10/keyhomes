@@ -47,10 +47,10 @@ require_once('../includes/db.php'); //Connect to the database
                             //Price
                             echo "<td>".'$'.$row['price']."</td>";
                             //Agent
-                            echo "<td>".$row['fname'].' '.$row['lname']."</td>";
+                            echo "<td><a href='edit-agent.php?id=".$row['agent_ID']."'>".$row['fname'].' '.$row['lname']."</a></td>";
                             //Actions
-                            echo '<td><span class="me-2"><a href="edit-property.php?id=' . $row['property_ID'] . '"><i class="fa fa-pencil-alt"></i></a></span>
-                            <span class="me-2"><a href="delete-property.php?id=' . $row['property_ID'] . '"><i class="fa fa-trash-alt"></i></a></span>';
+                            echo '<td><span class="me-2"><a href="edit-listing.php?id=' . $row['property_ID'] . '"><i class="fa fa-pencil-alt"></i></a></span>
+                            <span class="me-2"><a href="delete-listing.php?id=' . $row['property_ID'] . '"><i class="fa fa-trash-alt"></i></a></span>';
                         echo "</tr>";
                         $count = $count + 1;
                     }

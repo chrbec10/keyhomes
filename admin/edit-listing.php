@@ -1,6 +1,6 @@
 <?php
 
-$title = "Edit Property"; //The Page Title
+$title = "Edit Listing"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to database
 
@@ -129,7 +129,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
             //If successful
             if ($stmt->execute()){
-                header("location: index.php");
+                header("location: success.php");
                 exit();
 
             } else {
@@ -140,7 +140,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
         unset($stmt);
     }
     //Close connection
-    //unset($pdo);
+    unset($pdo);
 
 } else {
     //Check whether we were given an ID before continuing
@@ -188,10 +188,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             }
         }
         //Close statement
-        //unset($stmt);
-
-        //Close connection
-        //unset($pdo);
+        unset($stmt);
     } else {
         //We weren't given an ID
         header("location: ../404.php");
@@ -215,7 +212,8 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             } else {
                 echo "Unable to retrieve agents. Something went wrong. Please try again later.";
             }
-            //unset($pdo);
+            //Close database connection
+            unset($pdo);
         ?>
         <!--Notify user which property is being changed-->
         <div class="container"><h2>Editing listing for <?php echo $streetNum . ' ' . $street . ', ' . $city . ' ' . $postcode ?></h2></div>
@@ -233,7 +231,6 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                             echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
                             }
                         }
-                        //unset($result);
                         ?>
                     </select>
                     <span class="invalid-feedback"><?php echo $agent_ID_err;?></span>

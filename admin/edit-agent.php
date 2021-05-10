@@ -18,7 +18,11 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+//Process form data on submit
+if (isset($_POST['id']) && !empty(trim($_POST['id']))){
+
+    //Grab ID of property to be edited
+    $agent_ID = trim($_POST["id"]);
 
     //validate first name
     $input_fname = trim($_POST["fname"]);
@@ -58,10 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
 
-    //check for input errors before trying to insert into database
+    //check for input errors before trying to update database
     if (empty($fname_err) && empty($lname_err) && empty($icon_err) && empty($email_err) && empty($phone_err) && empty($mobile_err)){
-        $sql = "INSERT INTO agent (fname, lname, email, phone, mobile)
-        VALUES (:fname, :lname, :email, :phone, :mobile)";
+        $sql = "UPDATE agent SET fname = :fname, lname = :lname, email = :email, phone = :phone, mobile = :mobile
+        WHERE agent_ID = :agent_ID";
 
         if ($stmt = $pdo->prepare($sql)){
 
@@ -71,6 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->bindParam(":email", $param_email);
             $stmt->bindParam(":phone", $param_phone);
             $stmt->bindParam(":mobile", $param_mobile);
+            $stmt->bindParam(":agent_ID", $param_agent_ID);
 
             //Set parameters
             $param_fname = $fname;
@@ -78,23 +83,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_email = $email;
             $param_phone = $phone;
             $param_mobile = $mobile;
+            $param_agent_ID = $agent_ID;
 
             //Try and execute the statement
             if ($stmt->execute()){
                 header("location: success.php");
                 exit();
             } else{
-                echo "<div class='alert alert-danger content-top-padding mt-4'>Oops! Something went wrong. Please try again later.</div>";
+                echo "Oops! Something went wrong.";
             }
         }
         //Close the connection
         unset($pdo);
     }
+} else {
+    //Check whether we were given an ID before continuing
+    if (isset($_GET['id']) && !empty(trim($_GET['id']))){
+        //Get our ID parameter
+        $agent_ID = trim($_GET['id']);
+
+        //Prepare a select statement
+        $sql = "SELECT * FROM agent WHERE agent_ID = :agent_ID";
+        if ($stmt = $pdo->prepare($sql)){
+
+            //Bind variables to the select statement
+            $stmt->bindParam(":agent_ID", $param_agent_ID);
+
+            //Set parameter
+            $param_agent_ID = $agent_ID;
+            
+            //Attempt the select statement
+            if($stmt->execute()){
+                //Check that we get exactly 1 row back
+                if ($stmt->rowCount() == 1){
+                    //Fetch as an associative array since we're getting only one row back
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                    //Pull values from row
+                    $fname = $row['fname'];
+                    $lname = $row['lname'];
+                    $icon = $row['icon'];
+                    $email = $row['email'];
+                    $phone = $row['phone'];
+                    $mobile = $row['mobile'];
+
+                } else {
+                    //URL doesn't contain a valid ID
+                    header("location: ../404.php");
+                    exit();
+                }
+            } else {
+                echo "Oops! Something went wrong.";
+            }
+        }
+        //Close statement
+        unset($stmt);
+
+    } else {
+        //We weren't given an ID
+        header("location: ../404.php");
+        exit();
+    }
+    
 }
 
 ?>
 <div class="content-top-padding pb-4 bg-light">
     <div class="container mt-4">
+    <div class="container"><h2>Editing details for agent <?php echo $fname . ' ' . $lname ?></h2></div>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="form-group col-md">

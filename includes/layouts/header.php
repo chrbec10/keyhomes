@@ -14,7 +14,7 @@ if (!isset($_SESSION['loggedin'])) {
   $_SESSION['loggedin'] = false;
 }
 
-if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'])) {
+if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == true)) {
   $is_admin = true;
 }
 

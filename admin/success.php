@@ -1,5 +1,5 @@
 <?php
-
+header("refresh:5;url= ./");
 $title = "Success"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 ?>
@@ -8,6 +8,7 @@ require_once('../includes/layouts/header.php'); //Gets the header
     <div class="container mt-4">
         <div class='alert alert-success'>
             <p class='text-center m-auto'>Operation completed successfully.</p>
+            <p class='text-center m-auto'>Redirecting you to the Admin homepage in 5 seconds.</p>
         </div>
         <p class='text-center'><a href="index.php" class="btn btn-primary">Return to Admin Home</a></p>
     </div>
