@@ -213,19 +213,22 @@ if ($stmt = $pdo->prepare($sql)) {
 </div>
 
 <script>
-//Get a reference to the gallery and initialise its settings
-var gallery = document.getElementById('gallery');
-var bsGallery = new bootstrap.Carousel(gallery, {});
+window.addEventListener('load', function() {
 
-//Get a reference to the thumbnails
-var galleryThumbnails = document.getElementsByClassName('carousel-thumbnail');
+  //Get a reference to the gallery and initialise its settings
+  var gallery = document.getElementById('gallery');
+  var bsGallery = new bootstrap.Carousel(gallery, {});
 
-//Give each thumbnail a click listener to change the positon of the carousel
-for (let i = 0; i < galleryThumbnails.length; i++) {
-  galleryThumbnails[i].addEventListener('click', () => {
-    bsGallery.to(galleryThumbnails[i].dataset.slideTo);
-  })
-}
+  //Get a reference to the thumbnails
+  var galleryThumbnails = document.getElementsByClassName('carousel-thumbnail');
+
+  //Give each thumbnail a click listener to change the positon of the carousel
+  for (let i = 0; i < galleryThumbnails.length; i++) {
+    galleryThumbnails[i].addEventListener('click', () => {
+      bsGallery.to(galleryThumbnails[i].dataset.slideTo);
+    })
+  }
+})
 </script>
 
 <script>
