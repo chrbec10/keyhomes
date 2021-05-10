@@ -87,7 +87,7 @@ if ($stmt = $pdo->prepare($sql)) {
               foreach ($gallery as $key => $image) :
             ?>
             <div class="carousel-item <?php if ($key == 0) echo 'active'; ?>">
-              <img src="<?php echo $image['image'] ?>" class="d-block w-100 rounded" alt="...">
+              <img src="<?php echo 'uploads/properties/' . $image['image'] ?>" class="d-block w-100 rounded" alt="...">
             </div>
             <?php
               endforeach;
@@ -114,7 +114,7 @@ if ($stmt = $pdo->prepare($sql)) {
           foreach ($gallery as $key => $image) :
         ?>
         <div class="col-auto">
-          <img src="<?php echo $image['image'] ?>" class="carousel-thumbnail rounded mb-2"
+          <img src="<?php echo 'uploads/properties/' . $image['image'] ?>" class="carousel-thumbnail rounded mb-2"
             data-slide-to="<?php echo $key ?>" width="150" alt="...">
         </div>
         <?php
@@ -188,7 +188,7 @@ if ($stmt = $pdo->prepare($sql)) {
             </div>
 
             <div class=" bg-secondary d-flex justify-content-center py-3">
-              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle w-75 my-1 shadow">
+              <img src="<?php echo 'uploads/agents/' . $listing['icon'] ?>" alt="Agent's image" class="rounded-circle w-75 my-1 shadow">
             </div>
             <hr class="mt-0">
             <div class="card-body text-center pt-0">

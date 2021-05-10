@@ -126,6 +126,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                     $email = $row['email'];
                     $phone = $row['phone'];
                     $mobile = $row['mobile'];
+                    $agentName = strtolower($row['fname'][0] . $row['lname']);
 
                 } else {
                     //URL doesn't contain a valid ID
@@ -150,8 +151,28 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 ?>
 <div class="content-top-padding pb-4 bg-light">
     <div class="container mt-4">
-    <div class="container"><h2>Editing details for agent <?php echo $fname . ' ' . $lname ?></h2></div>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <h2 class="text-center">Editing details for agent <?php echo $fname . ' ' . $lname ?></h2>
+            <br>
+            <img src= <?php echo '"../uploads/agents/' . $icon . '?=' . filemtime('../uploads/agents/' . $icon) . '"' ?> style="max-width:256px" class="rounded-circle mx-auto d-block">
+        </div>
+        <br>
+        <form action="agent-icon.php" method="post" enctype="multipart/form-data">
+        <h4 class="text-center">Upload new icon</h4>
+            <div class="row">
+                <div class="form-group col-md">
+                    <input type="file" name="agentIcon" id="agentIcon" class="form-control">
+                    <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
+                    <input type="hidden" id="agentName" name="agentName" value="<?php echo $agentName; ?>"/>
+                    <button tpye="submit" class="btn btn-primary">Submit</button>
+                    <p><strong>Note:</strong> Maximum size of 512px x 512px and 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+                </div>
+            </div>
+        </form>
+        <br>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <h4 class="text-center">Agent details</h4>
+            <br>
             <div class="row">
                 <div class="form-group col-md">
                     <label for="fname">First Name</label>
@@ -188,11 +209,23 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <br>
             <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="index.php" class="btn btn-secondary">Cancel</a>
+            <a href="./" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>
 
+
+<script>
+function toggleDisplay(element){
+    var toggle = document.getElementById(element);
+    if (toggle.style.display === "none"){
+        toggle.style.display = "block";
+    }
+    else {
+        toggle.style.display = "none";
+    }
+};
+</script>
 <?php
 require_once('../includes/layouts/footer.php'); //Gets the footer
 ?>
