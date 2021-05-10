@@ -44,6 +44,12 @@
     $parameters[] = $_GET['maxPrice'];
   }
 
+  //Add Min Bedrooms to Query
+  if (!empty($_GET['bedrooms'])) {
+    $conditions[] = 'bedrooms >= ?';
+    $parameters[] = $_GET['bedrooms'];
+  }
+
   //Add the where conditions to the statement
   if (!empty($conditions)) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
