@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2021 at 03:42 AM
+-- Generation Time: May 12, 2021 at 12:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -31,7 +31,7 @@ CREATE TABLE `agent` (
   `agent_ID` int(11) NOT NULL,
   `fname` varchar(50) NOT NULL,
   `lname` varchar(50) NOT NULL,
-  `icon` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT 'default.jpg',
   `email` varchar(320) NOT NULL,
   `phone` varchar(25) DEFAULT NULL,
   `mobile` varchar(25) DEFAULT NULL
@@ -42,8 +42,8 @@ CREATE TABLE `agent` (
 --
 
 INSERT INTO `agent` (`agent_ID`, `fname`, `lname`, `icon`, `email`, `phone`, `mobile`) VALUES
-(1, 'Chris', 'Becker', '/uploads/agents/test/cbecker.jpg', 'cbecker@keyhomes.co.nz', '(07) 854 5555 ext. 02', '021 555 5555'),
-(2, 'Ben', 'Mitchell', 'uploads/agents/test/bmitchell.jpg', 'bmitchell@keyhomes.co.nz', '(07) 854 5555 ext. 01', '021 555 5556');
+(1, 'Chris', 'Becker', '1_cbecker.jpg', 'cbecker@keyhomes.co.nz', '(07) 854 5555 ext. 02', '021 555 5555'),
+(2, 'Ben', 'Mitchell', 'bmitchell.jpg', 'bmitchell@keyhomes.co.nz', '(07) 854 5555 ext. 01', '021 555 5556');
 
 -- --------------------------------------------------------
 
@@ -62,22 +62,22 @@ CREATE TABLE `gallery` (
 --
 
 INSERT INTO `gallery` (`image_ID`, `property_ID`, `image`) VALUES
-(1, 1, '/uploads/properties/test/0_0.jpg'),
-(2, 1, '/uploads/properties/test/0_1.jpg'),
-(3, 1, '/uploads/properties/test/0_2.jpg'),
-(4, 1, '/uploads/properties/test/0_3.jpg'),
-(5, 2, '/uploads/properties/test/1_0.jpg'),
-(6, 2, '/uploads/properties/test/1_1.jpg'),
-(7, 2, '/uploads/properties/test/1_2.jpg'),
-(8, 2, '/uploads/properties/test/1_3.jpg'),
-(9, 3, '/uploads/properties/test/2_0.jpg'),
-(10, 3, '/uploads/properties/test/2_1.jpg'),
-(11, 3, '/uploads/properties/test/2_2.jpg'),
-(12, 3, '/uploads/properties/test/2_3.jpg'),
-(13, 4, '/uploads/properties/test/3_0.jpg'),
-(14, 4, '/uploads/properties/test/3_1.jpg'),
-(15, 4, '/uploads/properties/test/3_2.jpg'),
-(16, 4, '/uploads/properties/test/3_3.jpg');
+(1, 1, '0_0.jpg'),
+(2, 1, '0_1.jpg'),
+(3, 1, '0_2.jpg'),
+(4, 1, '0_3.jpg'),
+(5, 2, '1_0.jpg'),
+(6, 2, '1_1.jpg'),
+(7, 2, '1_2.jpg'),
+(8, 2, '1_3.jpg'),
+(9, 3, '2_0.jpg'),
+(10, 3, '2_1.jpg'),
+(11, 3, '2_2.jpg'),
+(12, 3, '2_3.jpg'),
+(13, 4, '3_0.jpg'),
+(14, 4, '3_1.jpg'),
+(15, 4, '3_2.jpg'),
+(16, 4, '3_3.jpg');
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ INSERT INTO `property` (`property_ID`, `saleType`, `price`, `description`, `bedr
 (1, 'Sale', 690000, 'Large, three-bedroom house with a view located close to the Marina.', 3, 2, 2, 2, '15', 'Beach Road', 'Waikawa', '7220'),
 (2, 'Sale', 690000, 'Three-bedroom family home in a quiet neighbourhood.', 3, 2, 2, 1, '18A', 'Cavan Street', 'Ngaruawahia', '3720'),
 (3, 'Sale', 530000, 'Newly-renovated property with modern comforts, adjacent workshop, and large back yard.', 3, 2, 2, 2, '505', 'Wellington Road', 'Marton', '4710'),
-(4, 'Auction', 0, 'Huge 4-bedroom home just begging to be renovated', 4, 2, 2, 1, '47a', 'Stanley Avenue', 'Auckland', '620');
+(4, 'Auction', 0, 'Huge 4-bedroom home just begging to be renovated.', 4, 2, 2, 1, '47a', 'Stanley Avenue', 'Auckland', '620');
 
 -- --------------------------------------------------------
 
@@ -128,7 +128,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_ID`, `username`, `password`, `isAdmin`) VALUES
-(1, 'admin', '$2y$10$DbF6zrUhwVNiNF.Tp0RZfe53hjdZv3TLrEmBv.J.SgbpOZeD0INUa', 1);
+(1, 'admin', '$2y$10$DbF6zrUhwVNiNF.Tp0RZfe53hjdZv3TLrEmBv.J.SgbpOZeD0INUa', 1),
+(2, 'test', '$2y$10$xnSRbzkMfz8x1OUXZtloFuY0QwF3zNJoy.ORaf7g57eenqwFOWBRC', 0),
+(3, 'testuser', '$2y$10$eZu.rXzoOXKQ8DkDMStN8Oyk/Gzy/l.ocUYy49Zzjqsb7fepkbz9u', 0);
 
 -- --------------------------------------------------------
 
@@ -186,7 +188,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `agent`
 --
 ALTER TABLE `agent`
-  MODIFY `agent_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `agent_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `gallery`
@@ -198,13 +200,13 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `property`
 --
 ALTER TABLE `property`
-  MODIFY `property_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `property_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
