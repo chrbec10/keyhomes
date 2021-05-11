@@ -11407,7 +11407,7 @@ nav.main-nav .logo-dark {
   bottom: 0;
 }
 
-.ratio-1-3 {
+.ratio-1-1 {
   width: 100%;
   padding-top: 100%;
   position: relative;
@@ -11425,6 +11425,12 @@ nav.main-nav .logo-dark {
   left: 0;
   bottom: 0;
   right: 0;
+}
+
+/** Home Page **/
+#latest-listings .listing-thumbnail {
+  background-position: center;
+  background-size: cover;
 }
 
 /** Single Listing Page **/
@@ -11445,5 +11451,10 @@ nav.main-nav .logo-dark {
 
 .wishlistButton.wishlisted {
   color: #e6a816;
+}
+
+.footer-icon {
+  width: 60px;
+  height: 60px;
 }
 /*# sourceMappingURL=theme.css.map */

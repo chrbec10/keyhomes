@@ -28,37 +28,41 @@ if ($result = $pdo->query($sql)) {
     <div class="container d-block">
       <h1 class="text-white display-3 fw-normal text-center" style="text-shadow: 2px 2px 3px #000000a8;">
         Find Your Perfect Home</h1>
-      <div class="card bg-dark p-3">
+      <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7">
+          <div class="card bg-dark p-3 pt-2 text-center">
 
-        <!-- Get the values to use in the filter options -->
-        <?php
-        $sql = "SELECT JSON_ARRAYAGG(DISTINCT city) AS cities FROM property";
-        if ($result = $pdo->query($sql)) {
-          $filters =  $result->fetch(PDO::FETCH_ASSOC);
-        }
+            <!-- Get the values to use in the filter options -->
+            <?php
+            $sql = "SELECT JSON_ARRAYAGG(DISTINCT city) AS cities FROM property";
+            if ($result = $pdo->query($sql)) {
+              $filters =  $result->fetch(PDO::FETCH_ASSOC);
+            }
 
-        $cities = json_decode($filters['cities']);
+            $cities = json_decode($filters['cities']);
 
-        ?>
+            ?>
 
-        <form action="listings.php" method="GET">
-          <div class="row">
-            <div class="col-sm mb-2 mb-sm-0">
-              <select class="form-select rounded-pill " name="city">
-                <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
-                <?php foreach ($cities as $city) :
-                ?>
-                <option value="<?php echo $city ?>">
-                  <?php echo $city ?></option>
-                <?php endforeach;
-                ?>
-              </select>
-            </div>
-            <div class="col-sm-4 col-md-3">
-              <button class="btn btn-primary rounded-pill  w-100" type="submit">Search</button>
-            </div>
+            <form action="listings.php" method="GET">
+
+              <label for="city" class="form-label" style="color: #ffffffb8">Search for Properties in...</label>
+              <div class="input-group rounded-pill">
+                <select class="form-select" name="city" title="city" style="border-radius: 50rem 0 0 50rem">
+                  <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
+                  <?php foreach ($cities as $city) :
+                  ?>
+                  <option value="<?php echo $city ?>">
+                    <?php echo $city ?></option>
+                  <?php endforeach;
+                  ?>
+                </select>
+                <button class="btn btn-primary px-3 px-sm-4 px-md-5" type="submit"
+                  style="border-radius: 0 50rem 50rem 0;">Search</button>
+              </div>
+
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
     <div class="container-fluid position-absolute" style="bottom: 0;">
@@ -75,7 +79,7 @@ if ($result = $pdo->query($sql)) {
 </div>
 
 <!-- Latest Listings -->
-<div class=" container-fluid bg-light py-5">
+<div class="container-fluid bg-light py-5" id="latest-listings">
   <div class="container">
     <div class="text-center">
       <h2>Latest Listings</h2>
@@ -106,11 +110,14 @@ if ($result = $pdo->query($sql)) {
       ?>
       <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-4">
         <div class="card h-100">
-          <img src="<?php echo $row['image'] ?>" class="card-img-top" alt="...">
+          <div class="ratio-4-3 listing-thumbnail" style="background-image: url('<?php echo $row['image'] ?>');">
+          </div>
           <div class="card-body">
-            <h5 class="card-title">
-              <?php echo "{$row['streetNum']} {$row['street']}, {$row['city']}" ?>
-            </h5>
+            <p class="card-title h5">
+              <?php echo "{$row['streetNum']} {$row['street']}," ?>
+              <br>
+              <?php echo $row['city'] ?>
+            </p>
             <p class="card-text text-muted">
               <span class="me-2">
                 <i class="fas fa-bed text-secondary"></i> <?php echo $row['bedrooms'] ?>
@@ -122,9 +129,10 @@ if ($result = $pdo->query($sql)) {
                 <i class="fas fa-warehouse text-secondary"></i> <?php echo $row['garage'] ?>
               </span>
             </p>
-            <div class="d-grid">
-              <a href="listing.php?id=<?php echo $row['property_ID'] ?>" class="btn btn-secondary rounded-pill">View</a>
-            </div>
+
+            <a href="listing.php?id=<?php echo $row['property_ID'] ?>"
+              class="btn btn-secondary rounded-pill w-100">View</a>
+
           </div>
         </div>
       </div>

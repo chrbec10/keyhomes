@@ -1,8 +1,10 @@
 <?php
 require_once(__DIR__ . '/../config.php');
 
-session_start();
+//Set Response Headers
+header('Content-Type: text/html; charset=UTF-8');
 
+session_start();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -25,8 +27,12 @@ $home_nav = $home_nav ?? false;
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <?php
+  //If a page desctiption has been declared, use it, otherwise use the default description
+  $meta_description = $meta_description ?? "Massive catalogue of affordable housing. Find your Perfect Home at Key Homes" ?>
+  <meta name="description" content="<?php echo $meta_description ?>">
 
   <!-- Only add title if variable is not empty when this file is parsed -->
   <title>Key Homes<?php echo (!empty($title)) ? " | {$title}" : '' ?></title>
@@ -43,11 +49,12 @@ $home_nav = $home_nav ?? false;
 
   <!-- CSS -->
   <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/theme.css">
-  <link rel="stylesheet" href="<?php echo $site_root ?>/static/css/font-awesome/css/all.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <!--Fonts-->
 
   <!-- Early loaded Scripts -->
-  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js"></script>
+  <script src="<?php echo $site_root ?>/static/js/bootstrap.bundle.js" defer="true"></script>
 </head>
 
 <body class="bg-dark">
@@ -57,11 +64,13 @@ $home_nav = $home_nav ?? false;
     id="mainNav">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo $site_root ?>/">
-        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" class="logo-dark" alt="Logo" height="45px">
+        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" class="logo-dark" alt="Logo" height="45px"
+          width="124px">
         <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" class="logo-light" alt="Logo"
-          height="45px">
+          height="45px" width="124px">
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavContent">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavContent"
+        aria-label="Toggle Navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNavContent">
@@ -105,10 +114,10 @@ $home_nav = $home_nav ?? false;
           <?php else : ?>
 
           <li class="w-100 me-2 mb-2 mb-lg-0"><a class="btn btn-outline-primary rounded-pill w-100"
-              href="<?php echo $site_root ?>/login.php" id="loginButton">Login</a>
+              href="<?php echo $site_root ?>/login.php" title="Login" id="loginButton">Login</a>
           </li>
-          <li class="w-100"><a class="btn btn-primary rounded-pill w-100"
-              href="<?php echo $site_root ?>/register.php">Register</a></li>
+          <li class="w-100"><a class="btn btn-primary rounded-pill w-100" href="<?php echo $site_root ?>/register.php"
+              title="Register">Register</a></li>
 
           <?php endif; ?>
           <!-- End of $logged_in -->

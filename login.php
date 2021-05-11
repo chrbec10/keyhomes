@@ -45,7 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $user['username'];
             $_SESSION['isAdmin'] = $user['isAdmin'];
 
-            header('location: index.php');
+            if (!empty($_POST['redirectToListing'])) {
+              header("location: listing.php?id={$_POST['redirectToListing']}");
+            } else {
+              header('location: index.php');
+            }
           } else {
             $verification_err = true;
           }
@@ -73,18 +77,21 @@ require_once('./includes/layouts/header.php');
       <form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>' method="post">
         <div class="form-group mb-1">
           <label>Username</label>
-          <input type="text" name="username"
+          <input type="text" name="username" title="username"
             class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
             value="<?php echo $username; ?>" autofocus>
           <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
         <div class="form-group mb-3">
           <label>Password</label>
-          <input type="password" name="password"
+          <input type="password" name="password" title="password"
             class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
             value="<?php echo $password; ?>">
           <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
+
+        <input type="hidden" name="redirectToListing"
+          value="<?php echo (!empty($_GET['redirectToListing'])) ? $_GET['redirectToListing'] : '' ?>">
 
         <input type="submit" class="btn btn-primary w-100 mb-1" value="Submit">
 
