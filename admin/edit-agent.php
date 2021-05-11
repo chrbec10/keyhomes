@@ -8,6 +8,57 @@ require_once('../includes/db.php'); //Connect to the database
 $fname = $lname = $icon = $email = $phone = $mobile = '';
 $fname_err = $lname_err = $icon_err = $email_err = $phone_err = $mobile_err = '';
 
+//Set alert banner text and colour
+if (isset($_GET['r']) && ($_GET['r'] != '')){
+    $r = trim($_GET['r']);
+
+    if (isset($_GET['e']))
+        $e = trim($_GET['e']);
+
+    switch($r){
+        case 1:
+            $response_div = 'alert-success';
+            $response_txt = 'New Agent created successfully';
+            break;
+        
+        case 2:
+            $response_div = 'alert-success';
+            $response_txt = 'New Icon uploaded successfully';
+            break;
+
+        case 3:
+            $response_div = 'alert-danger';
+            $response_txt = 'There was problem uploading your file. Please try again later.';
+            if (isset($e) && $e != ''){
+                if($e == 4)
+                    $response_txt = 'Please select an image to be uploaded.';
+                else
+                    $response_txt = $response_txt . ' Error code: ' . $e;
+            }
+            break;
+
+        case 4:
+            $response_div = 'alert-danger';
+            $response_txt = 'Please select a file that is under 2MB in size.';
+            break;
+
+        case 5:
+            $response_div = 'alert-danger';
+            $response_txt = 'Invalid file type. Please select a .jpg, .jpeg, .png, or .gif file.';
+            break;
+
+        default:
+            $response_div = 'd-none';
+            $response_txt = '';
+            break;
+    }
+} else {
+    $response_div = 'd-none';
+    $response_txt = '';
+}
+
+
+
 //validate inputs aren't empty
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
     if (empty($input)){
@@ -130,8 +181,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
                 } else {
                     //URL doesn't contain a valid ID
-                    //header("location: ../404.php");
-                    echo('invalid id');
+                    header("location: ../404.php");
                     //exit();
                 }
             } else {
@@ -143,9 +193,8 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
     } else {
         //We weren't given an ID
-        //header("location: ../404.php");
-        echo('no id');
-        //exit();
+        header("location: ../404.php");
+        exit();
     }
     
 }
@@ -153,8 +202,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 ?>
 <div class="content-top-padding pb-4 bg-light">
     <div class="container mt-4">
-    <div class="alert alert-success">Good!</div>
-    <div class="alert alert-danger">Bad...</div>
+    <div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
         <div class="container">
             <h2 class="text-center">Editing details for agent <?php echo $fname . ' ' . $lname ?></h2>
             <br>

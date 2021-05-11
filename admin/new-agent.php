@@ -83,10 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             if ($stmt->execute()){
 
                 $sql = "SELECT MAX(agent_ID) FROM agent";
-                
+
                 if ($stmt = $pdo->query($sql)){
                     $created = ($stmt->fetchColumn());
-                    header("location: edit-agent.php?id=" . $created);
+                    header("location: edit-agent.php?id=" . $created . "&r=1");
                     exit();
                 }
                 

@@ -29,6 +29,8 @@
     //Check the form was submitted
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         
+        $agentID = trim($_POST['id']);
+
         //Check if the file was uploaded properly
         if(isset($_FILES["agentIcon"]) && $_FILES["agentIcon"]["error"] == 0){
 
@@ -46,11 +48,11 @@
 
             //Verify that the file extension is allowed
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
-            if(!array_key_exists($ext, $allowed)) die("Error: Please select a .jpg, .jpeg, .gif, or .png file");
+            if(!array_key_exists($ext, $allowed)) die(header("location: edit-agent.php?id=" . $agentID . "&r=5"));
 
             //Verify the file is under the max filesize limit
             $maxsize = 2 * 1024 * 1024;
-            if ($filesize > $maxsize) die("Error: File is larger than the size limit (2MB)");
+            if ($filesize > $maxsize) die(header("location: edit-agent.php?id=" . $agentID . "&r=4"));
 
             //Verify MIME type
             if(in_array($filetype, $allowed)){
@@ -74,17 +76,20 @@
                         compressImage($_FILES['agentIcon']['tmp_name'], $buildName, 90);
         
                         //redirect back to the edit agent page
-                        header("location: edit-agent.php?id=" . $agentID);
+                        header("location: edit-agent.php?id=" . $agentID . "&r=2");
                     }
                     unset($pdo);
                 }
                 
             } else {
-                echo "Error: There was a problem uploading your file.";
+                header("location: edit-agent.php?id=" . $agentID . "&r=3&e=" . $_FILES["agentIcon"]["error"]);
             }
 
         } else {
-            echo "Error: " . $_FILES["agentIcon"]["error"];
+            header("location: edit-agent.php?id=" . $agentID . "&r=3&e=" . $_FILES["agentIcon"]["error"]);
         }
-    } else { header("location: ../404.php"); }
+    //If we didn't get a form (user is trying to access the page manually) redirect to 404
+    } else { 
+        header("location: ../404.php"); 
+    }
 ?>
