@@ -12,7 +12,7 @@ require_once('../includes/db.php'); //Connect to the database
         </ul>
         <?php
 
-        //Select properties, joining on the agent information by ID
+        //Select all agents
         $sql = "SELECT * FROM agent ORDER BY agent_ID DESC";
 
         //If our query is successful

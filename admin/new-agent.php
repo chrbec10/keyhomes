@@ -81,8 +81,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             //Try and execute the statement
             if ($stmt->execute()){
-                header("location: success.php");
-                exit();
+
+                $sql = "SELECT MAX(agent_ID) FROM agent";
+                
+                if ($stmt = $pdo->query($sql)){
+                    $created = ($stmt->fetchColumn());
+                    header("location: edit-agent.php?id=" . $created);
+                    exit();
+                }
+                
             } else{
                 echo "<div class='alert alert-danger content-top-padding mt-4'>Oops! Something went wrong. Please try again later.</div>";
             }

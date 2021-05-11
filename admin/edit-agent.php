@@ -130,8 +130,9 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
                 } else {
                     //URL doesn't contain a valid ID
-                    header("location: ../404.php");
-                    exit();
+                    //header("location: ../404.php");
+                    echo('invalid id');
+                    //exit();
                 }
             } else {
                 echo "Oops! Something went wrong.";
@@ -142,8 +143,9 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
     } else {
         //We weren't given an ID
-        header("location: ../404.php");
-        exit();
+        //header("location: ../404.php");
+        echo('no id');
+        //exit();
     }
     
 }
@@ -164,10 +166,12 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <div class="row">
                 <div class="form-group col-md">
                     <input type="file" name="agentIcon" id="agentIcon" class="form-control">
+                    <p><strong>Note:</strong> Maximum size of 512px x 512px and 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+                    <br>
                     <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
                     <input type="hidden" id="agentName" name="agentName" value="<?php echo $agentName; ?>"/>
                     <button tpye="submit" class="btn btn-primary">Submit</button>
-                    <p><strong>Note:</strong> Maximum size of 512px x 512px and 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+                    
                 </div>
             </div>
         </form>
