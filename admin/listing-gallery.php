@@ -4,7 +4,7 @@
 require_once('../includes/config.php');
 require_once('../includes/db.php');
 
-function compressImage($source, $name, $quality, $width) {
+function compressImage($source, $name, $quality) {
     //Set destination path
     $destination = "../uploads/properties/"
 
@@ -21,12 +21,25 @@ function compressImage($source, $name, $quality, $width) {
     if ($info['mime'] == 'image/png')
         $image = imagecreatefrompng($source);
 
-    //Scale image down to 1000px width
-    $image = imagescale($image, $width, IMG_BICUBIC);
-
-    //Create new jpeg image from source
+    //Save our original image as full-size compressed jpeg
     imagejpeg($image, ($destination . $name), $quality);
+
+    //Scale image to 1500px width
+    $image_hi = imagescale($image, 1500, IMG_BICUBIC);
+    //Save image as high-quality jpeg
+    imagejpeg($image_hi, ($destination . "hi_" $name), $quality);
+
+    //Scale image to 750px width
+    $image_med = imagescale($image, 750, IMG_BICUBIC);
+    //Save image as medium-quality jpeg
+    imagejpeg($image_med, ($destination . "med_" $name), $quality);
+
+    //Scale image down to 150px width
+    $image_th = imagescale($image, 150, IMG_BICUBIC);
+    //Save image as thumbnail
+    imagejpeg($image_th, ($destination . "thumb_" . $name), $quality);
 }
+
 
 //Check the form was submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){

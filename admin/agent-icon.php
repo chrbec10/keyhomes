@@ -68,7 +68,7 @@
                     $param_ID = $agentID;
 
                     //If we successfully update the database
-                    if ($stmt->execute()){
+                    if ($stmt->execute()){  
                         //If a file exists with the same name, delete it
                         if(file_exists("../uploads/agents/" . $buildName . ".jpg")) unlink("../uploads/agents/" . $buildName . ".jpg");
                         
@@ -77,8 +77,13 @@
         
                         //redirect back to the edit agent page
                         header("location: edit-agent.php?id=" . $agentID . "&r=2");
+                    } else {
+                        header("location: edit-agent.php?id=" . $agentID . "&r=3");
                     }
+                    
                     unset($pdo);
+                } else {
+                    header("location: edit-agent.php?id=" . $agentID . "&r=3");
                 }
                 
             } else {

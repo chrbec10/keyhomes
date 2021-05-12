@@ -9,6 +9,55 @@ $saleType = $price = $description = $bedrooms = $bathrooms = $garage = $agent_ID
 $saleType_err = $price_err = $description_err = $bedrooms_err = $bathrooms_err = $garage_err = $agent_ID_err = $streetNum_err = $street_err = $city_err  = $postcode_err = '';
 
 
+//Set alert banner text and colour
+if (isset($_GET['r']) && ($_GET['r'] != '')){
+    $r = trim($_GET['r']);
+
+    if (isset($_GET['e']))
+        $e = trim($_GET['e']);
+
+    switch($r){
+        case 1:
+            $response_div = 'alert-success';
+            $response_txt = 'New listing created successfully';
+            break;
+        
+        case 2:
+            $response_div = 'alert-success';
+            $response_txt = 'New gallery images uploaded successfully';
+            break;
+
+        case 3:
+            $response_div = 'alert-danger';
+            $response_txt = 'There was problem uploading your file. Please try again later.';
+            if (isset($e) && $e != ''){
+                if($e == 4)
+                    $response_txt = 'Please select an image to be uploaded.';
+                else
+                    $response_txt = $response_txt . ' Error code: ' . $e;
+            }
+            break;
+
+        case 4:
+            $response_div = 'alert-danger';
+            $response_txt = 'Please select a file that is under 5MB in size.';
+            break;
+
+        case 5:
+            $response_div = 'alert-danger';
+            $response_txt = 'Invalid file type. Please select a .jpg, .jpeg, .png, or .gif file.';
+            break;
+
+        default:
+            $response_div = 'd-none';
+            $response_txt = '';
+            break;
+    }
+} else {
+    $response_div = 'd-none';
+    $response_txt = '';
+
+
 //Validate input, passing important variables by reference
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
     if (empty($input)){
@@ -200,6 +249,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
 <div class="content-top-padding pb-4 bg-light">
     <div class="container mt-4">
+        <div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
         <?php
             //If we can retrieve our agent list
             $sql = "SELECT agent_ID, fname, lname FROM agent";

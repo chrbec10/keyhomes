@@ -121,11 +121,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             //If successful
             if ($stmt->execute()){
-                header("location: success.php");
-                exit();
 
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
+                $sql = "SELECT MAX(property_ID) FROM property";
+
+                if ($stmt = $pdo->query($sql)){
+                    $created = ($stmt->fetchColumn());
+                    header("location: edit-listing.php?id=" . $created . "&r=1");
+                    exit();
+                }
+                
+            } else{
+                echo "<div class='alert alert-danger content-top-padding mt-4'>Oops! Something went wrong. Please try again later.</div>";
             }
         }
         //close the connection
