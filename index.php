@@ -171,7 +171,7 @@ if ($result = $pdo->query($sql)) {
 </div>
 
 <!-- Our Agents -->
-<div class="container-fluid bg-light py-5">
+<div class="container-fluid bg-light py-5" id="agents">
   <div class="container text-center">
     <h2>Our Agents</h2>
     <p>Meet our Team of Professional Agents</p>
@@ -184,8 +184,8 @@ if ($result = $pdo->query($sql)) {
       ?>
 
       <div class="col-auto mb-4">
-        <div class="rounded-circle bg-secondary mb-2"
-          style="width: 250px; height: 250px; background-size: cover; background-image: url('<?php echo $row['icon'] ?>')">
+        <div class="rounded-circle bg-secondary mb-2 agent-icon"
+          style="background-image: url('<?php echo $row['icon'] ?>')">
         </div>
         <span class="fs-5"><b><?php echo $row['fname'] . " " . $row['lname'] ?></b></span>
         <br>
