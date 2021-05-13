@@ -151,7 +151,7 @@ if ($result = $pdo->query($sql)) {
 <!-- Why choose us -->
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4 col-lg-6 d-none d-md-block" style="background-image: url('static/img/comfy-interior.jpg'); background-position: center 37%;
+    <div class="col-md-4 col-lg-6 d-none d-md-block" style="background-image: url('static/img/family-moving.jpg'); background-position: center 55%;
     background-size: cover;"></div>
     <div class="col-md-8 col-lg-6 p-md-5">
       <div class="container py-5 p-sm-5">
