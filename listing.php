@@ -187,9 +187,11 @@ if ($stmt = $pdo->prepare($sql)) {
               <?php echo $listing['fname'] . ' ' . $listing['lname'] ?>
             </div>
 
-            <div class=" bg-secondary d-flex justify-content-center py-3">
-              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle w-75 my-1 shadow">
+            <div class="bg-secondary py-3 text-center">
+              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle my-1 shadow"
+                style="max-width: 75%; height: auto;">
             </div>
+
             <hr class="mt-0">
             <div class="card-body text-center pt-0">
               <p class="mb-1">Email: <a
