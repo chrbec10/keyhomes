@@ -22,7 +22,7 @@ if ($result = $pdo->query($sql)) {
 
 <!-- Call to Action -->
 <div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('<?php echo $random_featured['image'] ?>'); background-position: center;
-    background-size: cover; background-attachment: fixed;">
+    background-size: cover;">
   <div class="dark-overlay"></div>
   <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
     <div class="container d-block">
