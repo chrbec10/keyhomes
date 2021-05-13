@@ -32,6 +32,8 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
             if (isset($e) && $e != ''){
                 if($e == 4)
                     $response_txt = 'Please select an image to be uploaded.';
+                else if($e == 2)
+                    $response_txt = 'Please select a file that is under 2MB in size.';
                 else
                     $response_txt = $response_txt . ' Error code: ' . $e;
             }
@@ -211,17 +213,13 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
         <br>
         <form action="agent-icon.php" method="post" enctype="multipart/form-data">
         <h4 class="text-center">Upload new icon</h4>
-            <div class="row">
-                <div class="form-group col-md">
-                    <input type="file" name="agentIcon" id="agentIcon" class="form-control">
-                    <p><strong>Note:</strong> Maximum size of 512px x 512px and 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
-                    <br>
-                    <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
-                    <input type="hidden" id="agentName" name="agentName" value="<?php echo $agentName; ?>"/>
-                    <button tpye="submit" class="btn btn-primary">Submit</button>
-                    
-                </div>
-            </div>
+            <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+            <input type="file" name="agentIcon" id="agentIcon" class="form-control">
+            <p><strong>Note:</strong> Maximum size of 512px x 512px and 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+            <br>
+            <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>">
+            <input type="hidden" id="agentName" name="agentName" value="<?php echo $agentName; ?>">
+            <button tpye="submit" class="btn btn-primary">Upload</button>
         </form>
         <br>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

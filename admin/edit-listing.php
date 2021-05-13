@@ -16,10 +16,13 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
     if (isset($_GET['e']))
         $e = trim($_GET['e']);
 
+    if (isset($_GET['n']))
+        $n = trim($_GET['n']);
+    
     switch($r){
         case 1:
             $response_div = 'alert-success';
-            $response_txt = 'New listing created successfully';
+            $response_txt = 'New listing created successfully. Remember to upload your gallery images before continuing.';
             break;
         
         case 2:
@@ -29,23 +32,31 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
 
         case 3:
             $response_div = 'alert-danger';
-            $response_txt = 'There was problem uploading your file. Please try again later.';
+            $response_txt = 'There was a problem uploading your files. Please try again later.';
             if (isset($e) && $e != ''){
                 if($e == 4)
-                    $response_txt = 'Please select an image to be uploaded.';
-                else
+                    $response_txt = 'Please select at least one image to be uploaded.';
+                else if($e == 2){
+                $response_txt = 'Please select files that are each under 5MB in size.';
+                    if(isset($n) && $n != '')
+                    $response_txt .= ' File ' . $n . ' is too large.';
+                } else
                     $response_txt = $response_txt . ' Error code: ' . $e;
             }
             break;
 
         case 4:
             $response_div = 'alert-danger';
-            $response_txt = 'Please select a file that is under 5MB in size.';
+            $response_txt = 'Please select files that are each under 5MB in size.';
+            if(isset($n) && $n != '')
+                $response_txt .= ' File ' . $n . ' is too large.';
             break;
 
         case 5:
             $response_div = 'alert-danger';
-            $response_txt = 'Invalid file type. Please select a .jpg, .jpeg, .png, or .gif file.';
+            $response_txt = 'Please select only .jpg, .jpeg, .png, or .gif files.';
+            if(isset($n) && $n != '')
+                $response_txt .=  ' File ' . $n . ' is the wrong file type.';
             break;
 
         default:
@@ -56,7 +67,7 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
 } else {
     $response_div = 'd-none';
     $response_txt = '';
-
+}
 
 //Validate input, passing important variables by reference
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
@@ -266,8 +277,19 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             unset($pdo);
         ?>
         <!--Notify user which property is being changed-->
-        <div class="container"><h2>Editing listing for <?php echo $streetNum . ' ' . $street . ', ' . $city . ' ' . $postcode ?></h2></div>
+        <h2>Currently editing <?php echo $streetNum . ' ' . $street . ', ' . $city . ' ' . $postcode ?></h2>
+        <br>
+        <form action="listing-gallery.php" method="post" enctype="multipart/form-data">
+            <h4 class="text-center">Gallery</h4>
+            <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
+            <input type="file" name="gallery[]" id="gallery" class="form-control" multiple>
+            <p><strong>Note:</strong> Maximum size of 5MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+            <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
+            <button tpye="submit" class="btn btn-primary">Upload</button>
+        </form>
+        <br>
         <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+            <h4 class="text-center">Property details</h4>
             <div class="row">
                 <div class="form-group col">
                     <label for="agent" style="display:block">Assigned Agent</label>
