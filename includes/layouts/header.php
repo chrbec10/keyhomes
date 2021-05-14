@@ -20,6 +20,13 @@ if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == true)) {
   $is_admin = true;
 }
 
+if (isset($secure) && ($secure === true)){
+  if(!$is_admin){
+    header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
+    exit;
+  }
+}
+
 $home_nav = $home_nav ?? false;
 ?>
 <!DOCTYPE html>

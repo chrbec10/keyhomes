@@ -73,7 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         //compress and create files, then add a gallery entry
         foreach($_FILES["gallery"]["tmp_name"] as $key => $value) {
-            $image = $_FILES["gallery"]["name"][$key];
+            $image = $_FILES["gallery"]["tmp_name"][$key];
             $image_name = $propertyID . '_' . hash_file('sha1', $image) . ".jpg";
             $quality = 90;
             compressImage($image, $image_name, $quality, $destination);

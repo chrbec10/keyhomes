@@ -1,5 +1,5 @@
 <?php
-
+$secure = true;
 $title = "Edit Listing"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to database
