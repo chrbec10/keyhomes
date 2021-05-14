@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+  header('location: index.php');
+  exit;
+}
+
 require_once('./includes/db.php'); //Connect to the database
 
 //Initializing variables with empty values
