@@ -106,8 +106,7 @@ require_once('./includes/layouts/header.php');
         <div class="form-group mb-1">
           <label>Password</label>
           <input type="password" name="password" title="Password"
-            class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
-            value="<?php echo $password; ?>">
+            class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
           <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
         <div class="form-group mb-3">
