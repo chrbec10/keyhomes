@@ -43,12 +43,30 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
             //clear variables
             unset($stmt);
             unset($row);
-        } 
+        } else {
         echo "Oops! Something went wrong"; 
+        }
     }
 }
 
 if(isset($_POST['id']) && !empty($_POST['id'])){
+
+    $sql = "SELECT property.property_ID, gallery.image FROM property INNER JOIN gallery ON property.property_ID = gallery.property_ID WHERE property.agent_ID = :id";
+    if ($stmt = $pdo->prepare($sql)){
+
+        $stmt->bindParam(":id", $param_ID);
+        $param_ID = trim($_POST['id']);
+
+        if($stmt->execute()){
+            if($stmt->rowCount() > 0){
+                while($row = $stmt->fetch()){
+                    foreach(glob('../uploads/properties/*' . $row['image']) as $image){
+                        unlink($image);
+                    }
+                }
+            }
+        }
+    }
     //Prepare an SQL statement
     $sql = "DELETE FROM agent WHERE agent_ID = :id";
 
@@ -59,7 +77,7 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
 
         //Attempt to execute the prepared statement
         if($stmt->execute()){
-            header("location: index.php");
+            header("location: success.php");
             exit();
         } else {
             echo "Oops! Something went wrong.";

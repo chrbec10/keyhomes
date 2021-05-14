@@ -62,11 +62,9 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
                 if($stmt->execute()){
                     header("location: success.php");
                     exit();
-                } else {
-                    echo "Oops! Something went wrong.";
-                }
+                } else {echo "Oops! Something went wrong.";}
             }
-        }
+        } else {echo "Oops! Something went wrong.";}
     }
     //close statement
     unset($stmt);

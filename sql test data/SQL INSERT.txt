@@ -8,10 +8,8 @@ VALUES ("admin", "$2y$10$DbF6zrUhwVNiNF.Tp0RZfe53hjdZv3TLrEmBv.J.SgbpOZeD0INUa",
 INSERT INTO property(saleType, price, description, bedrooms, bathrooms, garage, agent_ID, streetNum, street, city, postcode)
 VALUES("Sale", 690000, "Large, three-bedroom house with a view located close to the Marina.", 3, 2, 2, 2, "15", "Beach Road", "Waikawa", 7220),
 ("Sale", 690000, "Three-bedroom family home in a quiet neighbourhood.", 3, 2, 2, 1, "18A", "Cavan Street", "Ngaruawahia", 3720),
-("Sale", 530000, "Newly-renovated property with modern comforts, adjacent workshop, and large back yard.", 3, 2, 2, 2, "505", "Wellington Road", "Marton", 4710);
-
-INSERT INTO property(saleType, description, bedrooms, bathrooms, garage, agent_ID, streetNum, street, city, postcode)
-VALUES("Auction", "Huge 4-bedroom home just begging to be renovated", 4, 2, 2, 1, "47a", "Stanley Avenue", "Auckland", 0620);
+("Sale", 530000, "Newly-renovated property with modern comforts, adjacent workshop, and large back yard.", 3, 2, 2, 2, "505", "Wellington Road", "Marton", 4710),
+("Auction", 0, "Huge 4-bedroom home just begging to be renovated", 4, 2, 2, 1, "47a", "Stanley Avenue", "Auckland", 0620);
 
 INSERT INTO gallery(property_ID, image)
 VALUES(1, "0_0.jpg"),
