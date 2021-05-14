@@ -98,23 +98,22 @@ require_once('./includes/layouts/header.php');
       <form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>' method="post">
         <div class="form-group mb-1">
           <label>Username</label>
-          <input type="text" name="username" title="username"
+          <input type="text" name="username" title="Username"
             class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
             value="<?php echo $username; ?>">
           <span class="invalid-feedback"><?php echo $username_err; ?></span>
         </div>
         <div class="form-group mb-1">
           <label>Password</label>
-          <input type="password" name="password" title="password"
+          <input type="password" name="password" title="Password"
             class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
             value="<?php echo $password; ?>">
           <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
         <div class="form-group mb-3">
           <label>Confirm Password</label>
-          <input type="password" name="pass_confirm" title="confirm password"
-            class="form-control <?php echo (!empty($pass_confirm_err)) ? 'is-invalid' : ''; ?>"
-            value="<?php echo $pass_confirm; ?>">
+          <input type="password" name="pass_confirm" title="Confirm Password"
+            class="form-control <?php echo (!empty($pass_confirm_err)) ? 'is-invalid' : ''; ?>">
           <span class="invalid-feedback"><?php echo $pass_confirm_err; ?></span>
         </div>
 
