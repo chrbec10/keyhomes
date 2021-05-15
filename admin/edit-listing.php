@@ -34,29 +34,49 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
             $response_div = 'alert-danger';
             $response_txt = 'There was a problem uploading your files. Please try again later.';
             if (isset($e) && $e != ''){
-                if($e == 4)
+                if($e == 4){
+                    $response_div = 'alert-warning'
                     $response_txt = 'Please select at least one image to be uploaded.';
-                else if($e == 2){
-                $response_txt = 'Please select files that are each under 5MB in size.';
-                    if(isset($n) && $n != '')
-                    $response_txt .= ' File ' . $n . ' is too large.';
+                } else if($e == 2){
+                    $response_div = 'alert-warning';
+                    $response_txt = 'Please select files that are each under 5MB in size.';
+                        if(isset($n) && $n != '')
+                        $response_txt .= ' File ' . $n . ' is too large.';
                 } else
                     $response_txt = $response_txt . ' Error code: ' . $e;
             }
             break;
 
         case 4:
-            $response_div = 'alert-danger';
+            $response_div = 'alert-warning';
             $response_txt = 'Please select files that are each under 5MB in size.';
             if(isset($n) && $n != '')
                 $response_txt .= ' File ' . $n . ' is too large.';
             break;
 
         case 5:
-            $response_div = 'alert-danger';
+            $response_div = 'alert-warning';
             $response_txt = 'Please select only .jpg, .jpeg, .png, or .gif files.';
             if(isset($n) && $n != '')
                 $response_txt .=  ' File ' . $n . ' is the wrong file type.';
+            break;
+
+        case 6:
+            $response_div = 'alert-success';
+            $response_txt = 'Image deleted successfully';
+            break;
+
+        case 7:
+            $response_div = 'alert-danger';
+            $response_txt = 'Something went wrong. Please try again later.';
+            break;
+
+        case 8:
+            $response_div = 'alert-danger';
+            $response_txt = 'Image not found.'
+            if (isset($e) && $e != ''){
+                $response_txt = 'Image with ID <strong>' . $e . '</strong> not found.'
+            }
             break;
 
         default:

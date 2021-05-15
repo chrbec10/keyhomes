@@ -51,7 +51,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 
 if(isset($_POST['id']) && !empty($_POST['id'])){
 
-    $sql = "SELECT property.property_ID, gallery.image FROM property INNER JOIN gallery ON property.property_ID = gallery.property_ID WHERE property.agent_ID = :id";
+    $sql = "SELECT gallery.image FROM gallery INNER JOIN property ON property.property_ID = gallery.property_ID WHERE property.agent_ID = :id";
     if ($stmt = $pdo->prepare($sql)){
 
         $stmt->bindParam(":id", $param_ID);
