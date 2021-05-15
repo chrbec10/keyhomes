@@ -11433,6 +11433,26 @@ nav.main-nav .logo-dark {
   background-size: cover;
 }
 
+#agents .agent-icon {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  #agents .agent-icon {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (min-width: 992px) {
+  #agents .agent-icon {
+    width: 250px;
+    height: 250px;
+  }
+}
+
 /** Single Listing Page **/
 .carousel-thumbnail {
   cursor: pointer;

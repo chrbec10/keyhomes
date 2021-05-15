@@ -44,6 +44,12 @@
     $parameters[] = $_GET['maxPrice'];
   }
 
+  //Add Min Bedrooms to Query
+  if (!empty($_GET['bedrooms'])) {
+    $conditions[] = 'bedrooms >= ?';
+    $parameters[] = $_GET['bedrooms'];
+  }
+
   //Add the where conditions to the statement
   if (!empty($conditions)) {
     $sql .= " WHERE " . implode(' AND ', $conditions);
@@ -124,13 +130,17 @@
        </p>
        <p>
          <span class="me-2">
-           <i class="fas fa-bed text-secondary"></i> <?php echo $listing['bedrooms'] ?>
+           <i class="fas fa-bed text-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+             title="Bedrooms"></i> <?php echo $listing['bedrooms'] ?>
          </span>
          <span class="me-2">
-           <i class="fas fa-bath text-secondary"></i> <?php echo $listing['bathrooms'] ?>
+           <i class="fas fa-bath text-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+             title="Bathrooms"></i> <?php echo $listing['bathrooms'] ?>
          </span>
          <span>
-           <i class="fas fa-warehouse text-secondary"></i> <?php echo $listing['garage'] ?>
+           <i class="fas fa-warehouse text-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+             title="Garages"></i>
+           <?php echo $listing['garage'] ?>
          </span>
        </p>
      </div>

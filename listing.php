@@ -187,9 +187,11 @@ if ($stmt = $pdo->prepare($sql)) {
               <?php echo $listing['fname'] . ' ' . $listing['lname'] ?>
             </div>
 
-            <div class=" bg-secondary d-flex justify-content-center py-3">
-              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle w-75 my-1 shadow">
+            <div class="bg-secondary py-3 text-center">
+              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle my-1 shadow"
+                style="max-width: 75%; height: auto;">
             </div>
+
             <hr class="mt-0">
             <div class="card-body text-center pt-0">
               <p class="mb-1">Email: <a
@@ -213,19 +215,22 @@ if ($stmt = $pdo->prepare($sql)) {
 </div>
 
 <script>
-//Get a reference to the gallery and initialise its settings
-var gallery = document.getElementById('gallery');
-var bsGallery = new bootstrap.Carousel(gallery, {});
+window.addEventListener('load', function() {
 
-//Get a reference to the thumbnails
-var galleryThumbnails = document.getElementsByClassName('carousel-thumbnail');
+  //Get a reference to the gallery and initialise its settings
+  var gallery = document.getElementById('gallery');
+  var bsGallery = new bootstrap.Carousel(gallery, {});
 
-//Give each thumbnail a click listener to change the positon of the carousel
-for (let i = 0; i < galleryThumbnails.length; i++) {
-  galleryThumbnails[i].addEventListener('click', () => {
-    bsGallery.to(galleryThumbnails[i].dataset.slideTo);
-  })
-}
+  //Get a reference to the thumbnails
+  var galleryThumbnails = document.getElementsByClassName('carousel-thumbnail');
+
+  //Give each thumbnail a click listener to change the positon of the carousel
+  for (let i = 0; i < galleryThumbnails.length; i++) {
+    galleryThumbnails[i].addEventListener('click', () => {
+      bsGallery.to(galleryThumbnails[i].dataset.slideTo);
+    })
+  }
+})
 </script>
 
 <script>

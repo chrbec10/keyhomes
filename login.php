@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin']) {
+  header('location: index.php');
+  exit;
+}
+
 $verification_err = false;
 $username = '';
 $password = '';
@@ -38,8 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
           if (password_verify($password, $user['password'])) {
 
-            session_start();
-
             $_SESSION["loggedin"] = true;
             $_SESSION['id'] = $user['user_ID'];
             $_SESSION['username'] = $user['username'];
@@ -58,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 }
 
-$title = "Register"; //The Page Title
+$title = "Login"; //The Page Title
 require_once('./includes/layouts/header.php');
 ?>
 <div class="container content-top-padding">
