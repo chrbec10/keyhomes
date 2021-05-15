@@ -105,14 +105,15 @@ $cities = json_decode($filters['cities']);
 var minPrice = document.getElementById('minPrice');
 var maxPrice = document.getElementById('maxPrice');
 
-maxPrice.addEventListener('input', () => {
-  if (maxPrice.value < minPrice.value && maxPrice.value != '') {
-    minPrice.value = maxPrice.value;
+minPrice.addEventListener('input', () => {
+  if (Number(minPrice.value) > Number(maxPrice.value) && maxPrice.value != '') {
+    maxPrice.value = minPrice.value;
   }
 })
-minPrice.addEventListener('input', () => {
-  if (minPrice.value > maxPrice.value && maxPrice.value != '') {
-    maxPrice.value = minPrice.value;
+
+maxPrice.addEventListener('input', () => {
+  if (Number(maxPrice.value) < Number(minPrice.value) && maxPrice.value != '') {
+    minPrice.value = maxPrice.value;
   }
 })
 </script>
