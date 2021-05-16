@@ -1,5 +1,4 @@
 <?php
-$secure = true;
 $title = "Edit Listing"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to database
@@ -35,7 +34,7 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
             $response_txt = 'There was a problem uploading your files. Please try again later.';
             if (isset($e) && $e != ''){
                 if($e == 4){
-                    $response_div = 'alert-warning'
+                    $response_div = 'alert-warning';
                     $response_txt = 'Please select at least one image to be uploaded.';
                 } else if($e == 2){
                     $response_div = 'alert-warning';
@@ -73,9 +72,9 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
 
         case 8:
             $response_div = 'alert-danger';
-            $response_txt = 'Image not found.'
+            $response_txt = 'Image not found.';
             if (isset($e) && $e != ''){
-                $response_txt = 'Image with ID <strong>' . $e . '</strong> not found.'
+                $response_txt = 'Image with ID <strong>' . $e . '</strong> not found.';
             }
             break;
 
@@ -285,20 +284,50 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             //If we can retrieve our agent list
             $sql = "SELECT agent_ID, fname, lname FROM agent";
             if ($result = $pdo->query($sql)){
-                if ($result->rowCount() > 0){
-                    
-                } else {
+                if (!($result->rowCount() > 0)){
                     echo "No agents to retrieve. Try creating one first.";
                 }
             } else {
                 echo "Unable to retrieve agents. Something went wrong. Please try again later.";
             }
-            //Close database connection
-            unset($pdo);
         ?>
         <!--Notify user which property is being changed-->
         <h2>Currently editing <?php echo $streetNum . ' ' . $street . ', ' . $city . ' ' . $postcode ?></h2>
         <br>
+        <ul id="gallery" class="row mx-0 px-0" style="list-style-type: none;">
+        <!--Create gallery out of image locations in database-->
+            <?php
+            $sql = "SELECT * FROM gallery WHERE property_ID = :property_ID";
+            if ($stmt = $pdo->prepare($sql)){
+
+                //Bind variables to the select statement
+                $stmt->bindParam(":property_ID", $param_property_ID);
+    
+                //Set parameter
+                $param_property_ID = $property_ID;
+
+                if($stmt->execute()){
+                    if ($stmt->rowCount() > 0){
+                        while ($image = $stmt->fetch()){
+                            if(file_exists("../uploads/properties/thumb_" . $image['image'])){
+                                echo "<li class='col-6 col-sm-4 col-lg-2 my-3'>
+                                        <div style='height:100px; width:150px;
+                                        background-image: url(\"../uploads/properties/thumb_" . $image['image'] . "?=" . filemtime('../uploads/properties/' . $image['image']) . "\");' 
+                                        class='edit-gallery-img mx-auto'>
+                                        <div><a style='font-size:20px;' class='btn btn-danger' href='delete-image.php?id=" . $image['image_ID'] . "&pid=" . $property_ID . "'>&times;</a></div>
+                                        </div>
+                                    </li>";
+                            }
+                        }
+                    }
+                }
+            } else {
+                echo "There was a problem retrieving the gallery images. Please try again later.";
+            }
+            unset($stmt);
+            unset($pdo);
+            ?>
+        </ul>
         <form action="listing-gallery.php" method="post" enctype="multipart/form-data">
             <h4 class="text-center">Gallery</h4>
             <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
@@ -316,11 +345,13 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                     <select name="agent" id="agent" class="form-control <?php echo (!empty($agent_ID_err)) ? 'is-invalid' : ''; ?>">
                         <?php
                         //Generate dropdown options from agents table
-                        while ($agentrow = $result->fetch()){
-                            if ($agentrow['agent_ID'] == $agent_ID){
-                                echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
-                            } else {
-                            echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
+                        if ($result->rowCount() > 0){
+                            while ($agentrow = $result->fetch()){
+                                if ($agentrow['agent_ID'] == $agent_ID){
+                                    echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
+                                } else {
+                                echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
+                                }
                             }
                         }
                         ?>
@@ -393,7 +424,8 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <br>
             <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="index.php" class="btn btn-secondary">Cancel</a>
+            <a href="./" class="btn btn-secondary">Cancel</a>
+            <a href="delete-listing.php?id=<?php echo $property_ID; ?>" class="btn btn-danger float-end">Delete Listing</a>
         </form>
     </div>
 </div>

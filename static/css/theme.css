@@ -11457,4 +11457,12 @@ nav.main-nav .logo-dark {
   width: 60px;
   height: 60px;
 }
+
+.edit-gallery-img {
+  width: 150px;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
 /*# sourceMappingURL=theme.css.map */

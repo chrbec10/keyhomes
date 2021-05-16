@@ -90,7 +90,7 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
                 <p>Are you sure you want to delete the record for <?php echo $address; ?>?</p>
                 <p>This action cannot be undone</p>
                 <p><input type="submit" value="Delete" class="btn btn-danger">
-                <a href="index.php" class="btn btn-secondary ml-2">Cancel</a></p>
+                <a href="edit-listing.php?id=<?php echo trim($_GET["id"]); ?>" class="btn btn-secondary ml-2">Cancel</a></p>
             </div>
         </form>
     </div>

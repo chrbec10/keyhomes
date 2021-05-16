@@ -262,22 +262,10 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="./" class="btn btn-secondary">Cancel</a>
+            <a href="delete-agent.php?id=<?php echo $agent_ID; ?>" class="btn btn-danger float-end">Delete Agent</a>
         </form>
     </div>
 </div>
-
-
-<script>
-function toggleDisplay(element){
-    var toggle = document.getElementById(element);
-    if (toggle.style.display === "none"){
-        toggle.style.display = "block";
-    }
-    else {
-        toggle.style.display = "none";
-    }
-};
-</script>
 <?php
 require_once('../includes/layouts/footer.php'); //Gets the footer
 ?>

@@ -108,7 +108,7 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
                 <p>This action cannot be undone</p>
                 <?php if($currentProps[0] > 0){echo "<p><b>WARNING: This agent currently has " . $currentProps[0] . " properties assigned to them. These will be deleted if you delete the agent assigned to them.</b></p>";}?>
                 <p><input type="submit" value="Delete" class="btn btn-danger">
-                <a href="index.php" class="btn btn-secondary ml-2">Cancel</a></p>
+                <a href="edit-agent.php?id=<?php echo trim($_GET["id"]); ?>" class="btn btn-secondary ml-2">Cancel</a></p>
             </div>
         </form>
     </div>
