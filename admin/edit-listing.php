@@ -281,161 +281,157 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 }
 ?>
 
-<div class="content-top-padding pb-4 bg-light">
-    <div class="container mt-4">
-        <div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
-        <?php
-            //If we can retrieve our agent list
-            $sql = "SELECT agent_ID, fname, lname FROM agent";
-            if ($result = $pdo->query($sql)){
-                if (!($result->rowCount() > 0)){
-                    echo "No agents to retrieve. Try creating one first.";
-                }
-            } else {
-                echo "Unable to retrieve agents. Something went wrong. Please try again later.";
-            }
-        ?>
-        <!--Notify user which property is being changed-->
-        <h2>Currently editing <?php echo $streetNum . ' ' . $street . ', ' . $city . ' ' . $postcode ?></h2>
-        <br>
-        <ul id="gallery" class="row mx-0 px-0" style="list-style-type: none;">
-        <!--Create gallery out of image locations in database-->
-            <?php
-            $sql = "SELECT * FROM gallery WHERE property_ID = :property_ID";
-            if ($stmt = $pdo->prepare($sql)){
+<div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
+<?php
+    //If we can retrieve our agent list
+    $sql = "SELECT agent_ID, fname, lname FROM agent";
+    if ($result = $pdo->query($sql)){
+        if (!($result->rowCount() > 0)){
+            echo "No agents to retrieve. Try creating one first.";
+        }
+    } else {
+        echo "Unable to retrieve agents. Something went wrong. Please try again later.";
+    }
+?>
+<!--Notify user which property is being changed-->
+<h2>Currently editing <?php echo $streetNum . ' ' . $street . ', ' . $city . ' ' . $postcode ?></h2>
+<br>
+<ul id="gallery" class="row mx-0 px-0" style="list-style-type: none;">
+<!--Create gallery out of image locations in database-->
+    <?php
+    $sql = "SELECT * FROM gallery WHERE property_ID = :property_ID";
+    if ($stmt = $pdo->prepare($sql)){
 
-                //Bind variables to the select statement
-                $stmt->bindParam(":property_ID", $param_property_ID);
-    
-                //Set parameter
-                $param_property_ID = $property_ID;
+        //Bind variables to the select statement
+        $stmt->bindParam(":property_ID", $param_property_ID);
 
-                if($stmt->execute()){
-                    if ($stmt->rowCount() > 0){
-                        while ($image = $stmt->fetch()){
-                            if(file_exists("../uploads/properties/thumb_" . $image['image'])){
-                                echo "<li class='col-6 col-sm-4 col-lg-2 my-3'>
-                                        <div style='background-image: url(\"../uploads/properties/thumb_" . $image['image'] . "?=" . filemtime('../uploads/properties/' . $image['image']) . "\");' 
-                                        class='edit-gallery-img mx-auto'>
-                                        <div><a title='Delete image' class='btn btn-sm btn-danger delete-button' href='delete-image.php?id=" . $image['image_ID'] . "&pid=" . $property_ID . "'>&times;</a></div>
-                                        </div>
-                                    </li>";
-                            }
-                        }
-                    } else {
-                        echo "<li>No images found. Please add some images before continuing.</li>";
+        //Set parameter
+        $param_property_ID = $property_ID;
+
+        if($stmt->execute()){
+            if ($stmt->rowCount() > 0){
+                while ($image = $stmt->fetch()){
+                    if(file_exists("../uploads/properties/thumb_" . $image['image'])){
+                        echo "<li class='col-6 col-sm-4 col-lg-2 my-3'>
+                                <div style='background-image: url(\"../uploads/properties/thumb_" . $image['image'] . "?=" . filemtime('../uploads/properties/' . $image['image']) . "\");' 
+                                class='edit-gallery-img mx-auto'>
+                                <div><a title='Delete image' class='btn btn-sm btn-danger delete-button' href='delete-image.php?id=" . $image['image_ID'] . "&pid=" . $property_ID . "'>&times;</a></div>
+                                </div>
+                            </li>";
                     }
-                } else {
-                    echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
                 }
             } else {
-                echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
+                echo "<li>No images found. Please add some images before continuing.</li>";
             }
-            unset($stmt);
-            unset($pdo);
-            ?>
-        </ul>
-        <form action="listing-gallery.php" method="post" enctype="multipart/form-data">
-            <h4 class="text-center">Gallery</h4>
-            <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
-            <input type="file" name="gallery[]" id="gallery" class="form-control" multiple>
-            <p><strong>Note:</strong> Maximum size of 5MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
-            <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
-            <button tpye="submit" class="btn btn-primary">Upload</button>
-        </form>
-        <br>
-        <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
-            <h4 class="text-center">Property details</h4>
-            <div class="row">
-                <div class="form-group col">
-                    <label for="agent" style="display:block">Assigned Agent</label>
-                    <select name="agent" id="agent" class="form-control <?php echo (!empty($agent_ID_err)) ? 'is-invalid' : ''; ?>">
-                        <?php
-                        //Generate dropdown options from agents table
-                        if ($result->rowCount() > 0){
-                            while ($agentrow = $result->fetch()){
-                                if ($agentrow['agent_ID'] == $agent_ID){
-                                    echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
-                                } else {
-                                echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
-                                }
-                            }
+        } else {
+            echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
+        }
+    } else {
+        echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
+    }
+    unset($stmt);
+    unset($pdo);
+    ?>
+</ul>
+<form action="listing-gallery.php" method="post" enctype="multipart/form-data">
+    <h4 class="text-center">Gallery</h4>
+    <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
+    <input type="file" name="gallery[]" id="gallery" class="form-control" multiple>
+    <p><strong>Note:</strong> Maximum size of 5MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+    <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
+    <button tpye="submit" class="btn btn-primary">Upload</button>
+</form>
+<br>
+<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+    <h4 class="text-center">Property details</h4>
+    <div class="row">
+        <div class="form-group col">
+            <label for="agent" style="display:block">Assigned Agent</label>
+            <select name="agent" id="agent" class="form-control <?php echo (!empty($agent_ID_err)) ? 'is-invalid' : ''; ?>">
+                <?php
+                //Generate dropdown options from agents table
+                if ($result->rowCount() > 0){
+                    while ($agentrow = $result->fetch()){
+                        if ($agentrow['agent_ID'] == $agent_ID){
+                            echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
+                        } else {
+                        echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
                         }
-                        ?>
-                    </select>
-                    <span class="invalid-feedback"><?php echo $agent_ID_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label for="streetNum">Number</label>
-                    <input type="text" id="streetNum" name="streetNum" class="form-control <?php echo (!empty($streetNum_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $streetNum ?>">
-                    <span class="invalid-feedback"><?php echo $streetNum_err;?></span>
-                </div>
-                <div class="form-group col">
-                    <label for="street">Street</label>
-                    <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value="<?php echo $street ?>">
-                    <span class="invalid-feedback"><?php echo $street_err;?></span>
-                </div>
-                <div class="form-group col-md-3">
-                    <label for="city">City</label>
-                    <input type="text" id="city" name="city" maxlength="100" class="form-control <?php echo (!empty($city_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $city ?>">
-                    <span class="invalid-feedback"><?php echo $city_err;?></span>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="postcode">Postcode</label>
-                    <input type="text" id="postcode" name="postcode" maxlength="4" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $postcode ?>">
-                    <span class="invalid-feedback"><?php echo $postcode_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="bedrooms">Bedrooms</label>
-                    <input type="text" id="bedrooms" name="bedrooms" maxlength="2" class="form-control <?php echo (!empty($bedrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bedrooms ?>">
-                    <span class="invalid-feedback"><?php echo $bedrooms_err;?></span>
-                </div>
-                <div class="form-group col-md">
-                    <label for="bathrooms">Bathrooms</label>
-                    <input type="text" id="bathrooms" name="bathrooms" maxlength="2" class="form-control <?php echo (!empty($bathrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bathrooms ?>">
-                    <span class="invalid-feedback"><?php echo $bathrooms_err;?></span>
-                </div>
-                <div class="form-group col-md">
-                    <label for="garage">Parking</label>
-                    <input type="text" id="garage" name="garage" maxlength="2" class="form-control <?php echo (!empty($garage_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $garage ?>">
-                    <span class="invalid-feedback"><?php echo $garage_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="saleType">Sale Type</label>
-                    <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">
-                    <span class="invalid-feedback"><?php echo $saleType_err;?></span>
-                </div>
-                <div class="form-group col-md">
-                    <label for="price">Price</label>
-                    <input type="number" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
-                    <span class="invalid-feedback"><?php echo $price_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>" name="description" id="description"><?php echo $description; ?></textarea>
-                    <span class="invalid-feedback"><?php echo $description_err;?></span>
-                </div>
-            </div>
-            <br>
-            <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="./" class="btn btn-secondary">Cancel</a>
-            <a href="delete-listing.php?id=<?php echo $property_ID; ?>" class="btn btn-danger float-end">Delete Listing</a>
-        </form>
+                    }
+                }
+                ?>
+            </select>
+            <span class="invalid-feedback"><?php echo $agent_ID_err;?></span>
+        </div>
     </div>
-</div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md-2">
+            <label for="streetNum">Number</label>
+            <input type="text" id="streetNum" name="streetNum" class="form-control <?php echo (!empty($streetNum_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $streetNum ?>">
+            <span class="invalid-feedback"><?php echo $streetNum_err;?></span>
+        </div>
+        <div class="form-group col">
+            <label for="street">Street</label>
+            <input type="text"  id="street" name="street" maxlength="100" class="form-control <?php echo (!empty($street_err)) ? 'is-invalid' : ''; ?>"value="<?php echo $street ?>">
+            <span class="invalid-feedback"><?php echo $street_err;?></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" maxlength="100" class="form-control <?php echo (!empty($city_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $city ?>">
+            <span class="invalid-feedback"><?php echo $city_err;?></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="postcode">Postcode</label>
+            <input type="text" id="postcode" name="postcode" maxlength="4" class="form-control <?php echo (!empty($postcode_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $postcode ?>">
+            <span class="invalid-feedback"><?php echo $postcode_err;?></span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="bedrooms">Bedrooms</label>
+            <input type="text" id="bedrooms" name="bedrooms" maxlength="2" class="form-control <?php echo (!empty($bedrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bedrooms ?>">
+            <span class="invalid-feedback"><?php echo $bedrooms_err;?></span>
+        </div>
+        <div class="form-group col-md">
+            <label for="bathrooms">Bathrooms</label>
+            <input type="text" id="bathrooms" name="bathrooms" maxlength="2" class="form-control <?php echo (!empty($bathrooms_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $bathrooms ?>">
+            <span class="invalid-feedback"><?php echo $bathrooms_err;?></span>
+        </div>
+        <div class="form-group col-md">
+            <label for="garage">Parking</label>
+            <input type="text" id="garage" name="garage" maxlength="2" class="form-control <?php echo (!empty($garage_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $garage ?>">
+            <span class="invalid-feedback"><?php echo $garage_err;?></span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="saleType">Sale Type</label>
+            <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">
+            <span class="invalid-feedback"><?php echo $saleType_err;?></span>
+        </div>
+        <div class="form-group col-md">
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" class="form-control <?php echo (!empty($price_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $price ?>">
+            <span class="invalid-feedback"><?php echo $price_err;?></span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control <?php echo (!empty($description_err)) ? 'is-invalid' : ''; ?>" name="description" id="description"><?php echo $description; ?></textarea>
+            <span class="invalid-feedback"><?php echo $description_err;?></span>
+        </div>
+    </div>
+    <br>
+    <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="./" class="btn btn-secondary">Cancel</a>
+    <a href="delete-listing.php?id=<?php echo $property_ID; ?>" class="btn btn-danger float-end">Delete Listing</a>
+</form>
 
 <?php 
 require_once('includes/admin-footer.php'); //Close out admin formatting

@@ -83,20 +83,15 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
 
 ?>
 
-<div class="content-top-padding pb-4 bg-light">
-    <div class="container mt-4">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="alert alert-danger">
-                <input type="hidden" name="id" id="id" value="<?php echo trim($_GET["id"]); ?>"/>
-                <p>Are you sure you want to delete the record for <?php echo $address; ?>?</p>
-                <p>This action cannot be undone</p>
-                <p><input type="submit" value="Delete" class="btn btn-danger">
-                <a href="edit-listing.php?id=<?php echo trim($_GET["id"]); ?>" class="btn btn-secondary ml-2">Cancel</a></p>
-            </div>
-        </form>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <div class="alert alert-danger">
+        <input type="hidden" name="id" id="id" value="<?php echo trim($_GET["id"]); ?>"/>
+        <p>Are you sure you want to delete the record for <?php echo $address; ?>?</p>
+        <p>This action cannot be undone</p>
+        <p><input type="submit" value="Delete" class="btn btn-danger">
+        <a href="edit-listing.php?id=<?php echo trim($_GET["id"]); ?>" class="btn btn-secondary ml-2">Cancel</a></p>
     </div>
-</div>
-
+</form>
 
 <?php 
 require_once('includes/admin-footer.php'); //Close out admin formatting

@@ -203,70 +203,68 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 }
 
 ?>
-<div class="content-top-padding pb-4 bg-light">
-    <div class="container mt-4">
-    <div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
-        <div class="container">
-            <h2 class="text-center">Editing details for agent <?php echo $fname . ' ' . $lname ?></h2>
-            <br>
-            <img src= <?php echo '"../uploads/agents/' . $icon . '?=' . filemtime('../uploads/agents/' . $icon) . '"' ?> style="max-width:256px" class="rounded-circle mx-auto d-block">
-        </div>
-        <br>
-        <form action="agent-icon.php" method="post" enctype="multipart/form-data">
-        <h4 class="text-center">Upload new icon</h4>
-            <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
-            <input type="file" name="agentIcon" id="agentIcon" class="form-control">
-            <p><strong>Note:</strong> Maximum size of 512px x 512px and 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
-            <br>
-            <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>">
-            <input type="hidden" id="agentName" name="agentName" value="<?php echo $agentName; ?>">
-            <button tpye="submit" class="btn btn-primary">Upload</button>
-        </form>
-        <br>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <h4 class="text-center">Agent details</h4>
-            <br>
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="fname">First Name</label>
-                    <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="fname" id="fname" value="<?php echo $fname; ?>">
-                    <span class="invalid-feedback"><?php echo $fname_err;?></span>
-                </div>
-                <div class="form-group col-md">
-                    <label for="lname">Last Name</label>
-                    <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="lname" id="lname" value="<?php echo $lname; ?>">
-                    <span class="invalid-feedback"><?php echo $lname_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="email">Email Address</label>
-                    <input type="text" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" name="email" id="email" value="<?php echo $email; ?>">
-                    <span class="invalid-feedback"><?php echo $email_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="phone">Office Phone Number</label>
-                    <input type="text" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" name="phone" id="phone" value="<?php echo $phone; ?>">
-                    <span class="invalid-feedback"><?php echo $phone_err;?></span>
-                </div>
-                <div class="form-group col-md">
-                    <label for="mobile">Work Cellphone Number</label>
-                    <input type="text" class="form-control <?php echo (!empty($mobile_err)) ? 'is-invalid' : ''; ?>" name="mobile" id="mobile" value="<?php echo $mobile; ?>">
-                    <span class="invalid-feedback"><?php echo $mobile_err;?></span>
-                </div>
-            </div>
-            <br>
-            <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="./" class="btn btn-secondary">Cancel</a>
-            <a href="delete-agent.php?id=<?php echo $agent_ID; ?>" class="btn btn-danger float-end">Delete Agent</a>
-        </form>
-    </div>
+
+<div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
+<div>
+    <h2>Editing details for agent <?php echo $fname . ' ' . $lname ?></h2>
+    <br>
+    <img src= <?php echo '"../uploads/agents/' . $icon . '?=' . filemtime('../uploads/agents/' . $icon) . '"' ?> style="max-width:256px" class="rounded-circle mx-auto d-block">
 </div>
+<br>
+<form action="agent-icon.php" method="post" enctype="multipart/form-data">
+<h4 class="text-center">Upload new icon</h4>
+    <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
+    <input type="file" name="agentIcon" id="agentIcon" class="form-control">
+    <p><strong>Note:</strong> Maximum size of 512px x 512px and 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+    <br>
+    <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>">
+    <input type="hidden" id="agentName" name="agentName" value="<?php echo $agentName; ?>">
+    <button tpye="submit" class="btn btn-primary">Upload</button>
+</form>
+<br>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <h4 class="text-center">Agent details</h4>
+    <br>
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="fname">First Name</label>
+            <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="fname" id="fname" value="<?php echo $fname; ?>">
+            <span class="invalid-feedback"><?php echo $fname_err;?></span>
+        </div>
+        <div class="form-group col-md">
+            <label for="lname">Last Name</label>
+            <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="lname" id="lname" value="<?php echo $lname; ?>">
+            <span class="invalid-feedback"><?php echo $lname_err;?></span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="email">Email Address</label>
+            <input type="text" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" name="email" id="email" value="<?php echo $email; ?>">
+            <span class="invalid-feedback"><?php echo $email_err;?></span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="phone">Office Phone Number</label>
+            <input type="text" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" name="phone" id="phone" value="<?php echo $phone; ?>">
+            <span class="invalid-feedback"><?php echo $phone_err;?></span>
+        </div>
+        <div class="form-group col-md">
+            <label for="mobile">Work Cellphone Number</label>
+            <input type="text" class="form-control <?php echo (!empty($mobile_err)) ? 'is-invalid' : ''; ?>" name="mobile" id="mobile" value="<?php echo $mobile; ?>">
+            <span class="invalid-feedback"><?php echo $mobile_err;?></span>
+        </div>
+    </div>
+    <br>
+    <input type="hidden" id="id" name="id" value="<?php echo $agent_ID; ?>"/>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="./" class="btn btn-secondary">Cancel</a>
+    <a href="delete-agent.php?id=<?php echo $agent_ID; ?>" class="btn btn-danger float-end">Delete Agent</a>
+</form>
+
 <?php
 require_once('includes/admin-footer.php'); //Close out admin formatting
 require_once('../includes/layouts/footer.php'); //Gets the footer

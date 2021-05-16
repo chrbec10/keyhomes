@@ -5,6 +5,9 @@ require_once('../includes/db.php'); //Connect to the database
 require_once('includes/admin-header.php'); //Add admin formatting
 ?>
 
+<h2>Admin Home - Recent Listings</h2>
+<br>
+
 <?php
 
 //Select properties, joining on the agent information by ID
@@ -19,7 +22,7 @@ if($stmt = $pdo->query($sql)){
         echo "<table class='table table-bordered table-striped'>";
             echo "<thead>";
                 echo "<tr>";
-                    echo "<th>#</th>";
+                    echo "<th>ID</th>";
                     echo "<th>Address</th>";
                     echo "<th>Sale Type</th>";
                     echo "<th>Price</th>";

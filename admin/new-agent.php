@@ -101,48 +101,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 ?>
-<div class="content-top-padding pb-4 bg-light">
-    <div class="container mt-4">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="fname">First Name</label>
-                    <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="fname" id="fname" value="<?php echo $fname; ?>">
-                    <span class="invalid-feedback"><?php echo $fname_err;?></span>
-                </div>
-                <div class="form-group col-md">
-                    <label for="lname">Last Name</label>
-                    <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="lname" id="lname" value="<?php echo $lname; ?>">
-                    <span class="invalid-feedback"><?php echo $lname_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="email">Email Address</label>
-                    <input type="text" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" name="email" id="email" value="<?php echo $email; ?>">
-                    <span class="invalid-feedback"><?php echo $email_err;?></span>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="form-group col-md">
-                    <label for="phone">Office Phone Number</label>
-                    <input type="text" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" name="phone" id="phone" value="<?php echo $phone; ?>">
-                    <span class="invalid-feedback"><?php echo $phone_err;?></span>
-                </div>
-                <div class="form-group col-md">
-                    <label for="mobile">Work Cellphone Number</label>
-                    <input type="text" class="form-control <?php echo (!empty($mobile_err)) ? 'is-invalid' : ''; ?>" name="mobile" id="mobile" value="<?php echo $mobile; ?>">
-                    <span class="invalid-feedback"><?php echo $mobile_err;?></span>
-                </div>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="index.php" class="btn btn-secondary">Cancel</a>
-        </form>
+<h2>New Agent</h2>
+<br>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="fname">First Name</label>
+            <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="fname" id="fname" value="<?php echo $fname; ?>">
+            <span class="invalid-feedback"><?php echo $fname_err;?></span>
+        </div>
+        <div class="form-group col-md">
+            <label for="lname">Last Name</label>
+            <input type="text" class="form-control <?php echo (!empty($fname_err)) ? 'is-invalid' : ''; ?>" name="lname" id="lname" value="<?php echo $lname; ?>">
+            <span class="invalid-feedback"><?php echo $lname_err;?></span>
+        </div>
     </div>
-</div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="email">Email Address</label>
+            <input type="text" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" name="email" id="email" value="<?php echo $email; ?>">
+            <span class="invalid-feedback"><?php echo $email_err;?></span>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="form-group col-md">
+            <label for="phone">Office Phone Number</label>
+            <input type="text" class="form-control <?php echo (!empty($phone_err)) ? 'is-invalid' : ''; ?>" name="phone" id="phone" value="<?php echo $phone; ?>">
+            <span class="invalid-feedback"><?php echo $phone_err;?></span>
+        </div>
+        <div class="form-group col-md">
+            <label for="mobile">Work Cellphone Number</label>
+            <input type="text" class="form-control <?php echo (!empty($mobile_err)) ? 'is-invalid' : ''; ?>" name="mobile" id="mobile" value="<?php echo $mobile; ?>">
+            <span class="invalid-feedback"><?php echo $mobile_err;?></span>
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="index.php" class="btn btn-secondary">Cancel</a>
+</form>
 
 <?php
 require_once('includes/admin-footer.php'); //Close out admin formatting
