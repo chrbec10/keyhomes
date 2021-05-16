@@ -73,22 +73,47 @@ $cities = json_decode($filters['cities']);
       </select>
     </div>
   </div>
+  <label for="bedrooms" class="form-label mb-1">Bedrooms:</label>
+  <select class="form-select mb-2" name="bedrooms" title="Filter by Minimum Bedrooms">
+    <?php $min_bedrooms = 0;
+    if (!empty($_GET['bedrooms'])) {
+      $min_bedrooms = trim($_GET['bedrooms']);
+    }
+    ?>
+    <option <?php echo $min_bedrooms == 0 ? 'selected' : '' ?> value="">1+</option>
+    <option <?php echo $min_bedrooms == 2 ? 'selected' : '' ?> value="2">2+</option>
+    <option <?php echo $min_bedrooms == 3 ? 'selected' : '' ?> value="3">3+</option>
+    <option <?php echo $min_bedrooms == 4 ? 'selected' : '' ?> value="4">4+</option>
+    <option <?php echo $min_bedrooms == 5 ? 'selected' : '' ?> value="5">5+</option>
 
-  <button class="btn btn-primary mt-2 rounded-pill w-100">Filter</button>
+  </select>
+
+  <div class="row mt-3">
+    <div class="col pe-0">
+      <button class="btn btn-primary rounded-pill w-100"><i class="fas fa-filter"></i> Filter</button>
+    </div>
+    <div class="col-auto">
+      <a href="/listings.php" class="btn btn-secondary rounded-circle text-center" title="Reset Filters"
+        data-bs-toggle="tooltip" data-bs-placement="top">
+        <i class="fas fa-times"></i>
+      </a>
+    </div>
+  </div>
 </form>
 
 <script>
 var minPrice = document.getElementById('minPrice');
 var maxPrice = document.getElementById('maxPrice');
 
-maxPrice.addEventListener('input', () => {
-  if (maxPrice.value < minPrice.value && maxPrice.value != '') {
-    minPrice.value = maxPrice.value;
+minPrice.addEventListener('input', () => {
+  if (Number(minPrice.value) > Number(maxPrice.value) && maxPrice.value != '') {
+    maxPrice.value = minPrice.value;
   }
 })
-minPrice.addEventListener('input', () => {
-  if (minPrice.value > maxPrice.value && maxPrice.value != '') {
-    maxPrice.value = minPrice.value;
+
+maxPrice.addEventListener('input', () => {
+  if (Number(maxPrice.value) < Number(minPrice.value) && maxPrice.value != '') {
+    minPrice.value = maxPrice.value;
   }
 })
 </script>

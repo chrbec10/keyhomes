@@ -115,8 +115,25 @@ nav.main-nav {
 /** Home Page **/
 #latest-listings {
 	.listing-thumbnail {
- 		background-position: center;
+		background-position: center;
 		background-size: cover;
+	}
+}
+#agents {
+	.agent-icon {
+		width: 150px;
+		height: 150px;
+		background-size: cover;
+
+		@include media-breakpoint-up(md) {
+			width: 200px;
+			height: 200px;
+		}
+
+		@include media-breakpoint-up(lg) {
+			width: 250px;
+			height: 250px;
+		}
 	}
 }
 

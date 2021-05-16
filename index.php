@@ -22,7 +22,7 @@ if ($result = $pdo->query($sql)) {
 
 <!-- Call to Action -->
 <div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('<?php echo $random_featured['image'] ?>'); background-position: center;
-    background-size: cover; background-attachment: fixed;">
+    background-size: cover;">
   <div class="dark-overlay"></div>
   <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
     <div class="container d-block">
@@ -47,7 +47,7 @@ if ($result = $pdo->query($sql)) {
 
               <label for="city" class="form-label" style="color: #ffffffb8">Search for Properties in...</label>
               <div class="input-group rounded-pill">
-                <select class="form-select" name="city" title="city" style="border-radius: 50rem 0 0 50rem">
+                <select class="form-select" name="city" title="City" style="border-radius: 50rem 0 0 50rem">
                   <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
                   <?php foreach ($cities as $city) :
                   ?>
@@ -151,7 +151,7 @@ if ($result = $pdo->query($sql)) {
 <!-- Why choose us -->
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-4 col-lg-6 d-none d-md-block" style="background-image: url('static/img/comfy-interior.jpg'); background-position: center 37%;
+    <div class="col-md-4 col-lg-6 d-none d-md-block" style="background-image: url('static/img/family-moving.jpg'); background-position: center 55%;
     background-size: cover;"></div>
     <div class="col-md-8 col-lg-6 p-md-5">
       <div class="container py-5 p-sm-5">
@@ -171,7 +171,7 @@ if ($result = $pdo->query($sql)) {
 </div>
 
 <!-- Our Agents -->
-<div class="container-fluid bg-light py-5">
+<div class="container-fluid bg-light py-5" id="agents">
   <div class="container text-center">
     <h2>Our Agents</h2>
     <p>Meet our Team of Professional Agents</p>
@@ -184,8 +184,8 @@ if ($result = $pdo->query($sql)) {
       ?>
 
       <div class="col-auto mb-4">
-        <div class="rounded-circle bg-secondary mb-2"
-          style="width: 250px; height: 250px; background-size: cover; background-image: url('<?php echo $row['icon'] ?>')">
+        <div class="rounded-circle bg-secondary mb-2 agent-icon"
+          style="background-image: url('<?php echo $row['icon'] ?>')">
         </div>
         <span class="fs-5"><b><?php echo $row['fname'] . " " . $row['lname'] ?></b></span>
         <br>
