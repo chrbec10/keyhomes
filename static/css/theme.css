@@ -11506,7 +11506,7 @@ nav.main-nav .logo-dark {
   clear: left;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 992px) {
   .sidebar {
     max-width: 100%;
     padding-bottom: 1.5rem;

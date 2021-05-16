@@ -3,7 +3,7 @@
 $title = "Delete Agent"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
-require_once('includes/admin-header.php'); //Add admin formatting
+
 
 $agent = '';
 $currentProps = '';
@@ -97,7 +97,7 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
     }
 }
 
-
+require_once('includes/admin-header.php'); //Add admin formatting
 ?>
 
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

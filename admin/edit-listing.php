@@ -2,7 +2,7 @@
 $title = "Edit Listing"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to database
-require_once('includes/admin-header.php'); //Add admin formatting
+
 
 //Defining our variables
 $saleType = $price = $description = $bedrooms = $bathrooms = $garage = $agent_ID = $streetNum = $street = $city = $postcode = '';
@@ -77,6 +77,11 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
             if (isset($e) && $e != ''){
                 $response_txt = 'Image with ID <strong>' . $e . '</strong> not found.';
             }
+            break;
+        
+        case 9:
+            $response_div = 'alert-success';
+            $response_txt = 'Changes submitted successfully';
             break;
 
         default:
@@ -212,7 +217,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
             //If successful
             if ($stmt->execute()){
-                header("location: success.php");
+                header("location: edit-listing.php?id=" . $property_ID . "&r=9");
                 exit();
 
             } else {
@@ -279,6 +284,8 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
     }
 
 }
+
+require_once('includes/admin-header.php'); //Add admin formatting
 ?>
 
 <div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
@@ -312,7 +319,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
             if ($stmt->rowCount() > 0){
                 while ($image = $stmt->fetch()){
                     if(file_exists("../uploads/properties/thumb_" . $image['image'])){
-                        echo "<li class='col-6 col-sm-4 col-lg-2 my-3'>
+                        echo "<li class='col-6 col-sm-4 col-xl-2 my-3'>
                                 <div style='background-image: url(\"../uploads/properties/thumb_" . $image['image'] . "?=" . filemtime('../uploads/properties/' . $image['image']) . "\");' 
                                 class='edit-gallery-img mx-auto'>
                                 <div><a title='Delete image' class='btn btn-sm btn-danger delete-button' href='delete-image.php?id=" . $image['image_ID'] . "&pid=" . $property_ID . "'>&times;</a></div>
@@ -359,6 +366,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                         }
                     }
                 }
+                unset($result);
                 ?>
             </select>
             <span class="invalid-feedback"><?php echo $agent_ID_err;?></span>

@@ -1,9 +1,8 @@
 <?php
 
-$title = "New Agent"; //The Page Title
+$title = "Edit Agent"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
-require_once('includes/admin-header.php'); //Add admin formatting
 
 //Defining variables
 $fname = $lname = $icon = $email = $phone = $mobile = '';
@@ -48,6 +47,11 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
         case 5:
             $response_div = 'alert-danger';
             $response_txt = 'Invalid file type. Please select a .jpg, .jpeg, .png, or .gif file.';
+            break;
+
+        case 9:
+            $response_div = 'alert-success';
+            $response_txt = 'Changes submitted successfully';
             break;
 
         default:
@@ -141,7 +145,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
             //Try and execute the statement
             if ($stmt->execute()){
-                header("location: success.php");
+                header("location: edit-agent.php?id=" . $agent_ID . "&r=9");
                 exit();
             } else{
                 echo "Oops! Something went wrong.";
@@ -202,6 +206,7 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
     
 }
 
+require_once('includes/admin-header.php'); //Add admin formatting
 ?>
 
 <div class="alert <?php echo $response_div; ?>"><?php echo $response_txt; ?></div>
