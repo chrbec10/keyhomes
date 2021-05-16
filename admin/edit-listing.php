@@ -90,7 +90,7 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
 
 //Validate input, passing important variables by reference
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
-    if (empty($input)){
+    if (!isset($input) || ($input == '')){
         $err = $errMsg;
 
     } else {
@@ -100,8 +100,11 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 
 //Validate input with regular expression check, passing important variables by reference
 function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
-    if (empty($input)){
+    if (!isset($input)){
         $err = $errMsg;
+    
+    } elseif ($input === '0') {
+        $output = $input;
 
     } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
         $err = $errInvalid;
@@ -311,18 +314,21 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
                         while ($image = $stmt->fetch()){
                             if(file_exists("../uploads/properties/thumb_" . $image['image'])){
                                 echo "<li class='col-6 col-sm-4 col-lg-2 my-3'>
-                                        <div style='height:100px; width:150px;
-                                        background-image: url(\"../uploads/properties/thumb_" . $image['image'] . "?=" . filemtime('../uploads/properties/' . $image['image']) . "\");' 
+                                        <div style='background-image: url(\"../uploads/properties/thumb_" . $image['image'] . "?=" . filemtime('../uploads/properties/' . $image['image']) . "\");' 
                                         class='edit-gallery-img mx-auto'>
-                                        <div><a style='font-size:20px;' class='btn btn-danger' href='delete-image.php?id=" . $image['image_ID'] . "&pid=" . $property_ID . "'>&times;</a></div>
+                                        <div><a title='Delete image' class='btn btn-sm btn-danger delete-button' href='delete-image.php?id=" . $image['image_ID'] . "&pid=" . $property_ID . "'>&times;</a></div>
                                         </div>
                                     </li>";
                             }
                         }
+                    } else {
+                        echo "<li>No images found. Please add some images before continuing.</li>";
                     }
+                } else {
+                    echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
                 }
             } else {
-                echo "There was a problem retrieving the gallery images. Please try again later.";
+                echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
             }
             unset($stmt);
             unset($pdo);

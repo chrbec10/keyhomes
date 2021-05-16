@@ -5,10 +5,15 @@ require_once('../includes/db.php'); //Connect to the database
 ?>
 <div class="content-top-padding pb-4 bg-light">
     <div class="container-fluid mt-4">
-        <ul>
-            <li><a href="new-listing.php">New Listing</a></li>
-            <li><a href="new-agent.php">New Agent</a></li>
-        </ul>
+        <div class="row">
+            <div class="wrap">
+                <div class="sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="new-listing.php">New Listing</a></li>
+                        <li><a href="new-agent.php">New Agent</a></li>
+                    </ul>
+                </div>
+            </div>
         <?php
 
         //Select properties, joining on the agent information by ID

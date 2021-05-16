@@ -11,7 +11,7 @@ $saleType_err = $price_err = $description_err = $bedrooms_err = $bathrooms_err =
 
 //Validate input, passing important variables by reference
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
-    if (empty($input)){
+    if (!isset($input)){
         $err = $errMsg;
 
     } else {
@@ -21,8 +21,11 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 
 //Validate input with regular expression check, passing important variables by reference
 function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
-    if (empty($input)){
+    if (!isset($input)){
         $err = $errMsg;
+    
+    } elseif ($input === '0') {
+        $output = $input;
 
     } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
         $err = $errInvalid;

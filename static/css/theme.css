@@ -11459,10 +11459,15 @@ nav.main-nav .logo-dark {
 }
 
 .edit-gallery-img {
-  width: 150px;
-  height: 100px;
+  width: 150px !important;
+  height: 100px !important;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 100%;
+}
+
+.delete-button {
+  font-size: 20px;
+  line-height: 20px;
 }
 /*# sourceMappingURL=theme.css.map */
