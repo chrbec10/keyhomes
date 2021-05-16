@@ -174,3 +174,26 @@ nav.main-nav {
 	font-size: 20px;
 	line-height: 20px;
 }
+
+.sidebar{
+	max-width: 180px;
+	margin-top: -20px;
+	padding-top: 20px;
+}
+
+.sidebar ul{
+	width:180px;
+}
+
+.admin-nav {
+	float: left;
+	clear: left;
+}
+
+@media only screen and (max-width: 768px) {
+	.sidebar{
+		max-width: 100%;
+		padding-bottom: 1.5rem;
+	}
+}
+

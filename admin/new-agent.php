@@ -3,6 +3,7 @@
 $title = "New Agent"; //The Page Title
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
+require_once('includes/admin-header.php'); //Add admin formatting
 
 //Defining variables
 $fname = $lname = $icon = $email = $phone = $mobile = '';
@@ -144,5 +145,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 </div>
 
 <?php
+require_once('includes/admin-footer.php'); //Close out admin formatting
 require_once('../includes/layouts/footer.php'); //Gets the footer
 ?>
