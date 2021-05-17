@@ -65,7 +65,7 @@ if ($stmt = $pdo->prepare($sql)) {
 <div class="content-top-padding bg-dark">
   <div class="container pt-3 pb-2">
     <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-7">
+      <div class="col-md-8 col-lg-7 d-flex justify-content-center">
 
         <?php //Get the Gallery from the Database
         $sql = "SELECT * FROM gallery WHERE property_ID = :property_id";
@@ -84,25 +84,30 @@ if ($stmt = $pdo->prepare($sql)) {
         } ?>
 
         <!-- Gallery -->
+        <?php if (count($gallery) > 0) : ?>
         <div class="splide" id="main-slider">
           <div class="splide__track">
             <ul class="splide__list">
               <?php
-              if (count($gallery) > 0) :
                 foreach ($gallery as $key => $image) :
-              ?>
-              <li class="splide__slide"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>" class="w-100 rounded" alt=""></li>
+                ?>
+              <li class="splide__slide"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>"
+                  class="w-100 rounded" alt=""></li>
               <?php
                 endforeach;
-              endif;
-              ?>
+                ?>
             </ul>
           </div>
         </div>
-
+        <?php else : ?>
+        <img src="/static/img/no-image.png" alt="" class="w-75 my-3">
+        <?php endif; ?>
       </div>
     </div>
   </div>
+
+  <?php if (count($gallery) > 0) : ?>
+
   <div class="py-3" style="background-color: #2c2b36;">
     <div class="container">
 
@@ -111,19 +116,21 @@ if ($stmt = $pdo->prepare($sql)) {
         <div class="splide__track">
           <ul class="splide__list">
             <?php
-            if (count($gallery) > 0) :
               foreach ($gallery as $key => $image) :
-            ?>
-            <li class="splide__slide rounded"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>" alt=""></li>
+              ?>
+            <li class="splide__slide rounded"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>"
+                alt=""></li>
             <?php
               endforeach;
-            endif;
-            ?>
+              ?>
           </ul>
         </div>
       </div>
     </div>
   </div>
+
+  <?php endif; ?>
+
 </div>
 <div class="container py-3 mb-4">
   <div class="row">
@@ -187,8 +194,8 @@ if ($stmt = $pdo->prepare($sql)) {
             </div>
 
             <div class="bg-secondary py-3 text-center">
-              <img src="<?php echo "uploads/agents/" . $listing['icon'] ?>" alt="Agent's image" class="rounded-circle my-1 shadow"
-                style="max-width: 75%; height: auto;">
+              <img src="<?php echo "uploads/agents/" . $listing['icon'] ?>" alt="Agent's image"
+                class="rounded-circle my-1 shadow" style="max-width: 75%; height: auto;">
             </div>
 
             <hr class="mt-0">
