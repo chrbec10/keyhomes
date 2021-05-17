@@ -4,11 +4,14 @@ require_once(__DIR__ . '/../config.php');
 //Set Response Headers
 header('Content-Type: text/html; charset=UTF-8');
 
-session_start();
+if (session_id() == "") {
+  session_start();
+}
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
 $is_admin = false;
 
 //If the user is not logged in, set logged in to false
