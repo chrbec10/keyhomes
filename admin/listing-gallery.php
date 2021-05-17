@@ -1,4 +1,5 @@
 <?php 
+require_once('includes/seccheck.php');
 
 //Include database access
 require_once('../includes/config.php');

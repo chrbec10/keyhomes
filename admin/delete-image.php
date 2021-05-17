@@ -1,4 +1,6 @@
 <?php
+require_once('includes/seccheck.php');
+
 //Database connection
 require_once('../includes/config.php');
 require_once('../includes/db.php');

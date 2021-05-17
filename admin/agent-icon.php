@@ -1,5 +1,7 @@
 <?php
 
+    require_once('includes/seccheck.php');
+
     function compressImage($source, $name, $quality, $filepath) {
 
     //Get image information
