@@ -75,37 +75,39 @@ require_once('includes/admin-header.php'); //Add admin formatting
 <br>
 <?php
 if($showTable){
-    echo "<table class='table table-bordered table-striped'>";
-    echo "<thead>";
-        echo "<tr>";
-            echo "<th>ID</th>";
-            echo "<th>Address</th>";
-            echo "<th>Sale Type</th>";
-            echo "<th>Price</th>";
-            echo "<th>Agent</th>";
-            echo "<th>Actions</th>";
-        echo "</tr>";
-    echo "</thead>";
-    echo "<tbody>";
-    foreach($properties as $listing){
-        echo "<tr>";
-            //ID number
-            echo "<td>".$listing['property_ID']."</td>";
-            //Address + link to listing
-            echo "<td><a href='../listing.php?id=".$listing['property_ID']."'>".$listing['streetNum'].' '.$listing['street'].', '.$listing['city'].' '.$listing['postcode']."</a></td>";
-            //Sale type
-            echo "<td>".$listing['saleType']."</td>";
-            //Price
-            echo "<td>".'$'.$listing['price']."</td>";
-            //Agent
-            echo "<td><a href='edit-agent.php?id=".$listing['agent_ID']."'>".$listing['fname'].' '.$listing['lname']."</a></td>";
-            //Actions
-            echo '<td><span class="me-2"><a href="edit-listing.php?id=' . $listing['property_ID'] . '"><i class="fa fa-pencil-alt"></i></a></span>
-            <span class="me-2"><a href="delete-listing.php?id=' . $listing['property_ID'] . '"><i class="fa fa-trash-alt"></i></a></span>';
-        echo "</tr>";
-    }
-    echo "</tbody>";
-    echo "</table>";
+    echo "<div class='table-responsive'>";
+        echo "<table class='table table-bordered table-striped'>";
+        echo "<thead>";
+            echo "<tr>";
+                echo "<th>ID</th>";
+                echo "<th>Address</th>";
+                echo "<th>Sale Type</th>";
+                echo "<th>Price</th>";
+                echo "<th>Agent</th>";
+                echo "<th>Actions</th>";
+            echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+        foreach($properties as $listing){
+            echo "<tr>";
+                //ID number
+                echo "<td>".$listing['property_ID']."</td>";
+                //Address + link to listing
+                echo "<td><a href='../listing.php?id=".$listing['property_ID']."'>".$listing['streetNum'].' '.$listing['street'].', '.$listing['city'].' '.$listing['postcode']."</a></td>";
+                //Sale type
+                echo "<td>".$listing['saleType']."</td>";
+                //Price
+                echo "<td>".'$'.$listing['price']."</td>";
+                //Agent
+                echo "<td><a href='edit-agent.php?id=".$listing['agent_ID']."'>".$listing['fname'].' '.$listing['lname']."</a></td>";
+                //Actions
+                echo '<td><span class="me-2"><a href="edit-listing.php?id=' . $listing['property_ID'] . '"><i class="fa fa-pencil-alt"></i></a></span>
+                <span class="me-2"><a href="delete-listing.php?id=' . $listing['property_ID'] . '"><i class="fa fa-trash-alt"></i></a></span>';
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+    echo "</div>";
 }
 ?>
 
