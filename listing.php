@@ -93,7 +93,7 @@ if ($stmt = $pdo->prepare($sql)) {
                   foreach ($gallery as $key => $image) :
                   ?>
                 <li class="splide__slide"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>"
-                    class="w-100 rounded" alt=""></li>
+                    class="w-100 rounded" alt="Property Image <?php echo $key + 1 ?>"></li>
                 <?php
                   endforeach;
                   ?>
@@ -102,7 +102,7 @@ if ($stmt = $pdo->prepare($sql)) {
           </div>
         </div>
         <?php else : ?>
-        <img src="/static/img/no-image.png" alt="" class="w-75 my-3">
+        <img src="/static/img/no-image.png" alt="Property has no Image" class="w-75 my-3">
         <?php endif; ?>
       </div>
     </div>
@@ -121,7 +121,7 @@ if ($stmt = $pdo->prepare($sql)) {
               foreach ($gallery as $key => $image) :
               ?>
             <li class="splide__slide rounded"><img src="<?php echo "uploads/properties/thumb_" . $image['image'] ?>"
-                alt=""></li>
+                alt="Property Image <?php echo $key + 1 ?>"></li>
             <?php
               endforeach;
               ?>
