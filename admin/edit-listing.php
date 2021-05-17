@@ -351,7 +351,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
                     }
                 }
             } else {
-                echo "<li>No images found. Please add some images before continuing.</li>";
+                echo "<li><div class='alert alert-warning'>No images found. Please add some images before continuing.</div></li>";
             }
         } else {
             echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
