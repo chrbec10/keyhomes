@@ -69,8 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     complexValidateInput($input_city, $city_err, $city, "Please enter a city", "Please enter a valid city", "/^[a-zA-Z-' ]*$/");
 
     $input_postcode = trim($_POST["postcode"]);
-    //Validate postcode
-    complexValidateInput($input_postcode, $postcode_err, $postcode, "Please enter a postcode", "Please enter a valid postcode", "/^[0-9]*$/");
+     //Validate postcode
+    if(strlen($input_postcode) != 4)
+        $postcode_err = "Please enter a valid postcode";
+    else
+        complexValidateInput($input_postcode, $postcode_err, $postcode, "Please enter a postcode", "Please enter a valid postcode", "/^[0-9]*$/");
 
     $input_bedrooms = trim($_POST["bedrooms"]);
     //validate bedrooms

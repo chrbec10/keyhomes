@@ -210,7 +210,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $input_postcode = trim($_POST["postcode"]);
     //Validate postcode
-    complexValidateInput($input_postcode, $postcode_err, $postcode, "Please enter a postcode", "Please enter a valid postcode", "/^[0-9]*$/");
+    if(strlen($input_postcode) != 4)
+        $postcode_err = "Please enter a valid postcode";
+    else
+        complexValidateInput($input_postcode, $postcode_err, $postcode, "Please enter a postcode", "Please enter a valid postcode", "/^[0-9]*$/");
 
     $input_bedrooms = trim($_POST["bedrooms"]);
     //validate bedrooms
@@ -369,7 +372,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
     <button tpye="submit" class="btn btn-primary">Upload</button>
 </form>
 <br>
-<form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
+<form action="<?php echo 'edit-listing.php?id=' . trim($_GET['id']) ; ?>" method="post">
     <h4 class="text-center">Property details</h4>
     <br>
     <div class="row">
