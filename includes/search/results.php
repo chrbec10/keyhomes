@@ -91,7 +91,7 @@
          <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>"
            title="View <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?>">
            <div class="ratio-content rounded"
-             style="background-image: url('<?php echo (!empty($listing['image'])) ? '/uploads/properties/' . $listing['image'] : '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
+             style="background-image: url('<?php echo (!empty($listing['image'])) ? '/uploads/properties/med_' . $listing['image'] : '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
            </div>
          </a>
        </div>
