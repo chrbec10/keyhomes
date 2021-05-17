@@ -120,7 +120,7 @@ if ($stmt = $pdo->prepare($sql)) {
             <?php
               foreach ($gallery as $key => $image) :
               ?>
-            <li class="splide__slide rounded"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>"
+            <li class="splide__slide rounded"><img src="<?php echo "uploads/properties/thumb_" . $image['image'] ?>"
                 alt=""></li>
             <?php
               endforeach;
