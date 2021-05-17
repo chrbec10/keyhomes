@@ -9,13 +9,23 @@ session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+$is_admin = false;
 
 //If the user is not logged in, set logged in to false
 if (!isset($_SESSION['loggedin'])) {
   $_SESSION['loggedin'] = false;
 }
 
-$is_admin = false;
+//If the user is marked as admin, set admin tag to expose admin panel link
+if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == true)) {
+  $is_admin = true;
+}
+
+//If the page as marked as secure, pretend it doesn't exist
+if (isset($secure) && $secure == true && $is_admin != true) {
+  header("location: ../404.php", 404);
+}
+
 $home_nav = $home_nav ?? false;
 ?>
 <!DOCTYPE html>

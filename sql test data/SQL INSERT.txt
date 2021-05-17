@@ -1,6 +1,6 @@
 INSERT INTO agent(fname, lname, icon, email, phone, mobile) 
-VALUES ("Chris", "Becker", "/uploads/agents/test/cbecker.jpg", "cbecker@keyhomes.co.nz", "(07) 854 5555 ext. 02", "021 555 5555"),
-("Ben", "Mitchell", "uploads/agents/test/bmitchell.jpg", "bmitchell@keyhomes.co.nz", "(07) 854 5555 ext. 01", "021 555 5556");
+VALUES ("Chris", "Becker", "cbecker.jpg", "cbecker@keyhomes.co.nz", "(07) 854 5555 ext. 02", "021 555 5555"),
+("Ben", "Mitchell", "bmitchell.jpg", "bmitchell@keyhomes.co.nz", "(07) 854 5555 ext. 01", "021 555 5556");
 
 INSERT INTO users(username, password, isAdmin)
 VALUES ("admin", "$2y$10$DbF6zrUhwVNiNF.Tp0RZfe53hjdZv3TLrEmBv.J.SgbpOZeD0INUa", TRUE);
@@ -8,25 +8,23 @@ VALUES ("admin", "$2y$10$DbF6zrUhwVNiNF.Tp0RZfe53hjdZv3TLrEmBv.J.SgbpOZeD0INUa",
 INSERT INTO property(saleType, price, description, bedrooms, bathrooms, garage, agent_ID, streetNum, street, city, postcode)
 VALUES("Sale", 690000, "Large, three-bedroom house with a view located close to the Marina.", 3, 2, 2, 2, "15", "Beach Road", "Waikawa", 7220),
 ("Sale", 690000, "Three-bedroom family home in a quiet neighbourhood.", 3, 2, 2, 1, "18A", "Cavan Street", "Ngaruawahia", 3720),
-("Sale", 530000, "Newly-renovated property with modern comforts, adjacent workshop, and large back yard.", 3, 2, 2, 2, "505", "Wellington Road", "Marton", 4710);
-
-INSERT INTO property(saleType, description, bedrooms, bathrooms, garage, agent_ID, streetNum, street, city, postcode)
-VALUES("Auction", "Huge 4-bedroom home just begging to be renovated", 4, 2, 2, 1, "47a", "Stanley Avenue", "Auckland", 0620);
+("Sale", 530000, "Newly-renovated property with modern comforts, adjacent workshop, and large back yard.", 3, 2, 2, 2, "505", "Wellington Road", "Marton", 4710),
+("Auction", 0, "Huge 4-bedroom home just begging to be renovated", 4, 2, 2, 1, "47a", "Stanley Avenue", "Auckland", 0620);
 
 INSERT INTO gallery(property_ID, image)
-VALUES(1, "/uploads/properties/test/0_0.jpg"),
-(1, "/uploads/properties/test/0_1.jpg"),
-(1, "/uploads/properties/test/0_2.jpg"),
-(1, "/uploads/properties/test/0_3.jpg"),
-(2, "/uploads/properties/test/1_0.jpg"),
-(2, "/uploads/properties/test/1_1.jpg"),
-(2, "/uploads/properties/test/1_2.jpg"),
-(2, "/uploads/properties/test/1_3.jpg"),
-(3, "/uploads/properties/test/2_0.jpg"),
-(3, "/uploads/properties/test/2_1.jpg"),
-(3, "/uploads/properties/test/2_2.jpg"),
-(3, "/uploads/properties/test/2_3.jpg"),
-(4, "/uploads/properties/test/3_0.jpg"),
-(4, "/uploads/properties/test/3_1.jpg"),
-(4, "/uploads/properties/test/3_2.jpg"),
-(4, "/uploads/properties/test/3_3.jpg");
+VALUES(1, "0_0.jpg"),
+(1, "0_1.jpg"),
+(1, "0_2.jpg"),
+(1, "0_3.jpg"),
+(2, "1_0.jpg"),
+(2, "1_1.jpg"),
+(2, "1_2.jpg"),
+(2, "1_3.jpg"),
+(3, "2_0.jpg"),
+(3, "2_1.jpg"),
+(3, "2_2.jpg"),
+(3, "2_3.jpg"),
+(4, "3_0.jpg"),
+(4, "3_1.jpg"),
+(4, "3_2.jpg"),
+(4, "3_3.jpg");

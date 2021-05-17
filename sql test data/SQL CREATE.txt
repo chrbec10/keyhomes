@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS agent(agent_ID INT PRIMARY KEY AUTO_INCREMENT,
 fname VARCHAR(50) NOT NULL,
 lname VARCHAR(50) NOT NULL,
-icon VARCHAR(255),
+icon VARCHAR(255) DEFAULT "default.jpg",
 email VARCHAR(320) NOT NULL,
 phone VARCHAR(25),
 mobile VARCHAR(25));
@@ -24,17 +24,21 @@ street VARCHAR(100) NOT NULL,
 city VARCHAR(100) NOT NULL,
 postcode VARCHAR(5) NOT NULL,
 CONSTRAINT fk_assAgent
-FOREIGN KEY (agent_ID) REFERENCES agent(agent_ID));
+FOREIGN KEY (agent_ID) REFERENCES agent(agent_ID)
+ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS gallery(image_ID INT PRIMARY KEY AUTO_INCREMENT,
 property_ID INT,
 image VARCHAR(255),
 CONSTRAINT fk_property
-FOREIGN KEY (property_ID) REFERENCES property(property_ID));
+FOREIGN KEY (property_ID) REFERENCES property(property_ID)
+ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS wishlist(user_ID INT,
 property_ID INT,
 CONSTRAINT fk_userWish
-FOREIGN KEY (user_ID) REFERENCES users(user_ID),
+FOREIGN KEY (user_ID) REFERENCES users(user_ID)
+ON DELETE CASCADE,
 CONSTRAINT fk_propertyWish
-FOREIGN KEY (property_ID) REFERENCES property(property_ID));
+FOREIGN KEY (property_ID) REFERENCES property(property_ID)
+ON DELETE CASCADE);

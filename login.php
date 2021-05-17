@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   //If there's no errors...
-  if (!$username_err && !$password_err) {
+  if (empty($username_err) && empty($password_err)) {
 
-    $sql = "SELECT user_ID, username, password FROM users WHERE username = :username";
+    $sql = "SELECT user_ID, username, password, isAdmin FROM users WHERE username = :username";
 
     if ($stmt = $pdo->prepare($sql)) {
 
@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION["loggedin"] = true;
             $_SESSION['id'] = $user['user_ID'];
             $_SESSION['username'] = $user['username'];
+            $_SESSION['isAdmin'] = $user['isAdmin'];
 
             if (!empty($_POST['redirectToListing'])) {
               header("location: listing.php?id={$_POST['redirectToListing']}");
@@ -72,6 +73,7 @@ require_once('./includes/layouts/header.php');
     <div class="col-md-6 col-lg-5 ">
       <h1>Login</h1>
 
+      <!--Warning: Undefined variable $verification_err in C:\xampp\htdocs\vcassignment7\login.php on line 63-->
       <?php if ($verification_err) : ?>
       <div class="alert alert-danger mb-1" role="alert">
         Username or Password was incorrect

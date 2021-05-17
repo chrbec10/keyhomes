@@ -91,7 +91,7 @@ if ($stmt = $pdo->prepare($sql)) {
               if (count($gallery) > 0) :
                 foreach ($gallery as $key => $image) :
               ?>
-              <li class="splide__slide"><img src="<?php echo $image['image'] ?>" class="w-100 rounded" alt=""></li>
+              <li class="splide__slide"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>" class="w-100 rounded" alt=""></li>
               <?php
                 endforeach;
               endif;
@@ -114,7 +114,7 @@ if ($stmt = $pdo->prepare($sql)) {
             if (count($gallery) > 0) :
               foreach ($gallery as $key => $image) :
             ?>
-            <li class="splide__slide rounded"><img src="<?php echo $image['image'] ?>" alt=""></li>
+            <li class="splide__slide rounded"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>" alt=""></li>
             <?php
               endforeach;
             endif;
@@ -187,7 +187,7 @@ if ($stmt = $pdo->prepare($sql)) {
             </div>
 
             <div class="bg-secondary py-3 text-center">
-              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle my-1 shadow"
+              <img src="<?php echo "uploads/agents/" . $listing['icon'] ?>" alt="Agent's image" class="rounded-circle my-1 shadow"
                 style="max-width: 75%; height: auto;">
             </div>
 
