@@ -122,11 +122,75 @@ function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = 
 }
 
 
-//Process form data on submit
-if (isset($_POST['id']) && !empty(trim($_POST['id']))){
+function validateUtilities($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
+    if (!isset($input)){
+        $err = $errMsg;
 
-    //Grab ID of property to be edited
-    $property_ID = trim($_POST["id"]);
+    } else if ($input === '0'){
+        $output = $input;
+
+    } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
+        $err = $errInvalid;
+
+    } else {
+        $output = $input;
+    }
+}
+
+//Check whether we were given an ID before continuing
+if (isset($_GET['id']) && !empty(trim($_GET['id']))){
+    //Get our ID parameter
+    $property_ID = trim($_GET['id']);
+
+    //Prepare a select statement
+    $sql = "SELECT * FROM property WHERE property_ID = :property_ID";
+    if ($stmt = $pdo->prepare($sql)){
+
+        //Bind variables to the select statement
+        $stmt->bindParam(":property_ID", $param_property_ID);
+
+        //Set parameter
+        $param_property_ID = $property_ID;
+        
+        //Attempt the select statement
+        if($stmt->execute()){
+            //Check that we get exactly 1 row back
+            if ($stmt->rowCount() == 1){
+                //Fetch as an associative array since we're getting only one row back
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                //Pull values from row
+                $saleType = $row['saleType'];
+                $price = $row['price'];
+                $description = $row['description'];
+                $bedrooms = $row['bedrooms'];
+                $bathrooms = $row['bathrooms'];
+                $garage = $row['garage'];
+                $agent_ID = $row['agent_ID'];
+                $streetNum = $row['streetNum'];
+                $street = $row['street'];
+                $city = $row['city'];
+                $postcode = $row['postcode'];
+
+            } else {
+                //URL doesn't contain a valid ID
+                //header("location: ../404.php");
+                //exit();
+            }
+        } else {
+            echo "Oops! Something went wrong.";
+        }
+    }
+    //Close statement
+    unset($stmt);
+} else {
+    //We weren't given an ID
+    header("location: ../404.php");
+    exit();
+}
+
+//Process form data on submit
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $input_agent = trim($_POST["agent"]);
     //Validate assigned agent
@@ -150,29 +214,38 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
     $input_bedrooms = trim($_POST["bedrooms"]);
     //validate bedrooms
-    complexValidateInput($input_bedrooms, $bedrooms_err, $bedrooms, "Please enter the number of bedrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
+    validateUtilities($input_bedrooms, $bedrooms_err, $bedrooms, "Please enter the number of bedrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
 
     $input_bathrooms = trim($_POST["bathrooms"]);
     //validate bedrooms
-    complexValidateInput($input_bathrooms, $bathrooms_err, $bathrooms, "Please enter the number of bathrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
+    validateUtilities($input_bathrooms, $bathrooms_err, $bathrooms, "Please enter the number of bathrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
 
     $input_garage = trim($_POST["garage"]);
     //validate bedrooms
-    complexValidateInput($input_garage, $garage_err, $garage, "Please enter the number of parking spaces", "Please enter a number from 0-99", "/^[0-9]*$/");
+    validateUtilities($input_garage, $garage_err, $garage, "Please enter the number of parking spaces", "Please enter a number from 0-99", "/^[0-9]*$/");
 
     $input_saleType = trim($_POST["saleType"]);
     //validate sale type
     validateInput($input_saleType, $saleType_err, $saleType, "Please enter the type of sale");
 
-    $input_price = trim($_POST["price"]);
 
-    //validate price (0 is considered 'empty' so using isset instead)
-    if (!isset($input_price)){
+    $input_price = trim($_POST['price']);
+    validateUtilities($input_price, $price_err, $price, "Please enter a price", "Please enter a number", "/^[0-9]*$/");
+    /*$input_price = trim($_POST["price"]);
+    //validate price (0 is considered 'empty', so include extra steps)
+    if ($input_price === '0'){
+        $price = $input_price;
+
+    } else if (empty($input_price)){
         $price_err = "Please enter a price for the property";
 
     } else {
         $price = $input_price;
-    }
+    }*/
+
+    $input_description = trim($_POST["description"]);
+    //validate description
+    validateInput($input_description, $description_err, $description, "Please enter a description for the property");
 
 
     $input_description = trim($_POST["description"]);
@@ -228,63 +301,9 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
         //Close statement
         unset($stmt);
     }
-    //Close connection
-    unset($pdo);
-
-} else {
-    //Check whether we were given an ID before continuing
-    if (isset($_GET['id']) && !empty(trim($_GET['id']))){
-        //Get our ID parameter
-        $property_ID = trim($_GET['id']);
-
-        //Prepare a select statement
-        $sql = "SELECT * FROM property WHERE property_ID = :property_ID";
-        if ($stmt = $pdo->prepare($sql)){
-
-            //Bind variables to the select statement
-            $stmt->bindParam(":property_ID", $param_property_ID);
-
-            //Set parameter
-            $param_property_ID = $property_ID;
-            
-            //Attempt the select statement
-            if($stmt->execute()){
-                //Check that we get exactly 1 row back
-                if ($stmt->rowCount() == 1){
-                    //Fetch as an associative array since we're getting only one row back
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    //Pull values from row
-                    $saleType = $row['saleType'];
-                    $price = $row['price'];
-                    $description = $row['description'];
-                    $bedrooms = $row['bedrooms'];
-                    $bathrooms = $row['bathrooms'];
-                    $garage = $row['garage'];
-                    $agent_ID = $row['agent_ID'];
-                    $streetNum = $row['streetNum'];
-                    $street = $row['street'];
-                    $city = $row['city'];
-                    $postcode = $row['postcode'];
-
-                } else {
-                    //URL doesn't contain a valid ID
-                    header("location: ../404.php");
-                    exit();
-                }
-            } else {
-                echo "Oops! Something went wrong.";
-            }
-        }
-        //Close statement
-        unset($stmt);
-    } else {
-        //We weren't given an ID
-        header("location: ../404.php");
-        exit();
-    }
-
 }
+
+
 
 require_once('includes/admin-header.php'); //Add admin formatting
 ?>
@@ -338,7 +357,6 @@ require_once('includes/admin-header.php'); //Add admin formatting
         echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
     }
     unset($stmt);
-    unset($pdo);
     ?>
 </ul>
 <form action="listing-gallery.php" method="post" enctype="multipart/form-data">
@@ -370,6 +388,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
                     }
                 }
                 unset($result);
+                unset($pdo);
                 ?>
             </select>
             <span class="invalid-feedback"><?php echo $agent_ID_err;?></span>

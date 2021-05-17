@@ -13,7 +13,7 @@ $saleType_err = $price_err = $description_err = $bedrooms_err = $bathrooms_err =
 
 //Validate input, passing important variables by reference
 function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
-    if (!isset($input)){
+    if (empty($input)){
         $err = $errMsg;
 
     } else {
@@ -23,11 +23,8 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 
 //Validate input with regular expression check, passing important variables by reference
 function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
-    if (!isset($input)){
+    if (empty($input)){
         $err = $errMsg;
-    
-    } elseif ($input === '0') {
-        $output = $input;
 
     } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
         $err = $errInvalid;
@@ -37,6 +34,20 @@ function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = 
     }
 }
 
+function validateUtilities($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
+    if (!isset($input)){
+        $err = $errMsg;
+
+    } else if ($input === '0'){
+        $output = $input;
+
+    } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
+        $err = $errInvalid;
+
+    } else {
+        $output = $input;
+    }
+}
 
 //Process form data on submit
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -63,28 +74,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $input_bedrooms = trim($_POST["bedrooms"]);
     //validate bedrooms
-    complexValidateInput($input_bedrooms, $bedrooms_err, $bedrooms, "Please enter the number of bedrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
+    validateUtilities($input_bedrooms, $bedrooms_err, $bedrooms, "Please enter the number of bedrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
 
     $input_bathrooms = trim($_POST["bathrooms"]);
     //validate bedrooms
-    complexValidateInput($input_bathrooms, $bathrooms_err, $bathrooms, "Please enter the number of bathrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
+    validateUtilities($input_bathrooms, $bathrooms_err, $bathrooms, "Please enter the number of bathrooms", "Please enter a number from 0-99", "/^[0-9]*$/");
 
     $input_garage = trim($_POST["garage"]);
     //validate bedrooms
-    complexValidateInput($input_garage, $garage_err, $garage, "Please enter the number of parking spaces", "Please enter a number from 0-99", "/^[0-9]*$/");
+    validateUtilities($input_garage, $garage_err, $garage, "Please enter the number of parking spaces", "Please enter a number from 0-99", "/^[0-9]*$/");
 
     $input_saleType = trim($_POST["saleType"]);
     //validate sale type
     validateInput($input_saleType, $saleType_err, $saleType, "Please enter the type of sale");
 
     $input_price = trim($_POST["price"]);
-    //validate price (0 is considered 'empty' so using isset instead)
-    if (!isset($input_price)){
-        $price_err = "Please enter a price for the property";
-
-    } else {
-        $price = $input_price;
-    }
+    //validate price
+    validateUtilities($input_price, $price_err, $price, "Please enter a price", "Please enter a number", "/^[0-9]*$/");
 
     $input_description = trim($_POST["description"]);
     //validate description
