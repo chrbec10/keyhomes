@@ -4,11 +4,14 @@ require_once(__DIR__ . '/../config.php');
 //Set Response Headers
 header('Content-Type: text/html; charset=UTF-8');
 
-session_start();
+if (session_id() == "") {
+  session_start();
+}
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+
 $is_admin = false;
 
 //If the user is not logged in, set logged in to false
@@ -70,9 +73,9 @@ $home_nav = $home_nav ?? false;
     id="mainNav">
     <div class="container-fluid">
       <a class="navbar-brand" href="<?php echo $site_root ?>/">
-        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" class="logo-dark" alt="Logo" height="45px"
-          width="124px">
-        <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" class="logo-light" alt="Logo"
+        <img src="<?php echo $site_root ?>/static/img/logos/logo.svg" class="logo-dark" alt="KeyHomes Logo"
+          height="45px" width="124px">
+        <img src="<?php echo $site_root ?>/static/img/logos/logo-inverted.svg" class="logo-light" alt="KeyHomes Logo"
           height="45px" width="124px">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavContent"
