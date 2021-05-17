@@ -32,29 +32,33 @@ if ($result = $pdo->query($sql)) {
         <div class="col-md-10 col-lg-9 col-xl-8 col-xxl-7">
           <div class="card bg-dark p-3 pt-2 text-center">
 
-            <!-- Get the values to use in the filter options -->
-            <?php
-            $sql = "SELECT JSON_ARRAYAGG(DISTINCT city) AS cities FROM property";
-            if ($result = $pdo->query($sql)) {
-              $filters =  $result->fetch(PDO::FETCH_ASSOC);
-            }
 
-            $cities = json_decode($filters['cities']);
-
-            ?>
 
             <form action="listings.php" method="GET">
 
               <label for="city" class="form-label" style="color: #ffffffb8">Search for Properties in...</label>
               <div class="input-group rounded-pill">
                 <select class="form-select" name="city" title="City" style="border-radius: 50rem 0 0 50rem">
-                  <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
-                  <?php foreach ($cities as $city) :
+                  <option selected value="">All of NZ</option>
+
+                  <!-- Get the values to use in the filter options -->
+                  <?php
+                  $sql = "SELECT DISTINCT city FROM property";
+                  if ($result = $pdo->query($sql)) {
+
+                    while ($row = $result->fetch()) :
+
                   ?>
-                  <option value="<?php echo $city ?>">
-                    <?php echo $city ?></option>
-                  <?php endforeach;
+                  <option value="<?php echo $row['city'] ?>">
+                    <?php echo $row['city'] ?></option>
+                  <?php
+
+                    endwhile;
+                  }
+
                   ?>
+
+
                 </select>
                 <button class="btn btn-primary px-3 px-sm-4 px-md-5" type="submit"
                   style="border-radius: 0 50rem 50rem 0;">Search</button>
