@@ -140,7 +140,7 @@ if ($stmt = $pdo->prepare($sql)) {
             <?php echo $wishlisted ? 'Wishlisted' : '+ Wishlist' ?>
           </button>
           <?php else : ?>
-          <a href="/login.php?redirectToListing=<?php echo $listing['property_ID'] ?>">
+          <a href="login.php?redirectToListing=<?php echo $listing['property_ID'] ?>">
             <button class="btn btn-outline-secondary rounded-pill">
               Sign in to Wishlist
             </button>
@@ -249,7 +249,7 @@ for (button of wishlistButtons) {
   button.addEventListener('click', (e) => {
 
     xhr = new XMLHttpRequest();
-    xhr.open("POST", '/services/wishlist-service.php');
+    xhr.open("POST", 'services/wishlist-service.php');
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.addEventListener('readystatechange', () => {

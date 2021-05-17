@@ -109,7 +109,7 @@
              data-bs-toggle="tooltip" data-bs-placement="left"
              data-kh-listing-id="<?php echo $listing['property_ID'] ?>" title="Add to Wishlist"></i>
            <?php else : ?>
-           <a href="/login.php" class="text-dark" title="Login to Wishlist">
+           <a href="login.php" class="text-dark" title="Login to Wishlist">
              <i class="fs-5 wishlistButton far fa-star" data-bs-toggle="tooltip" data-bs-placement="left"
                title="Wishlist (Requires Login)"> </i>
            </a>
@@ -185,7 +185,7 @@ for (button of wishlistButtons) {
   button.addEventListener('click', (e) => {
 
     xhr = new XMLHttpRequest();
-    xhr.open("POST", '/services/wishlist-service.php');
+    xhr.open("POST", 'services/wishlist-service.php');
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.addEventListener('readystatechange', () => {
