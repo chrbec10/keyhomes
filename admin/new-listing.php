@@ -163,7 +163,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
     $sql = "SELECT agent_ID, fname, lname FROM agent";
     if ($result = $pdo->query($sql)){
         if (!($result->rowCount() > 0)){
-            echo "No agents to retrieve. Try creating one first.";
+            echo "<div class='alert alert-danger'>No agents to retrieve. Try creating one first.</div>";
         }
     } else {
         echo "Unable to retrieve agents. Something went wrong. Please try again later.";

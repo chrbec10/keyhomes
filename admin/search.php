@@ -62,13 +62,13 @@ require_once('includes/admin-header.php'); //Add admin formatting
                         echo "</select>";
                         echo "</div>";
                         echo "</form>";
-                        echo "<div class='alert alert-warning'>No agents to retrieve. Try creating one first.</div>";
+                        echo "<br><div class='alert alert-danger'>No agents to retrieve. Try creating one first.</div>";
                     }
                 } else {
                     echo "</select>";
                     echo "</div>";
                     echo "</form>";
-                    echo "<div class='alert alert-danger'>Unable to retrieve agents. Something went wrong. Please try again later.</div>";
+                    echo "<br><div class='alert alert-danger'>Unable to retrieve agents. Something went wrong. Please try again later.</div>";
                 }
             ?>
 </form>
