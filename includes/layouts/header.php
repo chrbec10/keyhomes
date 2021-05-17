@@ -86,7 +86,7 @@ $home_nav = $home_nav ?? false;
             <a class="nav-link active" href="<?php echo $site_root ?>/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="<?php echo $site_root ?>/listings.php">Listings</a>
+            <a class="nav-link active  mb-2 mb-lg-0" href="<?php echo $site_root ?>/listings.php">Listings</a>
           </li>
 
           <!-- User IS logged in -->
@@ -118,7 +118,7 @@ $home_nav = $home_nav ?? false;
           <!-- User is NOT logged in -->
           <?php else : ?>
 
-          <li class="w-100 me-2 mb-2 mb-lg-0"><a class="btn btn-outline-primary rounded-pill w-100"
+          <li class="w-100 me-2 mb-2 mb-lg-0 mb-lg-0"><a class="btn btn-outline-primary rounded-pill w-100"
               href="<?php echo $site_root ?>/login.php" title="Login" id="loginButton">Login</a>
           </li>
           <li class="w-100"><a class="btn btn-primary rounded-pill w-100" href="<?php echo $site_root ?>/register.php"

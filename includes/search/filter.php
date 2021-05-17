@@ -1,25 +1,27 @@
-<!-- Get the values to use in the filter options -->
-<?php
-$sql = "SELECT JSON_ARRAYAGG(DISTINCT city) AS cities FROM property";
-if ($result = $pdo->query($sql)) {
-  $filters =  $result->fetch(PDO::FETCH_ASSOC);
-}
-
-$cities = json_decode($filters['cities']);
-
-?>
-
 <form method="GET">
   <label for="city" class="form-label mb-1">City:</label>
   <select class="form-select mb-2" name="city" title="Filter by City">
     <option <?php echo isset($_GET['city']) ? '' : 'selected' ?> value="">All of NZ</option>
-    <?php foreach ($cities as $city) :
+
+    <!-- Get the values to use in the filter options -->
+    <?php
+
+    $sql = "SELECT DISTINCT city FROM property";
+
+    if ($result = $pdo->query($sql)) :
+
+      while ($row = $result->fetch()) :
     ?>
-    <option value="<?php echo $city ?>"
-      <?php echo (isset($_GET['city']) && $_GET['city'] == $city) ? 'selected' : '' ?>>
-      <?php echo $city ?></option>
-    <?php endforeach;
+
+    <option value="<?php echo $row['city'] ?>"
+      <?php echo (isset($_GET['city']) && $_GET['city'] == $row['city']) ? 'selected' : '' ?>>
+      <?php echo $row['city'] ?></option>
+
+    <?php endwhile;
+    endif;
+
     ?>
+
   </select>
 
   <div class="mb-1">Price Range:</div>
