@@ -372,7 +372,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
     <button tpye="submit" class="btn btn-primary">Upload</button>
 </form>
 <br>
-<form action="<?php echo 'edit-listing.php?id=' . trim($_GET['id']) ; ?>" method="post">
+<form action="<?php echo 'edit-listing.php?id=' . $property_ID; ?>" method="post">
     <h4 class="text-center">Property details</h4>
     <br>
     <div class="row">

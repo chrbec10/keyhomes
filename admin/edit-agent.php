@@ -77,6 +77,56 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
     }
 }
 
+//Check whether we were given an ID before continuing
+if (isset($_GET['id']) && !empty(trim($_GET['id']))){
+    //Get our ID parameter
+    $agent_ID = trim($_GET['id']);
+
+    //Prepare a select statement
+    $sql = "SELECT * FROM agent WHERE agent_ID = :agent_ID";
+    if ($stmt = $pdo->prepare($sql)){
+
+        //Bind variables to the select statement
+        $stmt->bindParam(":agent_ID", $param_agent_ID);
+
+        //Set parameter
+        $param_agent_ID = $agent_ID;
+        
+        //Attempt the select statement
+        if($stmt->execute()){
+            //Check that we get exactly 1 row back
+            if ($stmt->rowCount() == 1){
+                //Fetch as an associative array since we're getting only one row back
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                //Pull values from row
+                $fname = $row['fname'];
+                $lname = $row['lname'];
+                $icon = $row['icon'];
+                $email = $row['email'];
+                $phone = $row['phone'];
+                $mobile = $row['mobile'];
+                $agentName = strtolower($row['fname'][0] . $row['lname']);
+
+            } else {
+                //URL doesn't contain a valid ID
+                header("location: ../404.php");
+                //exit();
+            }
+        } else {
+            echo "Oops! Something went wrong.";
+        }
+    }
+    //Close statement
+    unset($stmt);
+
+} else {
+    //We weren't given an ID
+    header("location: ../404.php");
+    exit();
+}
+
+
 //Process form data on submit
 if (isset($_POST['id']) && !empty(trim($_POST['id']))){
 
@@ -155,57 +205,8 @@ if (isset($_POST['id']) && !empty(trim($_POST['id']))){
         //Close the connection
         unset($pdo);
     }
-} else {
-    //Check whether we were given an ID before continuing
-    if (isset($_GET['id']) && !empty(trim($_GET['id']))){
-        //Get our ID parameter
-        $agent_ID = trim($_GET['id']);
-
-        //Prepare a select statement
-        $sql = "SELECT * FROM agent WHERE agent_ID = :agent_ID";
-        if ($stmt = $pdo->prepare($sql)){
-
-            //Bind variables to the select statement
-            $stmt->bindParam(":agent_ID", $param_agent_ID);
-
-            //Set parameter
-            $param_agent_ID = $agent_ID;
-            
-            //Attempt the select statement
-            if($stmt->execute()){
-                //Check that we get exactly 1 row back
-                if ($stmt->rowCount() == 1){
-                    //Fetch as an associative array since we're getting only one row back
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    //Pull values from row
-                    $fname = $row['fname'];
-                    $lname = $row['lname'];
-                    $icon = $row['icon'];
-                    $email = $row['email'];
-                    $phone = $row['phone'];
-                    $mobile = $row['mobile'];
-                    $agentName = strtolower($row['fname'][0] . $row['lname']);
-
-                } else {
-                    //URL doesn't contain a valid ID
-                    header("location: ../404.php");
-                    //exit();
-                }
-            } else {
-                echo "Oops! Something went wrong.";
-            }
-        }
-        //Close statement
-        unset($stmt);
-
-    } else {
-        //We weren't given an ID
-        header("location: ../404.php");
-        exit();
-    }
-    
 }
+
 
 require_once('includes/admin-header.php'); //Add admin formatting
 ?>
@@ -228,7 +229,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
     <button tpye="submit" class="btn btn-primary">Upload</button>
 </form>
 <br>
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+<form action="<?php echo 'edit-agent.php?id=' . $agent_ID; ?>" method="post">
     <h4 class="text-center">Agent details</h4>
     <br>
     <div class="row">
