@@ -35,7 +35,7 @@ if($stmt = $pdo->query($sql)){
 
             //Display up to the 10 most recent entries in simple form
             $count = 0;
-            while (($row = $stmt->fetch())&& $count < 10){
+            while (($row = $stmt->fetch())&& $count < 20){
                 echo "<tr>";
                     //ID number
                     echo "<td>".$row['property_ID']."</td>";
