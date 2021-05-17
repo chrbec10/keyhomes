@@ -102,7 +102,7 @@ if ($result = $pdo->query($sql)) {
       <!-- Get the Latest Listings and their first added image. Then, loop through those listings -->
       <?php
       $sql = "
-      SELECT property.property_ID, streetNum, street, city, bedrooms, bathrooms, garage, image FROM property JOIN (
+      SELECT property.property_ID, streetNum, street, city, bedrooms, bathrooms, garage, image FROM property LEFT JOIN (
         SELECT * FROM gallery WHERE gallery.image_ID IN (
           SELECT min(gallery.image_ID) from gallery GROUP BY gallery.property_ID
         )
@@ -115,7 +115,7 @@ if ($result = $pdo->query($sql)) {
       <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-4">
         <div class="card h-100">
           <div class="ratio-4-3 listing-thumbnail"
-            style="background-image: url('<?php echo '/uploads/properties/' . $row['image'] ?>');">
+            style="background-image: url('<?php echo (!empty($row['image'])) ? '/uploads/properties/med_' . $row['image'] : '/static/img/no-image.png' ?>');">
           </div>
           <div class="card-body">
             <p class="card-title h5">
