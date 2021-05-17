@@ -85,18 +85,20 @@ if ($stmt = $pdo->prepare($sql)) {
 
         <!-- Gallery -->
         <?php if (count($gallery) > 0) : ?>
-        <div class="splide" id="main-slider">
-          <div class="splide__track">
-            <ul class="splide__list">
-              <?php
-                foreach ($gallery as $key => $image) :
-                ?>
-              <li class="splide__slide"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>"
-                  class="w-100 rounded" alt=""></li>
-              <?php
-                endforeach;
-                ?>
-            </ul>
+        <div class="w-100">
+          <div class="splide" id="main-slider">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <?php
+                  foreach ($gallery as $key => $image) :
+                  ?>
+                <li class="splide__slide"><img src="<?php echo "uploads/properties/med_" . $image['image'] ?>"
+                    class="w-100 rounded" alt=""></li>
+                <?php
+                  endforeach;
+                  ?>
+              </ul>
+            </div>
           </div>
         </div>
         <?php else : ?>
