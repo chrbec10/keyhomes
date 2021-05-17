@@ -34,7 +34,6 @@ if (isset($_POST['agent']) && !empty(trim($_POST['agent']))){
         }
     }
 }
-
 require_once('includes/admin-header.php'); //Add admin formatting
 ?>
 
@@ -42,18 +41,18 @@ require_once('includes/admin-header.php'); //Add admin formatting
 <br>
 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
     <div class="input-group">
-        <select name='agent' id='agent' class='form-control <?php echo (!empty($agent_ID_err)) ? 'is-invalid' : ''; ?>'>
-            <option value='' <?php if (!isset($agent_ID)){ echo "selected"; } ?>>Select an Agent</option>
+        <select name='agent' id='agent' class='form-control'>
+            <option value='' <?php if (empty($agent_ID)){ echo "selected"; } ?>>Select an Agent</option>
             <?php
                 $sql = "SELECT fname, lname, agent_ID FROM agent";
                 if ($result = $pdo->query($sql)){
                     if ($result->rowCount() > 0){
                         while ($row = $result->fetch()){
-                            if ($row['agent_ID'] == $agent_ID){
-                                echo '<option selected value="' . $row['agent_ID'] . '">' . $row['agent_ID'] . ' | ' . $row['fname'] . ' ' . $row['lname'] . '</option>';
-                            } else {
-                            echo '<option value="' . $row['agent_ID'] . '">' . $row['agent_ID'] . ' | ' . $row['fname'] . ' ' . $row['lname'] . '</option>';
+                            echo '<option ';
+                            if($row['agent_ID'] == $agent_ID){
+                                echo 'selected ';
                             }
+                            echo 'value="' . $row['agent_ID'] . '">' . $row['agent_ID'] . ' | ' . $row['fname'] . ' ' . $row['lname'] . '</option>';
                         }
                         echo "</select>";
                         echo "<button type='submit' class='btn btn-primary input-group-append'>Search</button>";
