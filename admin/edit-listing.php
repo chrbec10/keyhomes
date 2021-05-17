@@ -295,10 +295,10 @@ require_once('includes/admin-header.php'); //Add admin formatting
     $sql = "SELECT agent_ID, fname, lname FROM agent";
     if ($result = $pdo->query($sql)){
         if (!($result->rowCount() > 0)){
-            echo "No agents to retrieve. Try creating one first.";
+            echo "<div class='alert alert-warning'>No agents to retrieve. Try creating one first.</div>";
         }
     } else {
-        echo "Unable to retrieve agents. Something went wrong. Please try again later.";
+        echo "<div class='alert alert-danger'>Unable to retrieve agents. Something went wrong. Please try again later.</div>";
     }
 ?>
 <!--Notify user which property is being changed-->
@@ -343,6 +343,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
 </ul>
 <form action="listing-gallery.php" method="post" enctype="multipart/form-data">
     <h4 class="text-center">Gallery</h4>
+    <br>
     <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
     <input type="file" name="gallery[]" id="gallery" class="form-control" multiple>
     <p><strong>Note:</strong> Maximum size of 5MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
@@ -352,6 +353,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
 <br>
 <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
     <h4 class="text-center">Property details</h4>
+    <br>
     <div class="row">
         <div class="form-group col">
             <label for="agent" style="display:block">Assigned Agent</label>
