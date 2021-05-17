@@ -20,6 +20,7 @@ if($stmt = $pdo->query($sql)){
 
         //Generate table header
         //TODO View/Edit/Delete cell + New button
+        echo "<div class='table-responsive'>";
         echo "<table class='table table-bordered table-striped'>";
             echo "<thead>";
                 echo "<tr>";
@@ -55,6 +56,7 @@ if($stmt = $pdo->query($sql)){
             }
             echo "</tbody>";
         echo "</table>";
+        echo "</div>";
 
         //Clear variables
         unset($stmt);
