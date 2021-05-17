@@ -58,6 +58,10 @@ if ($stmt = $pdo->prepare($sql)) {
 }
 ?>
 
+<!-- or the reference on CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@splidejs/splide@2.4.21/dist/css/splide.min.css">
+<link rel="stylesheet" href="/static/css/splide-keyhomes-theme.css">
+
 <div class="content-top-padding bg-dark">
   <div class="container pt-3 pb-2">
     <div class="row justify-content-center">
@@ -80,48 +84,43 @@ if ($stmt = $pdo->prepare($sql)) {
         } ?>
 
         <!-- Gallery -->
-        <div id="gallery" class="carousel slide carousel-fade mb-2" data-bs-ride="carousel">
-          <div class="carousel-inner">
+        <div class="splide" id="main-slider">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <?php
+              if (count($gallery) > 0) :
+                foreach ($gallery as $key => $image) :
+              ?>
+              <li class="splide__slide"><img src="<?php echo $image['image'] ?>" class="w-100 rounded" alt=""></li>
+              <?php
+                endforeach;
+              endif;
+              ?>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="py-3" style="background-color: #2c2b36;">
+    <div class="container">
+
+      <!-- Gallery Previews -->
+      <div class="splide" id="preview-slider">
+        <div class="splide__track">
+          <ul class="splide__list">
             <?php
             if (count($gallery) > 0) :
               foreach ($gallery as $key => $image) :
             ?>
-            <div class="carousel-item <?php if ($key == 0) echo 'active'; ?>">
-              <img src="<?php echo "uploads/properties/" . $image['image'] ?>" class="d-block w-100 rounded" alt="...">
-            </div>
+            <li class="splide__slide rounded"><img src="<?php echo $image['image'] ?>" alt=""></li>
             <?php
               endforeach;
-            else :
-              ?>
-            <div class="carousel-item active d-flex justify-content-center">
-              <img src="/static/img/no-image.png" class="d-block w-50 rounded" alt="no image">
-            </div>
-            <?php
             endif;
             ?>
-          </div>
+          </ul>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="pt-3 pb-2" style="background-color: #2c2b36;">
-    <div class="container-fluid">
-
-      <!-- Gallery Previews -->
-      <div class="row justify-content-center">
-        <?php
-        if (count($gallery) > 0) :
-          foreach ($gallery as $key => $image) :
-        ?>
-        <div class="col-auto">
-          <img src="<?php echo "uploads/properties/thumb_" . $image['image'] ?>" class="carousel-thumbnail rounded mb-2"
-            data-slide-to="<?php echo $key ?>" width="150" alt="...">
-        </div>
-        <?php
-          endforeach;
-        endif;
-        ?>
-
       </div>
     </div>
   </div>
@@ -188,7 +187,7 @@ if ($stmt = $pdo->prepare($sql)) {
             </div>
 
             <div class="bg-secondary py-3 text-center">
-              <img src="<?php echo "uploads/agents/" . $listing['icon'] ?>" alt="Agent's image" class="rounded-circle my-1 shadow"
+              <img src="<?php echo $listing['icon'] ?>" alt="Agent's image" class="rounded-circle my-1 shadow"
                 style="max-width: 75%; height: auto;">
             </div>
 
@@ -214,23 +213,33 @@ if ($stmt = $pdo->prepare($sql)) {
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
 <script>
-window.addEventListener('load', function() {
-
-  //Get a reference to the gallery and initialise its settings
-  var gallery = document.getElementById('gallery');
-  var bsGallery = new bootstrap.Carousel(gallery, {});
-
-  //Get a reference to the thumbnails
-  var galleryThumbnails = document.getElementsByClassName('carousel-thumbnail');
-
-  //Give each thumbnail a click listener to change the positon of the carousel
-  for (let i = 0; i < galleryThumbnails.length; i++) {
-    galleryThumbnails[i].addEventListener('click', () => {
-      bsGallery.to(galleryThumbnails[i].dataset.slideTo);
-    })
+var previewSlider = new Splide('#preview-slider', {
+  rewind: true,
+  fixedWidth: 150,
+  fixedHeight: 100,
+  isNavigation: true,
+  gap: 10,
+  focus: 'center',
+  pagination: false,
+  cover: true,
+  breakpoints: {
+    '600': {
+      fixedWidth: 125,
+      fixedHeight: 75,
+    }
   }
-})
+}).mount();
+
+var primarySlider = new Splide('#main-slider', {
+  type: 'fade',
+  pagination: false,
+  arrows: false,
+}).mount()
+
+primarySlider.sync(previewSlider).mount()
 </script>
 
 <script>
