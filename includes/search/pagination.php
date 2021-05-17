@@ -1,6 +1,10 @@
 <?php
 //Alters the params in a URL
 require_once(__DIR__ . '/../functions/change_url_parameter.php');
+
+if (empty($_GET['start'])) {
+  $_GET['start'] = 0;
+}
 ?>
 
 <nav aria-label="Page navigation">
