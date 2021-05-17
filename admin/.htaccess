@@ -1,5 +1,0 @@
-AuthUserFile "C:\xampp\htdocs\vcassignment7\admin\.htpasswd"
-AuthName "Protected"
-AuthType Basic
-Require valid-user
-
