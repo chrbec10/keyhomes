@@ -21,7 +21,7 @@ if ($result = $pdo->query($sql)) {
 ?>
 
 <!-- Call to Action -->
-<div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('<?php echo $random_featured['image'] ?>'); background-position: center;
+<div class="container-fluid bg-dark vh-75 has-overlay" style="background-image: url('<?php echo '/uploads/properties/' . $random_featured['image'] ?>'); background-position: center;
     background-size: cover;">
   <div class="dark-overlay"></div>
   <div class="overlay-container d-flex flex-column align-items-center justify-content-center">
@@ -114,7 +114,8 @@ if ($result = $pdo->query($sql)) {
       ?>
       <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-4">
         <div class="card h-100">
-          <div class="ratio-4-3 listing-thumbnail" style="background-image: url('<?php echo $row['image'] ?>');">
+          <div class="ratio-4-3 listing-thumbnail"
+            style="background-image: url('<?php echo '/uploads/properties/' . $row['image'] ?>');">
           </div>
           <div class="card-body">
             <p class="card-title h5">
@@ -189,7 +190,7 @@ if ($result = $pdo->query($sql)) {
 
       <div class="col-auto mb-4">
         <div class="rounded-circle bg-secondary mb-2 agent-icon"
-          style="background-image: url('<?php echo $row['icon'] ?>')">
+          style="background-image: url('<?php echo '/uploads/agents/' . $row['icon'] ?>')">
         </div>
         <span class="fs-5"><b><?php echo $row['fname'] . " " . $row['lname'] ?></b></span>
         <br>
