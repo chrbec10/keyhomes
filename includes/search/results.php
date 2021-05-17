@@ -88,10 +88,10 @@
    <div class="row mb-3">
      <div class="col-md-4">
        <div class="ratio-4-3 mb-3 mb-md-0">
-         <a href="/listing.php?id=<?php echo $listing['property_ID'] ?>"
+         <a href="listing.php?id=<?php echo $listing['property_ID'] ?>"
            title="View <?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?>">
            <div class="ratio-content rounded"
-             style="background-image: url('<?php echo (!empty($listing['image'])) ? '/uploads/properties/' . $listing['image'] : '/static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
+             style="background-image: url('<?php echo (!empty($listing['image'])) ? 'uploads/properties/med_' . $listing['image'] : 'static/img/no-image.png' ?>'); background-size: cover; background-position: center;">
            </div>
          </a>
        </div>
@@ -99,7 +99,7 @@
      <div class="col-md-8">
        <div class="row">
          <div class="col fs-5"><a
-             href="/listing.php?id=<?php echo $listing['property_ID'] ?>"><?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></a>
+             href="listing.php?id=<?php echo $listing['property_ID'] ?>"><?php echo "{$listing['streetNum']} {$listing['street']}, {$listing['city']} {$listing['postcode']}" ?></a>
          </div>
          <div class="col-auto">
 
