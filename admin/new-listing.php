@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $input_street = trim($_POST["street"]);
     //Validate street
-    complexValidateInput($input_street, $street_err, $street, "Please enter a street name", "Please enter a valid street name", "/^[a-zA-Z-' ]*$/");
+    complexValidateInput($input_street, $street_err, $street, "Please enter a street name", "Please enter a valid street name", "/^[a-zA-Z0-9-' ]*$/");
 
     $input_city = trim($_POST["city"]);
     //Validate city
