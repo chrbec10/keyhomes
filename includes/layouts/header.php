@@ -21,6 +21,11 @@ if (isset($_SESSION['isAdmin']) && ($_SESSION['isAdmin'] == true)) {
   $is_admin = true;
 }
 
+//If the page as marked as secure, pretend it doesn't exist
+if (isset($secure) && $secure == true && $is_admin != true) {
+  header("location: ../404.php", 404);
+}
+
 $home_nav = $home_nav ?? false;
 ?>
 <!DOCTYPE html>

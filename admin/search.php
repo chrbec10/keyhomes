@@ -1,5 +1,6 @@
 <?php
 $title = "Search"; //The Page Title
+$secure = true;
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
 

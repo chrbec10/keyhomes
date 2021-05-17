@@ -1,5 +1,6 @@
 <?php
 $title = "Agents"; //The Page Title
+$secure = true;
 require_once('../includes/layouts/header.php'); //Gets the header
 require_once('../includes/db.php'); //Connect to the database
 require_once('includes/admin-header.php'); //Add admin formatting

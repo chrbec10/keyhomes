@@ -1,7 +1,9 @@
 <?php
 header("refresh:5;url= ./");
 $title = "Success"; //The Page Title
+$secure = true;
 require_once('../includes/layouts/header.php'); //Gets the header
+require_once('includes/admin-header.php');
 ?>
 
 <div class="content-top-padding pb-4 bg-light">
@@ -14,4 +16,7 @@ require_once('../includes/layouts/header.php'); //Gets the header
     </div>
 </div>
 
-<?php require_once('../includes/layouts/footer.php'); //Gets the footer ?>
+<?php 
+require_once('includes/admin-footer.php'); //Close out admin formatting
+require_once('../includes/layouts/footer.php'); //Gets the footer 
+?>
