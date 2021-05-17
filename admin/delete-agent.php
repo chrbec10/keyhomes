@@ -49,6 +49,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
         echo "Oops! Something went wrong"; 
         }
     }
+
 }
 
 if(isset($_POST['id']) && !empty($_POST['id'])){
@@ -69,6 +70,22 @@ if(isset($_POST['id']) && !empty($_POST['id'])){
             }
         }
     }
+
+    $sql = "SELECT * FROM agent WHERE agent_ID = :id";
+    if ($stmt = $pdo->prepare($sql)){
+
+        $stmt->bindParam(":id", $param_ID);
+        $param_ID = trim($_POST['id']);
+
+        if($stmt->execute()){
+            while($row = $stmt->fetch()){
+                if($row['icon'] != 'default.jpg'){
+                    unlink('../uploads/agents/' . $row['icon']);
+                }
+            }
+        }
+    }
+
     //Prepare an SQL statement
     $sql = "DELETE FROM agent WHERE agent_ID = :id";
 
