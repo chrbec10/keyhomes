@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+//If the user is logged in, redirect them to the home page
 if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin']) {
   header('location: index.php');
   exit;
@@ -10,6 +11,7 @@ $verification_err = false;
 $username = '';
 $password = '';
 
+//If this page was posted to, check the credentials
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   require_once('./includes/db.php'); //Connect to the database
@@ -73,7 +75,7 @@ require_once('./includes/layouts/header.php');
     <div class="col-md-6 col-lg-5 ">
       <h1>Login</h1>
 
-      <!--Warning: Undefined variable $verification_err in C:\xampp\htdocs\vcassignment7\login.php on line 63-->
+      <!-- If there was an error, show it -->
       <?php if ($verification_err) : ?>
       <div class="alert alert-danger mb-1" role="alert">
         Username or Password was incorrect

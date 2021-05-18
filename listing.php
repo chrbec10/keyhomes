@@ -142,6 +142,7 @@ if ($stmt = $pdo->prepare($sql)) {
           <h1 class="fw-bold mb-1"><?php echo "{$listing['streetNum']} {$listing['street']}" ?></h1>
         </div>
         <div class="col-auto">
+          <!-- Show login button if not logged in, otherwise show the add to wishlist button -->
           <?php if ($_SESSION['loggedin']) : ?>
           <button
             class="btn rounded-pill wishlistButton <?php echo $wishlisted ? 'btn-warning'  : 'btn-outline-secondary' ?>"
@@ -225,6 +226,8 @@ if ($stmt = $pdo->prepare($sql)) {
 <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
 
 <script>
+//Initialize the splide gallery
+
 var previewSlider = new Splide('#preview-slider', {
   rewind: true,
   fixedWidth: 150,
@@ -254,6 +257,8 @@ primarySlider.sync(previewSlider).mount()
 </script>
 
 <script>
+//Add functionality to the wishlist button for this listing
+
 var wishlistButtons = document.getElementsByClassName('wishlistButton');
 
 for (button of wishlistButtons) {
