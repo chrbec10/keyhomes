@@ -246,6 +246,8 @@ var primarySlider = new Splide('#main-slider', {
   type: 'fade',
   pagination: false,
   arrows: false,
+  autoplay: true,
+  rewind: true
 }).mount()
 
 primarySlider.sync(previewSlider).mount()
