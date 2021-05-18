@@ -383,11 +383,11 @@ require_once('includes/admin-header.php'); //Add admin formatting
                 //Generate dropdown options from agents table
                 if ($result->rowCount() > 0){
                     while ($agentrow = $result->fetch()){
+                        echo '<option ';
                         if ($agentrow['agent_ID'] == $agent_ID){
-                            echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
-                        } else {
-                        echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
+                            echo 'selected ';
                         }
+                        echo 'value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
                     }
                 }
                 unset($result);
@@ -442,7 +442,12 @@ require_once('includes/admin-header.php'); //Add admin formatting
     <div class="row">
         <div class="form-group col-md">
             <label for="saleType">Sale Type</label>
-            <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">
+            <select name="saleType" id="saleType" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>">
+                <option <?php if(empty($saleType)) echo "selected " ?> value=''>Please select a sale type</option>
+                <option <?php if($saleType == 'Sale') echo "selected "; ?> value='Sale'>Sale</option>
+                <option <?php if($saleType == 'Auction') echo "selected "; ?> value='Auction'>Auction</option>
+            </select>
+            <!--<input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">-->
             <span class="invalid-feedback"><?php echo $saleType_err;?></span>
         </div>
         <div class="form-group col-md">

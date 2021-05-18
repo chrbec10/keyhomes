@@ -235,7 +235,11 @@ require_once('includes/admin-header.php'); //Add admin formatting
     <div class="row">
         <div class="form-group col-md">
             <label for="saleType">Sale Type</label>
-            <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">
+            <select name="saleType" id="saleType" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>">
+                <option <?php if(empty($saleType)) echo "selected " ?> value=''>Please select a sale type</option>
+                <option <?php if($saleType == 'Sale') echo "selected "; ?> value='Sale'>Sale</option>
+                <option <?php if($saleType == 'Auction') echo "selected "; ?> value='Auction'>Auction</option>
+            </select>
             <span class="invalid-feedback"><?php echo $saleType_err;?></span>
         </div>
         <div class="form-group col-md">
