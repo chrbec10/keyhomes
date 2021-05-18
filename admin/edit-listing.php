@@ -109,9 +109,6 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
     if (!isset($input)){
         $err = $errMsg;
-    
-    } elseif ($input === '0') {
-        $output = $input;
 
     } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
         $err = $errInvalid;
@@ -121,7 +118,7 @@ function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = 
     }
 }
 
-
+//Validate numerical only inputs by additionally checking for '0', as php says this is empty
 function validateUtilities($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
     if (!isset($input)){
         $err = $errMsg;

@@ -111,7 +111,7 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))){
             } else {
                 //URL doesn't contain a valid ID
                 header("location: ../404.php");
-                //exit();
+                exit();
             }
         } else {
             echo "Oops! Something went wrong.";
