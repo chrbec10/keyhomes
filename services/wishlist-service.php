@@ -1,4 +1,5 @@
 <?php
+/* This service allows the user to add or remove items from their wishlist without refreshing the page */
 
 session_start();
 

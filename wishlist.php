@@ -18,10 +18,11 @@ require_once('./includes/db.php'); //Connect to the database
 
     <?php
 
+    //Add the USER id as a filter for the search-block
     $conditions[] = 'user_ID = ?';
     $parameters[] = $_SESSION['id'];
 
-    require('./includes/search/search-block.php');
+    require('./includes/search/search-block.php'); //Import the search-block
 
     ?>
 
