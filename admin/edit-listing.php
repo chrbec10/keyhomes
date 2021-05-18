@@ -231,20 +231,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //validate sale type
     validateInput($input_saleType, $saleType_err, $saleType, "Please enter the type of sale");
 
-
+    //validate price
     $input_price = trim($_POST['price']);
     validateUtilities($input_price, $price_err, $price, "Please enter a price", "Please enter a number", "/^[0-9]*$/");
-    /*$input_price = trim($_POST["price"]);
-    //validate price (0 is considered 'empty', so include extra steps)
-    if ($input_price === '0'){
-        $price = $input_price;
-
-    } else if (empty($input_price)){
-        $price_err = "Please enter a price for the property";
-
-    } else {
-        $price = $input_price;
-    }*/
 
     $input_description = trim($_POST["description"]);
     //validate description
