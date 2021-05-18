@@ -109,9 +109,6 @@ function validateInput($input = '', &$err = '', &$output = '', $errMsg = '') {
 function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
     if (!isset($input)){
         $err = $errMsg;
-    
-    } elseif ($input === '0') {
-        $output = $input;
 
     } elseif (!filter_var($input, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>$regex)))){
         $err = $errInvalid;
@@ -121,7 +118,7 @@ function complexValidateInput($input = '', &$err = '', &$output = '', $errMsg = 
     }
 }
 
-
+//Validate numerical only inputs by additionally checking for '0', as php says this is empty
 function validateUtilities($input = '', &$err = '', &$output = '', $errMsg = '', $errInvalid = '', $regex = '') {
     if (!isset($input)){
         $err = $errMsg;
@@ -174,8 +171,8 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))){
 
             } else {
                 //URL doesn't contain a valid ID
-                //header("location: ../404.php");
-                //exit();
+                header("location: ../404.php");
+                exit();
             }
         } else {
             echo "Oops! Something went wrong.";
@@ -231,20 +228,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //validate sale type
     validateInput($input_saleType, $saleType_err, $saleType, "Please enter the type of sale");
 
-
+    //validate price
     $input_price = trim($_POST['price']);
     validateUtilities($input_price, $price_err, $price, "Please enter a price", "Please enter a number", "/^[0-9]*$/");
-    /*$input_price = trim($_POST["price"]);
-    //validate price (0 is considered 'empty', so include extra steps)
-    if ($input_price === '0'){
-        $price = $input_price;
-
-    } else if (empty($input_price)){
-        $price_err = "Please enter a price for the property";
-
-    } else {
-        $price = $input_price;
-    }*/
 
     $input_description = trim($_POST["description"]);
     //validate description
@@ -351,7 +337,7 @@ require_once('includes/admin-header.php'); //Add admin formatting
                     }
                 }
             } else {
-                echo "<li>No images found. Please add some images before continuing.</li>";
+                echo "<li><div class='alert alert-warning'>No images found. Please add some images before continuing.</div></li>";
             }
         } else {
             echo "<li>There was a problem retrieving the gallery images. Please try again later.</li>";
@@ -383,11 +369,11 @@ require_once('includes/admin-header.php'); //Add admin formatting
                 //Generate dropdown options from agents table
                 if ($result->rowCount() > 0){
                     while ($agentrow = $result->fetch()){
+                        echo '<option ';
                         if ($agentrow['agent_ID'] == $agent_ID){
-                            echo '<option selected value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
-                        } else {
-                        echo '<option value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
+                            echo 'selected ';
                         }
+                        echo 'value="' . $agentrow['agent_ID'] . '">' . $agentrow['fname'] . ' ' . $agentrow['lname'] . '</option>';
                     }
                 }
                 unset($result);
@@ -442,7 +428,11 @@ require_once('includes/admin-header.php'); //Add admin formatting
     <div class="row">
         <div class="form-group col-md">
             <label for="saleType">Sale Type</label>
-            <input type="text" id="saleType" name="saleType" maxlength="20" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $saleType ?>">
+            <select name="saleType" id="saleType" class="form-control <?php echo (!empty($saleType_err)) ? 'is-invalid' : ''; ?>">
+                <option <?php if(empty($saleType)) echo "selected " ?> value=''>Please select a sale type</option>
+                <option <?php if($saleType == 'Sale') echo "selected "; ?> value='Sale'>Sale</option>
+                <option <?php if($saleType == 'Auction') echo "selected "; ?> value='Auction'>Auction</option>
+            </select>
             <span class="invalid-feedback"><?php echo $saleType_err;?></span>
         </div>
         <div class="form-group col-md">

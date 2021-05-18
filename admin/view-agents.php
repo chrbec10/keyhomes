@@ -66,7 +66,7 @@ if($stmt = $pdo->query($sql)){
         //Clear variables
         unset($stmt);
     } else{
-        echo "<div class='alert alert-danger'><em>No entries found.</em></div>";
+        echo "<div class='alert alert-danger'>No entries found.</em>";
     }
 } else{
     echo "Oops! Something seems to have gone wrong. Please try again later.";
