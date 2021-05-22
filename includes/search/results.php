@@ -1,10 +1,4 @@
  <?php
-  ini_set('display_errors', 1);
-  ini_set('display_startup_errors', 1);
-  error_reporting(E_ALL);
-  //REMOVE ME! ^^^^
-
-
   //Prepare the main select statement
   $sql = "
   SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image, wishlist.user_ID FROM property LEFT JOIN (
