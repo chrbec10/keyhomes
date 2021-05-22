@@ -1,4 +1,10 @@
  <?php
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
+  //REMOVE ME! ^^^^
+
+
   //Prepare the main select statement
   $sql = "
   SELECT property.property_ID, streetNum, street, city, postcode, saleType, price, description, bedrooms, bathrooms, garage, image, wishlist.user_ID FROM property LEFT JOIN (
@@ -19,12 +25,6 @@
 
   //Add userid as first param for wishlist search
   array_unshift($parameters, $_SESSION['id'] ?? null);
-
-  //Offsets the results by a id (for pagination)
-  if (!empty($_GET['start'])) {
-    $conditions[] = 'property.property_ID >= ?';
-    $parameters[] = $_GET['start'];
-  }
 
   //Add city to query
   if (!empty($_GET['city'])) {
@@ -55,10 +55,22 @@
     $sql .= " WHERE " . implode(' AND ', $conditions);
   }
 
+
   //Max amount of results that should be displayed
-  $limit = 3;
+
+  $per_page = 5;
+
+  if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+  } else {
+    $page = 1;
+  }
+
+  $start_from = ($page - 1) * $per_page;
+
   $sql .= ' ORDER BY property.property_ID ASC';
-  $sql .= ' LIMIT ' . ($limit + 1);
+  $sql .= ' LIMIT ' . ($per_page + 1);
+  $sql .= ' OFFSET ' . $start_from;
 
   //Attempt to execute the statement
   if ($stmt = $pdo->prepare($sql)) {
@@ -67,8 +79,11 @@
       $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       if (count($results) > 0) :
-
-        $next_id = $results[$limit]['property_ID'] ?? false;
+        if (count($results) > $per_page) {
+          $next_page = true;
+        } else {
+          $next_page = false;
+        }
 
         require('pagination.php');
 
@@ -79,7 +94,7 @@
    <?php
           //Loop over the results
           for ($i = 0; $i < count($results); $i++) :
-            if ($i >= $limit) {
+            if ($i >= $per_page) {
               break;
             }
             $listing = $results[$i];
@@ -148,7 +163,7 @@
 
    <?php
             //Add a HR if this is not the last result to display
-            if (count($results) <= $limit) {
+            if (count($results) <= $per_page) {
               if ($i < count($results) - 1) {
                 echo '<hr>';
               }
