@@ -41,12 +41,12 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
             break;
 
         case 4:
-            $response_div = 'alert-danger';
+            $response_div = 'alert-warning';
             $response_txt = 'Please select a file that is under 2MB in size.';
             break;
 
         case 5:
-            $response_div = 'alert-danger';
+            $response_div = 'alert-warning';
             $response_txt = 'Invalid file type. Please select a .jpg, .jpeg, .png, or .gif file.';
             break;
 
