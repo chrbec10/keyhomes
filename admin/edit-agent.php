@@ -33,7 +33,7 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
             if (isset($e) && $e != ''){
                 if($e == 4)
                     $response_txt = 'Please select an image to be uploaded.';
-                else if($e == 2)
+                else if($e == 2 || $e == 1)
                     $response_txt = 'Please select a file that is under 2MB in size.';
                 else
                     $response_txt = $response_txt . ' Error code: ' . $e;
