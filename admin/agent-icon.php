@@ -88,7 +88,7 @@
                 
             } else {
                 //redirect to edit page with an error message
-                die(header("location: edit-agent.php?id=" . $agentID . "&r=5" . $filetype));
+                die(header("location: edit-agent.php?id=" . $agentID . "&r=5"));
             }
 
         } else {
