@@ -29,7 +29,7 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
 
         case 3:
             $response_div = 'alert-danger';
-            $response_txt = 'There was problem uploading your file. Please try again later.';
+            $response_txt = 'There was a problem uploading your file. Please try again later.';
             if (isset($e) && $e != ''){
                 if($e == 4)
                     $response_txt = 'Please select an image to be uploaded.';

@@ -38,9 +38,9 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
                 if($e == 4){
                     $response_div = 'alert-warning';
                     $response_txt = 'Please select at least one image to be uploaded.';
-                } else if($e == 2){
+                } else if($e == 2 || $e == 1){
                     $response_div = 'alert-warning';
-                    $response_txt = 'Please select files that are each under 5MB in size.';
+                    $response_txt = 'Please select files that are each under 2MB in size.';
                         if(isset($n) && $n != '')
                         $response_txt .= ' File ' . $n . ' is too large.';
                 } else
@@ -50,7 +50,7 @@ if (isset($_GET['r']) && ($_GET['r'] != '')){
 
         case 4:
             $response_div = 'alert-warning';
-            $response_txt = 'Please select files that are each under 5MB in size.';
+            $response_txt = 'Please select files that are each under 2MB in size.';
             if(isset($n) && $n != '')
                 $response_txt .= ' File ' . $n . ' is too large.';
             break;
@@ -351,9 +351,9 @@ require_once('includes/admin-header.php'); //Add admin formatting
 <form action="listing-gallery.php" method="post" enctype="multipart/form-data">
     <h4 class="text-center">Gallery</h4>
     <br>
-    <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
+    <input type="hidden" name="MAX_FILE_SIZE" value="2097152">
     <input type="file" name="gallery[]" id="gallery" class="form-control" multiple>
-    <p><strong>Note:</strong> Maximum size of 5MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
+    <p><strong>Note:</strong> Maximum size of 2MB. Allowed formats: .jpg, .jpeg, .gif, or .png.</strong></p>
     <input type="hidden" id="id" name="id" value="<?php echo $property_ID; ?>"/>
     <button tpye="submit" class="btn btn-primary">Upload</button>
 </form>
